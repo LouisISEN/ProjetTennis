@@ -7,7 +7,7 @@ package projettennis;
 
 /**
  *
- * @author iPraz
+ * @author axand
  */
 public class Spectateur extends Personne 
 {

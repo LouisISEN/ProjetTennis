@@ -9,51 +9,89 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.ArrayList;
+
 
 /**
  *
- * @author iPraz
+ * @author axand
  */
 public class Tournoi {
     
-    public static void ListeJoueur(int NbrJoueur, String AdrFile) throws FileNotFoundException, IOException{
-      
+    String lieu;
+    String surface;
+    int etape;
+    String Joueur1="";
+    public  String Joueur2="";
     
-    File file = new File(AdrFile);
-    FileReader fr = new FileReader(file);
-    BufferedReader br = new BufferedReader(fr);
-    StringBuffer sb = new StringBuffer();
-    String line;
-    while((line = br.readLine()) != null){
-        
-        sb.append(line);
-        sb.append("\n");
-        
-    }
-    fr.close();
-        System.out.println(sb.toString());
-   
-        Joueur[] Player = new Joueur[NbrJoueur];       
-        
-        for (int i=1; i<=NbrJoueur; i++){
-             Player[i-1] = new Joueur();
-             
-             
-             /*
-             Player[i-1].bras=
-             Player[i-1].entraineur=
-             Player[i-1].nomNaissance=
-             Player[i-1].sponsor=
-             Player[i-1].nationalite=
-             Player[i-1].nomCourant=
-             Player[i-1].poids=
-             Player[i-1].taille=    
-             Player[i-1].prenom=
-             Player[i-1].classement=i-1;
-             Player[i-1].surnom=
-*/
+    
+    
+    public static String [] ListeQualif(Joueur Player[], String TabQualif[], int NbrJoueur){
+        int i=0;
+                for (int k=0; k<NbrJoueur; k++){                  
+            if (Player[k].qualification.equals("qualifie")){
+                TabQualif[i]=Player[k].prenom;
+                i++;
+               
+            }
+            
         }
-        
+                return TabQualif;
     }
     
+    
+    
+    
+    
+    public static void AffichageQualif(String TabQualif[], int NbrJoueur){
+        for (int i=0; i<NbrJoueur; i++){
+            
+           System.out.println("Joueur numero "+(i+1)+" qualifié = "+ TabQualif[i]);
+       }
+        System.out.println("\n");
+    }
+    
+    
+    
+    
+    
+    
+    
+       public static Tournoi [] CompoMatch(String TabQualif[]){
+        
+        ArrayList numbers = new ArrayList();
+        int NbrQualif=TabQualif.length;
+        Tournoi TabMatch[] = new Tournoi[NbrQualif/2];     //NbrQualif/2=Nbr de match
+              
+        
+        for (int i=0; i<=NbrQualif-1; i++){
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+        int n=1;
+        for (int k=0; k<(NbrQualif-1); k++){               //Creation d'un tableau TabMatch, chaque case contient deux adversaires aléatoires
+            
+          //  System.out.println(numbers.get(k));
+            TabMatch[n-1] = new Tournoi();
+            
+            System.out.println("Match n*"+n+" :"+(TabQualif[(int) numbers.get(k)])+" VS "+(TabQualif[(int) numbers.get(k+1)]));
+            TabMatch[n-1].Joueur1=TabQualif[(int) numbers.get(k)];
+            TabMatch[n-1].Joueur2=TabQualif[(int) numbers.get(k+1)];
+            System.out.println("Tabmatch["+(n-1)+"] ok");
+         
+           n++;k++;    
+            }
+           System.out.println("\n");
+        for (int i=0; i<=(NbrQualif/2)-1;i++){
+            System.out.println("TabMatch["+i+"] contient "+TabMatch[i].Joueur1+" contre "+TabMatch[i].Joueur2);
+            
+        }
+           System.out.println("\n");
+        return TabMatch;
+       }
 }
+    
+
+    
+

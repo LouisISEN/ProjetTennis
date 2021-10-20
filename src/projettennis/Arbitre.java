@@ -1,4 +1,4 @@
-/*/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,11 +17,11 @@ import java.io.IOException;
  */
 public class Arbitre extends Personne
 {
-    public void score(int scoreUN, int scoreDEUX){                  
+    public static void score(int scoreUN, int scoreDEUX){                  
             System.out.println("Le score est de"+scoreUN+"-"+scoreDEUX);
         }
         
-    public void faute(){
+    public static void faute(){
         System.out.println("dire faute");
     }
     
@@ -38,22 +38,23 @@ public class Arbitre extends Personne
     int j=1;
     
     Arbitre[] arbitre = new Arbitre[NbrArbitre+1];     //<-- NOMBRE DE JOUEUR+1
-       
     while((line = br.readLine()) != null){
              
         if (line.equals(";")){
                  
             l=0;
             j=j+1;
-            
+          //  System.out.println("Arbitre "+j+":");
+           
         }
-        arbitre[j-1] = new Arbitre();
+         arbitre[j-1] = new Arbitre();
+        
          switch(l){
              
             
-            case 1 : arbitre[j-1].prenom=line; System.out.println(line); break;
-            case 2 : arbitre[j-1].nomNaissance =line;System.out.println(line); break;
-            case 3 : arbitre[j-1].dateNaissance =line;System.out.println(line); break;
+            case 1 : arbitre[j-1].prenom=line;  System.out.println("Arbitre "+j+":"); System.out.println("Prenom = "+ arbitre[j-1].prenom); break;
+            case 2 : arbitre[j-1].nomNaissance =line;System.out.println("nom de naissance = "+arbitre[j-1].nomNaissance); break;
+            case 3 : arbitre[j-1].dateNaissance =line;System.out.println("Date de naissance = "+arbitre[j-1].dateNaissance);System.out.println("\n"); break;
             
                                                               
         }
