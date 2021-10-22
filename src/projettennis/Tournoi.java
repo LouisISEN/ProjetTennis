@@ -18,19 +18,23 @@ import java.util.ArrayList;
  * @author axand
  */
 public class Tournoi {
+
     String NomTournoi;
     String genre;
     String lieu;
     String surface;
-    int etape;
+    String tour = "1";
     String Joueur1 = "";
     public String Joueur2 = "";
 
-    public static String[] ListeQualif(Joueur Player[], String TabQualif[]) {
+    public static String[] ListeQualif(Joueur TabJoueur[], String TabQualif[]) {
+
         int i = 0;
-        for (int k = 0; k < TabQualif.length; k++) {
-            if (Player[k].qualification.equals("qualifie")) {
-                TabQualif[i] = Player[k].prenom;
+        for (int k = 0; k < TabQualif.length - 1; k++) {
+            System.out.println(k);
+
+            if (TabJoueur[k].qualification.equals("qualifie")) {
+                TabQualif[i] = TabJoueur[k].prenom;
                 i++;
 
             }
@@ -41,7 +45,7 @@ public class Tournoi {
 
     public static void AffichageQualif(String TabQualif[]) {
         System.out.println("Liste des Joueurs qualifiés : \n");
-        for (int i = 0; i < TabQualif.length; i++) {
+        for (int i = 0; i < TabQualif.length - 1; i++) {
 
             System.out.println("Joueur numero " + (i + 1) + " qualifié = " + TabQualif[i]);
         }
@@ -72,11 +76,6 @@ public class Tournoi {
             n++;
             k++;
         }
-        /*System.out.println("\n");
-        for (int i = 0; i <= (NbrQualif / 2) - 1; i++) {
-            System.out.println("TabMatch[" + i + "] contient " + TabMatch[i].Joueur1 + " contre " + TabMatch[i].Joueur2);
-
-        }*/
         System.out.println("\n");
         return TabMatch;
     }

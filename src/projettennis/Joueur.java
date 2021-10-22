@@ -10,114 +10,129 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
  *
  * @author axand
  */
-public class Joueur extends Personne{
-    
-        public String bras;
-        public String entraineur;
-        public String sponsor;
-        public int classement;
-        public String qualification="qualifie";
-        //public int NbrJoueur=8;
-        
-        public static Joueur [] GenerateurJoueur(String AdrFile, Joueur TabJoueur[], int NewJ) throws FileNotFoundException, IOException{
-              
-            File file = new File(AdrFile);
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            //StringBuffer sb = new StringBuffer();
-            String line;
-            int l=1;
-            int j=NewJ;
-                    
-            TabJoueur[j] = new Joueur();
-            //System.out.println("Joueur"+j+":");
+public class Joueur extends Personne {
 
-            while((line = br.readLine()) != null){
-                
-                if (line.equals(";")){
-                    TabJoueur[j].classement=j+1;
-                    l=0;
-                    j=j+1;    
-                   if (j==TabJoueur.length){
-                   break;
-                   }
-                //    System.out.println("Joueur "+j+":");
-                    TabJoueur[j] = new Joueur();
-                    
-                }
-                
-                 switch(l){
+    public String bras;
+    public String entraineur;
+    public String sponsor;
+    public int classement;
+    public String qualification = "qualifie";
+    //public int NbrJoueur=8;
 
-                    case 1 : TabJoueur[j].bras=line; break;
-                    case 2 : TabJoueur[j].prenom=line; break;
-                    case 3 : TabJoueur[j].entraineur=line; ;break;
-                  /*case 4 : TabJoueur[j-1].nomNaissance= ;
-                    case 5 : TabJoueur[j-1].sponsor= ;
-                    case 6 : TabJoueur[j-1].nationalite= ;
-                    case 7 : TabJoueur[j-1].nomCourant= ;
-                    case 8 : TabJoueur[j-1].poids= ;
-                    case 9 : TabJoueur[j-1].taille=    ;
-                     
-                    case 10 :TabJoueur[j-1].surnom= ;
-                                                                      */
-                }
-                
-                l=l+1;
-                
-                
-              }
-            
-            
-            fr.close();         
-         return TabJoueur;
-        } 
-        
-       public static void AffichageJoueur(Joueur TabJoueur[]) {
-           
-           
-           System.out.println("Liste des Joueurs : \n");
-           int j=0;
-           int compteur=0;
-           while (TabJoueur[j]!=null&j!=TabJoueur.length-1){
-               
+    public static Joueur[] GenerateurJoueur(String genre, Joueur TabJoueur[], int NewJ) throws FileNotFoundException, IOException {
+        String NomFile = "nom.txt";
+        String PrenomFile = "";
+        if (genre.equals("Féminin")) {
+            PrenomFile = "prenomF.txt";
+        } else if (genre.equals("Masculin")) {
+            PrenomFile = "prenomM.txt";
+        }
+
+        File fileNom = new File(NomFile);
+        FileReader frNom = new FileReader(fileNom);
+        BufferedReader brNom = new BufferedReader(frNom);
+        String lineNom;
+
+        File filePrenom = new File(PrenomFile);
+        FileReader frPrenom = new FileReader(filePrenom);
+        BufferedReader brPrenom = new BufferedReader(frPrenom);
+        String linePrenom;
+
+        String Prenom[] = new String[100];    // ---< voir pq 52 ???
+        String Nom[] = new String[100];
+
+        int iNom = 0;
+        int iPrenom = 0;
+
+        TabJoueur[NewJ] = new Joueur();
+
+        while ((lineNom = brNom.readLine()) != null) {
+            Nom[iNom] = lineNom;
+            iNom++;
+        }
+
+        while ((linePrenom = brPrenom.readLine()) != null) {
+            Prenom[iPrenom] = linePrenom;
+            iPrenom++;
+
+        }
+
+        ArrayList ListNom = new ArrayList();
+        ArrayList ListPrenom = new ArrayList();
+        ArrayList ListBras = new ArrayList();
+
+        for (int k = 0; k < Nom.length; k++) {
+            ListNom.add(k);
+            ListPrenom.add(k);
+            ListBras.add(k);
+        }
+        Collections.shuffle(ListNom);
+        Collections.shuffle(ListPrenom);
+        Collections.shuffle(ListBras);
+        for (int p = NewJ; p < Nom.length; p++) {
+            TabJoueur[p] = new Joueur();
+            TabJoueur[p].entraineur = Nom[(int) ListNom.get(p)];
+            TabJoueur[p].prenom = Prenom[(int) ListPrenom.get(p)];
+            TabJoueur[p].classement = p + 1;
+            if (((int) ListBras.get(p)) % 2 == 0) {
+                TabJoueur[p].bras = "droit";
+            } else {
+                TabJoueur[p].bras = "gauche";
+            }
+
+        }
+
+        frPrenom.close();
+        frNom.close();
+        return TabJoueur;
+    }
+
+    public static void AffichageJoueur(Joueur TabJoueur[]) {
+
+        System.out.println("Liste des Joueurs : \n");
+        int j = 0;
+        int compteur = 0;
+        while (TabJoueur[j] != null & j != TabJoueur.length - 1) {
+
             j++;
             compteur++;
-               
+
         }
-           
-           
-           for (int i = 0; i <compteur ; i++) {
+
+        for (int i = 0; i < compteur; i++) {
             System.out.println("Joueur " + (i + 1));
             System.out.println("Bras =" + TabJoueur[i].bras);
             System.out.println("Prenom =" + TabJoueur[i].prenom);
-            System.out.println("Entraineur =" + TabJoueur[i].entraineur);
-            System.out.println("Classement ="+TabJoueur[i].classement);
-            System.out.println("Qualification ="+TabJoueur[i].qualification);
-            System.out.println("\n");    
-           }
+            System.out.println("nomNaissance =" + TabJoueur[i].entraineur);
+            System.out.println("Classement =" + TabJoueur[i].classement);
+            System.out.println("Qualification =" + TabJoueur[i].qualification);
+            System.out.println("\n");
+        }
     }
-       
-       public static Joueur[] NewJoueur(int n, Joueur[] TabJoueur){
-           TabJoueur[n] = new Joueur();
-           Scanner sc = new Scanner(System.in);
-           System.out.println("Bras de votre Joueur (droitier/gaucher):");
-           String str = sc.nextLine();
-           TabJoueur[n].bras=str;
-           System.out.println("Prenom de votre Joueur :");
-           str = sc.nextLine();
-           TabJoueur[n].prenom=str;
-           System.out.println("Entraineur de votre Joueur :");
-           str = sc.nextLine();
-           TabJoueur[n].entraineur=str;
-           TabJoueur[n].classement=n+1;
-           TabJoueur[n].qualification="qualifie";
-           
-           return TabJoueur;
-       }
+
+    public static Joueur[] NewJoueur(int n, Joueur[] TabJoueur) {
+        TabJoueur[n] = new Joueur();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Bras de votre Joueur (droitier/gaucher):");
+        String str = sc.nextLine();
+        TabJoueur[n].bras = str;
+        System.out.println("Prenom de votre Joueur :");
+        str = sc.nextLine();
+        TabJoueur[n].prenom = str;
+        System.out.println("nomNaissance de votre Joueur :");
+        str = sc.nextLine();
+        TabJoueur[n].nomNaissance = str;
+        TabJoueur[n].classement = n + 1;
+        TabJoueur[n].qualification = "qualifie";
+
+        return TabJoueur;
+    }
 }
