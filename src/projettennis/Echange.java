@@ -6,6 +6,7 @@
 package projettennis;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -13,22 +14,34 @@ import java.util.Random;
  */
 public class Echange {
 
-    int ScoreJoueur1;
-    int ScoreJoueur2;
 
-    public static Echange echange() {
-
-        Echange ScoreEchange = new Echange();
-
-        return ScoreEchange;
+    public static int Service(int nb) {
+        int a=1;
+        Scanner sc = new Scanner(System.in);
+        int str=0;
+        System.out.println("Le joueur "+nb+" marque-t-il (1)? fait-il faute (2)? ou let (3) ?");
+        while (a!=0){
+        
+        str = sc.nextInt();
+        switch (str){
+            case 1:
+                System.out.println("Le joueur marque le point");a=0; break;
+            case 2:
+                System.out.println("Le joueur fait faute");a=0; break;
+            case 3 :
+                System.out.println("Le joueur fait Let, deuxieme service ");a++;
+                
+         }
+        if (a==3){
+            str=2;
+            System.out.println("2 Let, Faute");
+            a=0;
+        }
+        
+        }
+        
+        
+     return str;
     }
-
-    public static int Service(int nb, String Joueur1, String Joueur2) {
-        System.out.println("Service du joueur " + nb);                                                          //Détermine qui va servir en random
-
-        return nb;//ScoreEchange;
-
-        // determine qui a gagné, si 
-        //return ;
-    }
+   
 }

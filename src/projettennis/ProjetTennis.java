@@ -29,7 +29,7 @@ public class ProjetTennis {
 
         Joueur[] TabJoueur = new Joueur[NbrJoueur + 1];     //<-- NOMBRE DE JOUEUR+1
         String[] TabQualif = new String[NbrJoueur + 1];
-        Tournoi[] TabMatch = new Tournoi[NbrJoueur / 2];
+        Tournoi[] TabMatch = new Tournoi[(NbrJoueur / 2)];
         Arbitre[] TabArbitre = new Arbitre[NbrArbitre];
         Tournoi ObjTournoi = new Tournoi();
 
@@ -118,12 +118,16 @@ public class ProjetTennis {
 
                     return;
                 }
+             
 
             }
-            System.out.println("\n)Vous avez choisi le Tournoi " + ObjTournoi.genre + " " + ObjTournoi.NomTournoi);
+           if (menu1==0){
+               System.out.println("mauvaise saisie");
+           } 
+        }
+        System.out.println("\nVous avez choisi le Tournoi " + ObjTournoi.genre + " " + ObjTournoi.NomTournoi);
 
             System.out.println("CREATION DU TOURNOI EN COURS... \n");
-        }
 
         //System.out.println("MENU Tournoi " + ObjTournoi.NomTournoi +" "+ ObjTournoi.genre+":");
         System.out.println("Le Tournoi " + ObjTournoi.NomTournoi + " se joue à 128 joueurs, voulez vous créer un/plusieurs joueurs manuellement (dans le cas contraire ils seront générés de facon aléatoire)");
@@ -155,6 +159,7 @@ public class ProjetTennis {
         TabJoueur = Joueur.GenerateurJoueur(ObjTournoi.genre, TabJoueur, NewJ);
         TabArbitre = Arbitre.ListeArbitre(NbrArbitre, AdrFileA);
         TabQualif = Tournoi.ListeQualif(TabJoueur, TabQualif);
+        TabMatch= Tournoi.CompoMatch(TabQualif);
 
         Scanner sc4 = new Scanner(System.in);
         int str4;
@@ -176,6 +181,9 @@ public class ProjetTennis {
 
             switch (str4) {
                 case 1:
+                    System.out.println(Echange.Service(5));
+                    
+                    
                     break;
                 case 2:
                     Arbitre.AffichageArbitre(TabArbitre);
@@ -187,10 +195,11 @@ public class ProjetTennis {
                     Tournoi.AffichageQualif(TabQualif);
                     break;
                 case 5:
-                    Tournoi.CompoMatch(TabQualif);
+                    Tournoi.AffichageCompoMatch(TabMatch, ObjTournoi.tour);
                     break;
                 case 6:
                     System.out.println("Affichage statistiques joueurs");
+                    Joueur.AffichageStat(TabJoueur);
                     break;
                 case 7:
                     System.out.println("Vous quittez le Tournoi");

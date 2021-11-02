@@ -25,9 +25,12 @@ public class Joueur extends Personne {
     public String sponsor;
     public int classement;
     public String qualification = "qualifie";
-    //public int NbrJoueur=8;
-
-    public static Joueur[] GenerateurJoueur(String genre, Joueur TabJoueur[], int NewJ) throws FileNotFoundException, IOException {
+    int pointJoueur=0;
+    int SetJoueur=0;
+    int JeuJoueur=0;
+    
+   
+   public static Joueur[] GenerateurJoueur(String genre, Joueur TabJoueur[], int NewJ) throws FileNotFoundException, IOException {
         String NomFile = "nom.txt";
         String PrenomFile = "";
         if (genre.equals("Féminin")) {
@@ -79,7 +82,7 @@ public class Joueur extends Personne {
         Collections.shuffle(ListBras);
         for (int p = NewJ; p < Nom.length; p++) {
             TabJoueur[p] = new Joueur();
-            TabJoueur[p].entraineur = Nom[(int) ListNom.get(p)];
+            TabJoueur[p].nomNaissance = Nom[(int) ListNom.get(p)];
             TabJoueur[p].prenom = Prenom[(int) ListPrenom.get(p)];
             TabJoueur[p].classement = p + 1;
             if (((int) ListBras.get(p)) % 2 == 0) {
@@ -93,7 +96,7 @@ public class Joueur extends Personne {
         frPrenom.close();
         frNom.close();
         return TabJoueur;
-    }
+    } 
 
     public static void AffichageJoueur(Joueur TabJoueur[]) {
 
@@ -111,14 +114,14 @@ public class Joueur extends Personne {
             System.out.println("Joueur " + (i + 1));
             System.out.println("Bras =" + TabJoueur[i].bras);
             System.out.println("Prenom =" + TabJoueur[i].prenom);
-            System.out.println("nomNaissance =" + TabJoueur[i].entraineur);
+            System.out.println("nomNaissance =" + TabJoueur[i].nomNaissance);
             System.out.println("Classement =" + TabJoueur[i].classement);
             System.out.println("Qualification =" + TabJoueur[i].qualification);
             System.out.println("\n");
         }
     }
 
-    public static Joueur[] NewJoueur(int n, Joueur[] TabJoueur) {
+     public static Joueur[] NewJoueur(int n, Joueur[] TabJoueur) {
         TabJoueur[n] = new Joueur();
         Scanner sc = new Scanner(System.in);
         System.out.println("Bras de votre Joueur (droitier/gaucher):");
@@ -135,4 +138,17 @@ public class Joueur extends Personne {
 
         return TabJoueur;
     }
+
+    public static void AffichageStat(Joueur TabJoueur[]){
+   for (int i=0; i<TabJoueur.length-1; i++){
+     System.out.println("Statistiques du Joueur n*"+(i+1)+" :"+TabJoueur[i].nomNaissance+" "+TabJoueur[i].prenom);
+        
+        System.out.println("Point Marqué : "+TabJoueur[i].pointJoueur);
+        System.out.println("Set gagné : "+TabJoueur[i].SetJoueur);
+        System.out.println("Jeu gagné : "+TabJoueur[i].JeuJoueur);
+        System.out.println("\n");
+        
+        
+   }
+}
 }
