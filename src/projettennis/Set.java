@@ -12,10 +12,8 @@ package projettennis;
 public class Set {
    public int SetJoueur1;
    public int SetJoueur2;
+  
    
    
-   
-    
-    
     
 }

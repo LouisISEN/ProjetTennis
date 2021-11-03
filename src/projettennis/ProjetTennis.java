@@ -6,10 +6,10 @@
 package projettennis;
 
 import java.io.IOException;
-import java.util.Random;
+//import java.util.Random;
 import java.util.Scanner;
-import projettennis.Joueur;
-import projettennis.Set;
+//import projettennis.Joueur;
+//import projettennis.Set;
 
 /**
  *
@@ -19,16 +19,17 @@ public class ProjetTennis {
 
     public static void main(String[] args) throws IOException {
 
-        int NbrArbitre = 2;
+        int NbrArbitre = 10;
         int NbrJoueur = 100;
         int NewJ = 0;
         int menu1 = 0;
         int menu2 = 0;
+        int menu3 = 0;
 
         String AdrFileA = "info-arbitre.txt";
 
-        Joueur[] TabJoueur = new Joueur[NbrJoueur + 1];     //<-- NOMBRE DE JOUEUR+1
-        String[] TabQualif = new String[NbrJoueur + 1];
+        Joueur[] TabJoueur = new Joueur[NbrJoueur];     //<-- NOMBRE DE JOUEUR+1
+        String[] TabQualif = new String[NbrJoueur];
         Tournoi[] TabMatch = new Tournoi[(NbrJoueur / 2)];
         Arbitre[] TabArbitre = new Arbitre[NbrArbitre];
         Tournoi ObjTournoi = new Tournoi();
@@ -118,16 +119,15 @@ public class ProjetTennis {
 
                     return;
                 }
-             
 
             }
-           if (menu1==0){
-               System.out.println("mauvaise saisie");
-           } 
+            if (menu1 == 0) {
+                System.out.println("mauvaise saisie");
+            }
         }
         System.out.println("\nVous avez choisi le Tournoi " + ObjTournoi.genre + " " + ObjTournoi.NomTournoi);
 
-            System.out.println("CREATION DU TOURNOI EN COURS... \n");
+        System.out.println("CREATION DU TOURNOI EN COURS... \n");
 
         //System.out.println("MENU Tournoi " + ObjTournoi.NomTournoi +" "+ ObjTournoi.genre+":");
         System.out.println("Le Tournoi " + ObjTournoi.NomTournoi + " se joue à 128 joueurs, voulez vous créer un/plusieurs joueurs manuellement (dans le cas contraire ils seront générés de facon aléatoire)");
@@ -159,7 +159,7 @@ public class ProjetTennis {
         TabJoueur = Joueur.GenerateurJoueur(ObjTournoi.genre, TabJoueur, NewJ);
         TabArbitre = Arbitre.ListeArbitre(NbrArbitre, AdrFileA);
         TabQualif = Tournoi.ListeQualif(TabJoueur, TabQualif);
-        TabMatch= Tournoi.CompoMatch(TabQualif);
+        TabMatch = Tournoi.CompoMatch(TabQualif, TabArbitre);
 
         Scanner sc4 = new Scanner(System.in);
         int str4;
@@ -170,26 +170,57 @@ public class ProjetTennis {
             System.out.println("                                                                   MENU TOURNOI :                                         " + ObjTournoi.NomTournoi + " " + ObjTournoi.genre + ": Tour " + ObjTournoi.tour + "\n");
             System.out.println("                                                        1 -   Jouer le Tour " + ObjTournoi.tour);
             System.out.println("                                                        2 -   Voir la liste des Arbitres");
-            System.out.println("                                                        3 -   Voir la liste des Joueurs");          
+            System.out.println("                                                        3 -   Voir la liste des Joueurs");
             System.out.println("                                                        4 -   Voir la liste des Joueurs qualifiés");
             System.out.println("                                                        5 -   Voir La composition des Matchs");
             System.out.println("                                                        6 -   Voir les Statistiques Joueurs");
             System.out.println("                                                        7 -   Exit");
-
             System.out.println(" choisir :");
             str4 = sc4.nextInt();
 
             switch (str4) {
                 case 1:
-                    System.out.println(Echange.Service(5));
+                    Tournoi.AffichageCompoMatch(TabMatch, ObjTournoi.tour);
+                    System.out.println("\n");
+                    System.out.println("\n");
+                    System.out.println("\n");
                     
                     
+
+                    while (menu3 == 0) {
+                        System.out.println("Voulez-vous jouer 1 match ou jouer en automatique ? (Liste des matchs ci-dessus)");
+                        Scanner sc5 = new Scanner(System.in);
+                        String str5 = sc5.nextLine();
+                        
+                              
+                        while (str5.equals("oui")) {
+                            System.out.println(" Quel match voulez vous jouer (numero du match) ?");
+                            Scanner NumMatch = new Scanner(System.in);
+                            int IntMatch = NumMatch.nextInt();
+                            
+                            if (TabMatch[IntMatch-1].Resultat==1){
+                                System.out.println("le match n*"+IntMatch+" a deja ete joué.");
+                            
+                            }
+                            else {
+                                Match.Jouer(TabMatch, IntMatch);
+                            }
+                            System.out.println("Voulez-vous jouer un autre Match ?");
+                            str5 = sc5.nextLine();
+                            
+                        }
+                    str5="";
+                        System.out.println("Les Matchs vont se jouer automatiquement...");
+                        
+                    menu3 = 1;
+                    }
+                    // System.out.println(Echange.Service(5)); */
                     break;
                 case 2:
                     Arbitre.AffichageArbitre(TabArbitre);
                     break;
                 case 3:
-                   Joueur.AffichageJoueur(TabJoueur);
+                    Joueur.AffichageJoueur(TabJoueur);
                     break;
                 case 4:
                     Tournoi.AffichageQualif(TabQualif);
@@ -206,6 +237,7 @@ public class ProjetTennis {
                     return;
 
             }
+
         }
 
     }
