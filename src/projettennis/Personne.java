@@ -7,21 +7,21 @@ package projettennis;
 
 /**
  *
- * @author iPraz
+ * @author axand
  */
 public class Personne {
-        public String nomNaissance;
-        private  String dateNaissance;
-        private  String lieuNaissance;
-        private  String dateDeces;
-        private  String genre;
-        
-        public String nomCourant;
-        public String prenom;
-        public String surnom;
-        public String nationalite;
-        public int taille;
-        public int poids;
-        
-    
+
+    public String nomNaissance;
+    public String dateNaissance;
+    public String lieuNaissance;
+    public String dateDeces;
+    public String genre;
+
+    public String nomCourant;
+    public String prenom;
+    public String surnom;
+    public String nationalite;
+    public int taille;
+    public int poids;
+
 }

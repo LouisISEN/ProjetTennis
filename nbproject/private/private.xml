@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/iPraz/Documents/ISEN/M1/S1/Java/Projet/ProjetTennis/src/projettennis/Tournoi.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Echange.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/ProjetTennis.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Arbitre.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Jeu.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Personne.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Match.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Tournoi.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Set.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Joueur.java</file>
+            <file>file:/C:/Users/axand/Documents/NetBeansProjects/ProjetTennis/src/projettennis/Spectateur.java</file>
         </group>
     </open-files>
 </project-private>
