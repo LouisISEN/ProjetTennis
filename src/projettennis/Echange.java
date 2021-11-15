@@ -5,6 +5,7 @@
  */
 package projettennis;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,16 +15,17 @@ import java.util.Scanner;
  */
 public class Echange {
 
-    public static int Service(Match TabMatch[], int nbService, int nbMatch) {
+    public static int Service(ArrayList<Match> ListMatch, int nbService, int nbMatch) {      
+        
         int a = 1;
         Scanner sc = new Scanner(System.in);
         int str = 0;
         String joueur;
 
         if (nbService == 1) {
-            joueur = TabMatch[nbMatch].Joueur1.nomNaissance;
+            joueur = ListMatch.get(nbMatch).Joueur1.nomNaissance;
         } else {
-            joueur = TabMatch[nbMatch].Joueur2.nomNaissance;
+            joueur = ListMatch.get(nbMatch).Joueur2.nomNaissance;
         }
 
         System.out.println("Le joueur " + joueur + " marque-t-il (1)? fait-il faute (2)? ou let (3) ?Manu");
@@ -67,16 +69,16 @@ public class Echange {
         return str;
     }
     
-    public static int ServiceAuto(Match TabMatch[], int nbService, int nbMatch) {
+    public static int ServiceAuto(ArrayList<Match> ListMatch, int nbService, int nbMatch) {
        
         
         int a=1;
         String joueur;
 
         if (nbService == 1) {
-            joueur = TabMatch[nbMatch].Joueur1.nomNaissance;
+            joueur = ListMatch.get(nbMatch).Joueur1.nomNaissance;
         } else {
-            joueur = TabMatch[nbMatch].Joueur2.nomNaissance;
+            joueur = ListMatch.get(nbMatch).Joueur2.nomNaissance;
         }
         
         System.out.println("Le joueur " + joueur + " marque-t-il (1)? fait-il faute (2)? ou let (3) ? Auto");
