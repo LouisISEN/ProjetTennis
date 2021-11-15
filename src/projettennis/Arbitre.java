@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,11 +22,22 @@ public class Arbitre extends Personne {
         System.out.println("Le score est de" + score1 + "-" + score2);
     }
 
-    public static void faute() {
-        System.out.println("dire faute");
+    public static void annonce(int n, String joueur) {
+        switch (n) {
+            case 1:
+                System.out.println(" Arbitre : ' " + joueur + " marque le point' ");
+                break;
+            case 2:
+                System.out.println(" Arbitre : ' " + joueur + " fait faute' ");
+                break;
+            case 3:
+                System.out.println(" Arbitre : ' " + joueur + " fait LET' ");
+                break;
+
+        }
     }
 
-    public static Arbitre[] ListeArbitre(int NbrArbitre, String AdrFile) throws FileNotFoundException, IOException {
+    public static ArrayList<Arbitre> ListeArbitre(int NbrArbitre, String AdrFile) throws FileNotFoundException, IOException {
 
         File file = new File(AdrFile);
         FileReader fr = new FileReader(file);
@@ -35,30 +47,29 @@ public class Arbitre extends Personne {
         int l = 1;
         int j = 1;
 
-        Arbitre[] TabArbitre = new Arbitre[NbrArbitre + 1];     //<-- NOMBRE DE JOUEUR+1
-        TabArbitre[j - 1] = new Arbitre();
+        ArrayList<Arbitre> ListArbitre = new ArrayList();     //<-- NOMBRE DE JOUEUR+1
+        Arbitre arbitre = new Arbitre();
         while ((line = br.readLine()) != null) {
 
             if (line.equals(";")) {
-
+                ListArbitre.add(arbitre);
                 l = 0;
-                j = j + 1;
+
                 //  System.out.println("Arbitre "+j+":");
-                TabArbitre[j - 1] = new Arbitre();
             }
 
             switch (l) {
 
                 case 1:
-                    TabArbitre[j - 1].prenom = line;
+                    arbitre.prenom = line;
                     break;
 
                 case 2:
-                    TabArbitre[j - 1].nomNaissance = line;
+                    arbitre.nomNaissance = line;
                     break;
 
                 case 3:
-                    TabArbitre[j - 1].dateNaissance = line;
+                    arbitre.dateNaissance = line;
                     break;
 
             }
@@ -68,16 +79,16 @@ public class Arbitre extends Personne {
         }
         fr.close();
 
-        return TabArbitre;
+        return ListArbitre;
     }
 
-    public static void AffichageArbitre(Arbitre TabArbitre[]) {
+    public static void AffichageArbitre(ArrayList<Arbitre> ListArbitre) {
         System.out.println("Liste des Arbitres : \n");
-        for (int i = 0; i < TabArbitre.length - 1; i++) {
+        for (int i = 0; i < ListArbitre.size() - 1; i++) {
             System.out.println("Arbitre " + (i + 1));
-            System.out.println("Prenom =" + TabArbitre[i].prenom);
-            System.out.println("Nom de naissance =" + TabArbitre[i].nomNaissance);
-            System.out.println("Date de naissance =" + TabArbitre[i].dateNaissance);
+            System.out.println("Prenom =" + ListArbitre.get(i).prenom);
+            System.out.println("Nom de naissance =" + ListArbitre.get(i).nomNaissance);
+            System.out.println("Date de naissance =" + ListArbitre.get(i).dateNaissance);
             System.out.println("\n");
         }
     }

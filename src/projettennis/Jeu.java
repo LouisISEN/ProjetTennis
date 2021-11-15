@@ -5,6 +5,8 @@
  */
 package projettennis;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author axand
@@ -15,45 +17,56 @@ public class Jeu {
     int JeuJoueur2;
 
     //fonction pour gerer les echanges et les scores.
-    public static Match[] jeu(Match[] TabMatch, int n, int a, int auto) {
-        TabMatch[n - 1].Joueur1.WinJeu = 0;
-        TabMatch[n - 1].Joueur2.WinJeu = 0;
+    public static ArrayList<Match> jeu(ArrayList<Match> ListMatch, int n, int a, int auto) {
+
+        Match BufferMatch = new Match();
+        BufferMatch = ListMatch.get(n-1);
+        BufferMatch.Joueur1.WinJeu = 0;
+        BufferMatch.Joueur2.WinJeu = 0;
+        ListMatch.set(n-1, BufferMatch);
+
         System.out.println("debut jeu");
         System.out.println("\n");
         int pointjoueur1 = 0;
         int pointjoueur2 = 0;
         System.out.println(auto);
+
         if (auto == 1) {
 
-            if (Echange.Service(TabMatch, TabMatch[n - 1].DernierService, (n - 1)) == 1) {
+            if (Echange.Service(ListMatch, ListMatch.get(n-1).DernierService, (n-1)) == 1) {
 
-                //  TabMatch[n - 1].Joueur1.pointJoueur++;
-                TabMatch[n - 1].Joueur1.pointJoueur++;
+                
+                BufferMatch =ListMatch.get(n-1);
+                BufferMatch.Joueur1.pointJoueur++;                          
+                ListMatch.set(n-1, BufferMatch);
                 pointjoueur1++;
             } else {
-                //  TabMatch[n - 1].Joueur2.pointJoueur++;
-                TabMatch[n - 1].Joueur2.pointJoueur++;
+                BufferMatch =ListMatch.get(n-1);
+                BufferMatch.Joueur2.pointJoueur++;                          
+                ListMatch.set(n-1, BufferMatch);
                 pointjoueur2++;
             }
         } else {
-            if (Echange.ServiceAuto(TabMatch, TabMatch[n - 1].DernierService, (n - 1)) == 1) {
+            if (Echange.ServiceAuto(ListMatch, ListMatch.get(n-1).DernierService, (n-1)) == 1) {
 
-                //  TabMatch[n - 1].Joueur1.pointJoueur++;
-                TabMatch[n - 1].Joueur1.pointJoueur++;
+                BufferMatch =ListMatch.get(n-1);
+                BufferMatch.Joueur1.pointJoueur++;                          
+                ListMatch.set(n-1, BufferMatch);
                 pointjoueur1++;
             } else {
-                //  TabMatch[n - 1].Joueur2.pointJoueur++;
-                TabMatch[n - 1].Joueur2.pointJoueur++;
+                BufferMatch =ListMatch.get(n-1);
+                BufferMatch.Joueur2.pointJoueur++;                          
+                ListMatch.set(n-1, BufferMatch);
                 pointjoueur2++;
             }
         }
 
-        Jeu.AffichageScorePoint(TabMatch, pointjoueur1, pointjoueur2, n);
+        Jeu.AffichageScorePoint(ListMatch, pointjoueur1, pointjoueur2, n);
 
         while ((pointjoueur1 != 5) & (pointjoueur2 != 5)) {
 
             if (auto == 1) {
-                if (Echange.Service(TabMatch, TabMatch[n - 1].DernierService, (n - 1)) == 1) {
+                if (Echange.Service(ListMatch, ListMatch.get(n-1).DernierService, (n-1)) == 1) {
 
                     if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
                         pointjoueur2 = 3;
@@ -63,7 +76,10 @@ public class Jeu {
                     } else {
                         pointjoueur1++;
                     }
-                    TabMatch[n - 1].Joueur1.pointJoueur++;
+                    
+                    BufferMatch =ListMatch.get(n-1);
+                    BufferMatch.Joueur1.pointJoueur++;                          
+                    ListMatch.set(n-1, BufferMatch);
 
                 } else {
                     if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
@@ -74,12 +90,14 @@ public class Jeu {
                     } else {
                         pointjoueur2++;
                     }
-
-                    TabMatch[n - 1].Joueur2.pointJoueur++;
+                     BufferMatch =ListMatch.get(n-1);
+                     BufferMatch.Joueur2.pointJoueur++;                          
+                     ListMatch.set(n-1, BufferMatch);
+ 
 
                 }
             } else {
-                if (Echange.ServiceAuto(TabMatch, TabMatch[n - 1].DernierService, (n - 1)) == 1) {
+                if (Echange.ServiceAuto(ListMatch, ListMatch.get(n-1).DernierService, n-1) == 1) {
 
                     if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
                         pointjoueur2 = 3;
@@ -89,7 +107,9 @@ public class Jeu {
                     } else {
                         pointjoueur1++;
                     }
-                    TabMatch[n - 1].Joueur1.pointJoueur++;
+                    BufferMatch =ListMatch.get(n-1);
+                    BufferMatch.Joueur1.pointJoueur++;                          
+                    ListMatch.set(n-1, BufferMatch);
 
                 } else {
                     if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
@@ -101,25 +121,31 @@ public class Jeu {
                         pointjoueur2++;
                     }
 
-                    TabMatch[n - 1].Joueur2.pointJoueur++;
+                    BufferMatch =ListMatch.get(n-1);
+                BufferMatch.Joueur2.pointJoueur++;                          
+                ListMatch.set(n-1, BufferMatch);
 
                 }
             }
             System.out.println("\n");
-            Jeu.AffichageScorePoint(TabMatch, pointjoueur1, pointjoueur2, n);
+            Jeu.AffichageScorePoint(ListMatch, pointjoueur1, pointjoueur2, n);
             System.out.println("\n");
         }
         if (pointjoueur1 == 5) {
-            TabMatch[n - 1].Joueur1.WinJeu = 1;
+            BufferMatch = ListMatch.get(n-1);
+            BufferMatch.Joueur1.WinJeu = 1;
+            ListMatch.set(n-1, BufferMatch);
         } else {
-            TabMatch[n - 1].Joueur2.WinJeu = 1;
+            BufferMatch = ListMatch.get(n-1);
+            BufferMatch.Joueur2.WinJeu = 1;
+            ListMatch.set(n-1, BufferMatch);
         }
 
         System.out.println("Fin du jeu");
-        return TabMatch;
+        return ListMatch;
     }
 
-    public static void AffichageScorePoint(Match[] TabMatch, int pointjoueur1, int pointjoueur2, int n) {
+    public static void AffichageScorePoint(ArrayList<Match> ListMatch, int pointjoueur1, int pointjoueur2, int n) {
         String score1 = "0";
         String score2 = "0";
 
@@ -143,7 +169,7 @@ public class Jeu {
 
             case 5:
                 score1 = "GAGNE";
-                System.out.println(" Victoire du joueur 1 : " + TabMatch[n - 1].Joueur1.nomNaissance);
+                System.out.println(" Jeu gagné par : " + ListMatch.get(n-1).Joueur1.nomNaissance);
                 break;
 
         }
@@ -166,12 +192,13 @@ public class Jeu {
                 break;
             case 5:
                 score2 = "GAGNE";
-                System.out.println(" Victoire du joueur 2 : " + TabMatch[n - 1].Joueur2.nomNaissance);
+                System.out.println(" Jeu gagné par : " + ListMatch.get(n-1).Joueur2.nomNaissance);
                 break;
 
         }
         System.out.println("\n");
-        System.out.println("    Point " + TabMatch[n - 1].Joueur1.nomNaissance + " - " + TabMatch[n - 1].Joueur2.nomNaissance + "  :  " + score1 + " - " + score2);
+        System.out.println( ListMatch.get(n-1).Joueur1.nomNaissance +" | "+ score1 );
+        System.out.println( ListMatch.get(n-1).Joueur2.nomNaissance +" | "+ score2 );
         System.out.println("\n");
     }
 }
