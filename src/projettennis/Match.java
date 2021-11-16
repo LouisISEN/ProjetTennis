@@ -5,6 +5,7 @@
  */
 package projettennis;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -15,62 +16,69 @@ public class Match {
 
     Joueur Joueur1 = new Joueur();
     Joueur Joueur2 = new Joueur();
-    String arbitre;
-    int Resultat=0;
+    Arbitre arbitre = new Arbitre();
+    int Resultat = 0;
     int DernierService = 0;
-    
-    
-    public static Match[] JouerM(Match TabMatch[], int n, String genre, int auto) {
-        Match match = new Match();
 
-        int NbrSetMax = 0;
+    public static ArrayList<Match> JouerM(ArrayList<Match> ListMatch, int n, String genre, int auto) {
         
-
+        Match BufferMatch = new Match();
+        int NbrSetMax = 0;
         int setjoueur1 = 0;
         int setjoueur2 = 0;
+        
         if (genre.equals("Masculin")) {
             NbrSetMax = 3;
         } else {
             NbrSetMax = 2;
         }
+        BufferMatch = ListMatch.get(n-1);
+        BufferMatch.DernierService = Match.DeterminationService(ListMatch, n);
+        ListMatch.set(n-1, BufferMatch);
 
-        TabMatch[n - 1].DernierService = Match.DeterminationService(TabMatch, n);
-
-        System.out.println("Debut du match " + n + " " + TabMatch[n - 1].Joueur1.nomNaissance + " contre " + TabMatch[n - 1].Joueur2.nomNaissance);
+        System.out.println("Debut du match " + n + " " + ListMatch.get(n-1).Joueur1.nomNaissance + " contre " + ListMatch.get(n-1).Joueur2.nomNaissance);
 
         while ((setjoueur1 != NbrSetMax) & (setjoueur2 != NbrSetMax)) {
 
-            TabMatch = Set.set(TabMatch, n, TabMatch[n - 1].DernierService, auto);
+            ListMatch = Set.set(ListMatch, n, ListMatch.get(n-1).DernierService, auto);
 
-            if (TabMatch[n - 1].Joueur1.WinSet == 1) {
+            if (ListMatch.get(n-1).Joueur1.WinSet == 1) {
                 setjoueur1++;
-                TabMatch[n - 1].Joueur1.SetJoueur++;
+                BufferMatch = ListMatch.get(n-1);
+                BufferMatch.Joueur1.SetJoueur++;
+                ListMatch.set(n-1, BufferMatch);
+
             } else {
                 setjoueur2++;
-                TabMatch[n - 1].Joueur2.SetJoueur++;
+                BufferMatch = ListMatch.get(n-1);
+                BufferMatch.Joueur2.SetJoueur++;
+                ListMatch.set(n-1, BufferMatch);
             }
             System.out.println("\n");
-            Match.AffichageScoreSet(TabMatch, n, setjoueur1, setjoueur2);
+            Match.AffichageScoreSet(ListMatch, n, setjoueur1, setjoueur2);
             System.out.println("\n");
 
         }
         if (setjoueur1 == NbrSetMax) {
-            System.out.println("Fin du Match, Le joueur 1 " + TabMatch[n - 1].Joueur1.nomNaissance + " est qualifié pour le tour suivant.");
-            System.out.println("Le joueur 2 " + TabMatch[n - 1].Joueur2.nomNaissance + " est disqualifié.");
-            TabMatch[n - 1].Joueur2.qualification = "disqualifie";
+            System.out.println("Fin du Match, Le joueur 1 " + ListMatch.get(n-1).Joueur1.nomNaissance + " est qualifié pour le tour suivant.");
+            System.out.println("Le joueur 2 " + ListMatch.get(n-1).Joueur2.nomNaissance + " est disqualifié.");
+            ListMatch.get(n-1).Joueur2.qualification = "disqualifie";
         } else {
 
-            System.out.println("Fin du Match, Le joueur 2 " + TabMatch[n - 1].Joueur2.nomNaissance + " est qualifié pour le tour suivant.");
-            System.out.println("Le joueur 1 " + TabMatch[n - 1].Joueur1.nomNaissance + " est disqualifié.");
-            TabMatch[n - 1].Joueur1.qualification = "disqualifie";
+            System.out.println("Fin du Match, Le joueur 2 " + ListMatch.get(n-1).Joueur2.nomNaissance + " est qualifié pour le tour suivant.");
+            System.out.println("Le joueur 1 " + ListMatch.get(n-1).Joueur1.nomNaissance + " est disqualifié.");
+            ListMatch.get(n-1).Joueur1.qualification = "disqualifie";
 
         }
 
-        TabMatch[n - 1].Resultat = 1;
-        return TabMatch;
+        BufferMatch = ListMatch.get(n-1);
+        BufferMatch.Resultat = 1;
+        ListMatch.set(n-1, BufferMatch);
+
+        return ListMatch;
     }
 
-    public static int DeterminationService(Match TabMatch[], int n) {            //dertmine qui commence avec le service
+    public static int DeterminationService(ArrayList<Match> ListMatch, int n) {            //dertmine qui commence avec le service
 
         Random random = new Random();
         int nb;
@@ -79,19 +87,18 @@ public class Match {
         String joueur;
         nb = 1 + random.nextInt(Borne1 - Borne2);
         if (nb == 1) {
-            joueur = TabMatch[n - 1].Joueur1.nomNaissance;
+            joueur = ListMatch.get(n-1).Joueur1.nomNaissance;
         } else {
-            joueur = TabMatch[n - 1].Joueur2.nomNaissance;
+            joueur = ListMatch.get(n-1).Joueur2.nomNaissance;
         }
         System.out.println("Le joueur " + joueur + " commence avec le service");
         return nb;
     }
 
-    public static void AffichageScoreSet(Match[] TabMatch, int n, int setjoueur1, int setjoueur2) {
+    public static void AffichageScoreSet(ArrayList<Match> ListMatch, int n, int setjoueur1, int setjoueur2) {
 
-        System.out.println("    SET " + TabMatch[n - 1].Joueur1.nomNaissance + " - " + TabMatch[n - 1].Joueur2.nomNaissance + "  :  " + setjoueur1 + " - " + setjoueur2);
+        System.out.println("    SET " + ListMatch.get(n-1).Joueur1.nomNaissance + " - " + ListMatch.get(n-1).Joueur2.nomNaissance + "  :  " + setjoueur1 + " - " + setjoueur2);
 
     }
-
 
 }

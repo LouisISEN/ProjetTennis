@@ -9,7 +9,7 @@ package projettennis;
  *
  * @author axand
  */
-public class Personne {
+public class Personne { 
 
     public String nomNaissance;
     public String dateNaissance;

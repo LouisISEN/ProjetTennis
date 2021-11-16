@@ -25,127 +25,109 @@ public class Tournoi {
     String surface;
     String tour = "1";
     int nb = 1;
+    Joueur Vainqueur = new Joueur();
 
     int Resultat = 0;
 
-    public static Joueur[] ListeQualif(Joueur TabJoueur[], Joueur TabQualif[]) {
-        Joueur Joueur0 =new Joueur();
-        for (int i=0; i<TabQualif.length; i++){
-            TabQualif[i]=Joueur0;
-        }
+    public static ArrayList<Joueur> ListeQualif(ArrayList<Match> ListMatch) {
         
-   
-        int i = 0;
-        for (int k = 0; k < TabJoueur.length; k++) {
+        ArrayList<Joueur> ListQualif = new ArrayList();
+        for (int k = 0; k < ListMatch.size(); k++) {
 
-            if (TabJoueur[k].qualification.equals("qualifie")) {
+            if (ListMatch.get(k).Joueur1.qualification.equals("qualifie")) {
                 
-                TabQualif[i] = TabJoueur[k];
-                i++;
+                ListQualif.add(ListMatch.get(k).Joueur1);
+
+            }
+            if (ListMatch.get(k).Joueur2.qualification.equals("qualifie")) {
+                
+                ListQualif.add(ListMatch.get(k).Joueur2);
 
             }
 
         }
-        return TabQualif;
+        return ListQualif;
     }
 
-    public static void AffichageQualif(Joueur TabQualif[]) {
+    public static void AffichageQualif(ArrayList<Joueur> ListQualif) {
         System.out.println("Liste des Joueurs qualifiés : \n");
-       int NbrQualif = Tournoi.SizeJoueur(TabQualif);
+      
+       
+        for (int i = 0; i < ListQualif.size();i++) {
 
-        for (int i = 0; i < NbrQualif; i++) {
-
-            System.out.println("Joueur numero " + (i + 1) + " qualifié = " + TabQualif[i].nomNaissance);
+            System.out.println("Joueur numero " + (i + 1) + " qualifié = " + ListQualif.get(i).nomNaissance);
         }
         System.out.println("\n");
     }
 
-    public static Match[] CompoMatch(Joueur TabQualif[], Arbitre TabArbitre[]) {
+    public static ArrayList<Match> CompoMatch(ArrayList<Joueur> ListQualif, ArrayList<Arbitre> ListArbitre, int tour) {
 
-        ArrayList numbers = new ArrayList();
-        int NbrQualif = Tournoi.SizeJoueur(TabQualif);
+        int NbrQualif = ListQualif.size();       
+        ArrayList<Match> ListMatch = new ArrayList();
         
-        Match TabMatch[] = new Match[(NbrQualif / 2)];     //NbrQualif/2=Nbr de match
-
-        for (int i = 0; i <= NbrQualif - 1; i++) {
+        if (tour==1){
+            
+        ArrayList numbers = new ArrayList();
+        for (int i = 0; i < NbrQualif; i++) {
             numbers.add(i);
+       
         }
         Collections.shuffle(numbers);
-        int n = 1;
+      
         int a = 0;
         System.out.println("Composition des Matchs du tour");
-        for (int k = 0; k < (NbrQualif - 1); k++) {               //Creation d'un tableau TabMatch, chaque case contient deux adversaires aléatoires
+        for (int k = 0; k < (NbrQualif-1); k++) {               //Creation d'un tableau TabMatch, chaque case contient deux adversaires aléatoires
             if (a == 9) {
                 a = 0;
             }
             //  System.out.println(numbers.get(k));
-            TabMatch[n - 1] = new Match();
-
-            TabMatch[n - 1].Joueur1 = TabQualif[(int) numbers.get(k)];
-            TabMatch[n - 1].Joueur2 = TabQualif[(int) numbers.get(k + 1)];
-            TabMatch[n - 1].arbitre = TabArbitre[a].nomNaissance + " " + TabArbitre[a].prenom;
-            n++;
+            Match match = new Match();
+            
+            
+            match.Joueur1.NumeroMatch=k;
+            match.Joueur2.NumeroMatch=k+1;
+            match.Joueur1 = ListQualif.get((int) numbers.get(k));
+            match.Joueur2 = ListQualif.get((int) numbers.get(k+1));
+//          match.arbitre = ListArbitre.get((int) numbers.get(k));
+            ListMatch.add(match);
             k++;
             a++;
+            }
         }
+        else {
+            
+               int a = 0;
+        System.out.println("Composition des Matchs du tour");
+        for (int k = 0; k < (NbrQualif-1); k++) {               //Creation d'un tableau TabMatch, chaque case contient deux adversaires aléatoires
+            if (a == 9) {
+                a = 0;
+            }
+            //  System.out.println(numbers.get(k));
+            Match match = new Match();
+            
+            
 
-        System.out.println("\n");
-        return TabMatch;
-    }
-
-    public static void AffichageCompoMatch(Match TabMatch[], String tour) {
-        System.out.println("Composition des matchs du Tour " + tour);
-        for (int i = 0; i < TabMatch.length; i++) {
-            System.out.println("Match n*" + (i + 1) + " : " + TabMatch[i].Joueur1.nomNaissance + " VS " + TabMatch[i].Joueur2.nomNaissance);
-            System.out.println("Arbitre : " + TabMatch[i].arbitre);
-        }
-        System.out.println("\n");
-    }
-
-    public static Joueur[] Statistique(Match TabMatch[], Joueur TabJoueur[]) {
-
-        for (int i = 0; i < TabMatch.length; i++) {
-            for (int k = 0; k < TabJoueur.length; k++) {
-                if (TabMatch[i].Joueur1.numero==TabJoueur[k].numero){
-                    TabJoueur[k]=TabMatch[i].Joueur1;
-                }     
+            match.Joueur1 = ListQualif.get(k);
+            match.Joueur2 = ListQualif.get(k+1);
+//          match.arbitre = ListArbitre.get((int) numbers.get(k));
+            ListMatch.add(match);
+            k++;
+            a++;
             }
             
-            for (int k = 0; k < TabJoueur.length; k++) {
-                if (TabMatch[i].Joueur2.numero==TabJoueur[k].numero){
-                    TabJoueur[k]=TabMatch[i].Joueur2;
-                }     
-            }
+            
         }
-
-        return TabJoueur;
+        System.out.println("\n");
+        return ListMatch;
     }
-    
-    public static int SizeMatch(Match [] TabMatch){
-        int j = 0;
-        
-        int compteur = 0;
-        
-        while ((j != TabMatch.length) && (TabMatch[j].Joueur1 != null)) {
-           
-            j++;
-            compteur++;
 
+    public static void AffichageCompoMatch(ArrayList<Match> ListMatch) {
+        System.out.println("Composition des matchs du Tour :");
+        for (int i = 0; i < ListMatch.size(); i++) {
+            System.out.println("Match n*" + (i + 1) + " : " + ListMatch.get(i).Joueur1.nomNaissance + " VS " + ListMatch.get(i).Joueur2.nomNaissance);
+            System.out.println("Arbitre : " + ListMatch.get(i).arbitre.nomNaissance);
         }
-        return compteur;
+        System.out.println("\n");
     }
-    
-    public static int SizeJoueur(Joueur [] TabJoueur){
-        int j = 0;
-        
-        int compteur = 0;
-        
-        while ((j != TabJoueur.length) && (TabJoueur[j].nomNaissance != null)) {
-           
-            j++;
-            compteur++;
 
-        }
-        return compteur;
-    }
 }

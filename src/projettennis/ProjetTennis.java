@@ -6,6 +6,7 @@
 package projettennis;
 
 import java.io.IOException;
+import java.util.ArrayList;
 //import java.util.Random;
 import java.util.Scanner;
 //import projettennis.Joueur;
@@ -18,7 +19,7 @@ import java.util.Scanner;
 public class ProjetTennis {
 
     public static void main(String[] args) throws IOException {
-        int auto=0;
+        int auto = 0;
         int NbrArbitre = 10;
         int NbrJoueur = 128;
         int NewJ = 0;
@@ -28,12 +29,17 @@ public class ProjetTennis {
 
         String AdrFileA = "info-arbitre.txt";
 
-        Joueur[] TabJoueur = new Joueur[NbrJoueur];     //<-- NOMBRE DE JOUEUR+1
+        /*    Joueur[] TabJoueur = new Joueur[NbrJoueur];     //<-- NOMBRE DE JOUEUR+1
         Joueur[] TabQualif = new Joueur[NbrJoueur];
         Match [] TabMatch = new Match[(NbrJoueur / 2)];
-        Arbitre[] TabArbitre = new Arbitre[NbrArbitre];
+        Arbitre[] TabArbitre = new Arbitre[NbrArbitre];    */
         Tournoi ObjTournoi = new Tournoi();
-        
+
+        ArrayList<Joueur> ListJoueur = new ArrayList();
+        ArrayList<Joueur> ListQualif = new ArrayList();
+        ArrayList<Match> ListMatch = new ArrayList();
+        ArrayList<Arbitre> ListArbitre = new ArrayList();
+
         while (menu1 != 1) {
 
             System.out.println("                                               Bienvunue dans le menu de création de tournoi :");
@@ -47,8 +53,6 @@ public class ProjetTennis {
             Scanner sc = new Scanner(System.in);
             Scanner sc2 = new Scanner(System.in);
             int str = sc.nextInt();
-            
-            
 
             switch (str) {
                 case 1 -> {
@@ -137,47 +141,63 @@ public class ProjetTennis {
         String str3 = sc3.nextLine();
 
         while (str3.equals("oui")) {
-            TabJoueur = Joueur.NewJoueur(NewJ, TabJoueur);
-            NewJ++;                                               //Nombre de nouveau joueur
+            // TabJoueur = Joueur.NewJoueur(NewJ, TabJoueur);
+            ListJoueur.add(Joueur.NewJoueur(ListJoueur.size()));
+            //Nombre de nouveau joueur
             System.out.println("Creer un autre joueur ?");
             str3 = sc3.nextLine();
         }
         str3 = "";
 
-        if (NewJ != 0) {
-            System.out.println("Vous avez creer " + NewJ + " Joueurs, voulez vous voir la liste des joueurs créés ?");
+        if (ListJoueur.size() != 0) {
+            System.out.println("Vous avez creer " + ListJoueur.size() + " Joueurs, voulez vous voir la liste des joueurs créés ?");
             str3 = sc3.nextLine();
             while (str3.equals("oui") & str3.equals("non")) {
                 str3 = sc3.nextLine();
             }
             if (str3.equals("oui")) {
-                Joueur.AffichageJoueur(TabJoueur);
+                Joueur.AffichageJoueur(ListJoueur);
             }
-            System.out.println("Génération des joueurs " + (NbrJoueur - NewJ) + " restants...");
+            System.out.println("Génération des joueurs " + (NbrJoueur - ListJoueur.size()) + " restants...");
         }
 
         System.out.println("Génération des joueurs...\n \n");
 
-        TabJoueur = Joueur.GenerateurJoueur(ObjTournoi.genre, TabJoueur, NewJ);
-        TabArbitre = Arbitre.ListeArbitre(NbrArbitre, AdrFileA);
-        TabQualif = Tournoi.ListeQualif(TabJoueur, TabQualif);
-        TabMatch = Tournoi.CompoMatch(TabQualif, TabArbitre);
+        ListJoueur = Joueur.GenerateurJoueur(ObjTournoi.genre, ListJoueur);
+        ListArbitre = Arbitre.ListeArbitre(NbrArbitre, AdrFileA);
+
+        ListMatch = Tournoi.CompoMatch(ListJoueur, ListArbitre, ObjTournoi.nb);
+        ListQualif = Tournoi.ListeQualif(ListMatch);
 
         Scanner sc4 = new Scanner(System.in);
         int str4;
 
         while (menu2 != 1) {
-            switch (ObjTournoi.nb){
-                case 1: ObjTournoi.tour="Tour 1"; break;
-                case 2: ObjTournoi.tour="Tour 2"; break;
-                case 3: ObjTournoi.tour="Tour 3"; break;
-                case 4: ObjTournoi.tour="Huitième de finale"; break;
-                case 5: ObjTournoi.tour="Quart de finale"; break;
-                case 6: ObjTournoi.tour="Demi-finale"; break;
-                case 7: ObjTournoi.tour="Final"; break;
+            switch (ObjTournoi.nb) {
+                case 1:
+                    ObjTournoi.tour = "Tour 1";
+                    break;
+                case 2:
+                    ObjTournoi.tour = "Tour 2";
+                    break;
+                case 3:
+                    ObjTournoi.tour = "Tour 3";
+                    break;
+                case 4:
+                    ObjTournoi.tour = "Huitième de finale";
+                    break;
+                case 5:
+                    ObjTournoi.tour = "Quart de finale";
+                    break;
+                case 6:
+                    ObjTournoi.tour = "Demi-finale";
+                    break;
+                case 7:
+                    ObjTournoi.tour = "Final";
+                    break;
             }
-            str4=0;
-            menu3=0;
+            str4 = 0;
+            menu3 = 0;
             System.out.println("Début du Tournoi : \n");
             System.out.println("                                                                   MENU TOURNOI :                                         " + ObjTournoi.NomTournoi + " " + ObjTournoi.genre + ":  " + ObjTournoi.tour + "\n");
             System.out.println("                                                        1 -   Jouer " + ObjTournoi.tour);
@@ -189,77 +209,80 @@ public class ProjetTennis {
             System.out.println("                                                        7 -   Exit");
             System.out.println(" choisir :");
             str4 = sc4.nextInt();
-            
+
             switch (str4) {
                 case 1:
-                    Tournoi.AffichageCompoMatch(TabMatch, ObjTournoi.tour);
+                    Tournoi.AffichageCompoMatch(ListMatch);
                     System.out.println("\n");
                     System.out.println("\n");
                     System.out.println("\n");
-                    
-                    
 
                     while (menu3 == 0) {
                         System.out.println("Voulez-vous jouer 1 match ou jouer en automatique ? (Liste des matchs ci-dessus)");
                         Scanner sc5 = new Scanner(System.in);
                         String str5 = sc5.nextLine();
-                        
-                              
+
                         while (str5.equals("oui")) {
                             System.out.println(" Quel match voulez vous jouer (numero du match) ?");
                             Scanner NumMatch = new Scanner(System.in);
                             int IntMatch = NumMatch.nextInt();
-                            auto=1;
-                            if (TabMatch[IntMatch-1].Resultat==1){
-                                System.out.println("le match n*"+IntMatch+" a deja ete joué.");
-                            
-                            }
-                            else {
-                                TabMatch=Match.JouerM(TabMatch, IntMatch, ObjTournoi.genre, auto);
-                                
+                            auto = 1;
+                            if (ListMatch.get(IntMatch - 1).Resultat == 1) {
+                                System.out.println("le match n*" + IntMatch + " a deja ete joué.");
+
+                            } else {
+                                ListMatch = Match.JouerM(ListMatch, IntMatch, ObjTournoi.genre, auto);
+
                             }
                             System.out.println("Voulez-vous jouer un autre Match ?");
                             str5 = sc5.nextLine();
-                            
+
                         }
-                        
-                    str5="";
+
+                        str5 = "";
                         System.out.println("Les Matchs vont se jouer automatiquement...");
-                        auto=2;
-                        int n=1;
-                        while (n<=TabMatch.length){
-                            if (TabMatch[n-1].Resultat==0){
-                                System.out.println("Debut Match n*"+n);
-                        TabMatch=Match.JouerM(TabMatch, n, ObjTournoi.genre, auto);
+                        auto = 2;
+                        int n = 1;
+                        while (n <= ListMatch.size()) {
+                            if (ListMatch.get(n - 1).Resultat == 0) {
+                                System.out.println("Debut Match n*" + n);
+                                ListMatch = Match.JouerM(ListMatch, n, ObjTournoi.genre, auto);
                             }
                             System.out.println(n);
                             n++;
                         }
                         ObjTournoi.nb++;
-                        TabQualif=Tournoi.ListeQualif(TabJoueur, TabQualif);
-                        TabMatch=Tournoi.CompoMatch(TabQualif, TabArbitre);
-                    menu3 = 1;
+                        ListQualif = Tournoi.ListeQualif(ListMatch);
+                        ListMatch = Tournoi.CompoMatch(ListQualif, ListArbitre, ObjTournoi.nb);           //ListJoueur au lieu de ListQualif car tous qualifié et modificatioh de ListQualif dans l'ordre Random
+
+                        menu3 = 1;
+                        if (ListQualif.size() == 1) {
+                            menu2 = 1;
+                            ObjTournoi.Vainqueur = ListQualif.get(0);
+                            System.out.println("\n\n\n\n\n\n");
+                            System.out.println("                                                    Le grand Vainqueur du Tournoi " + ObjTournoi.NomTournoi + " est :\n");
+                            System.out.println("                                                                        "+ObjTournoi.Vainqueur.prenom + " " + ObjTournoi.Vainqueur.nomNaissance);
+                            System.out.println("\n\n\n\n\n\n");
+                        }
                     }
-                    
-                  
-            
+
                     break;
                 case 2:
-                    Arbitre.AffichageArbitre(TabArbitre);
+                    Arbitre.AffichageArbitre(ListArbitre);
                     break;
                 case 3:
-                    Joueur.AffichageJoueur(TabJoueur);
+                    Joueur.AffichageJoueur(ListJoueur);
                     break;
                 case 4:
-                    Tournoi.ListeQualif(TabJoueur, TabQualif);
-                    Tournoi.AffichageQualif(TabQualif);
+                    //Tournoi.ListeQualif(ListMatch);
+                    Tournoi.AffichageQualif(ListQualif);
                     break;
                 case 5:
-                    Tournoi.AffichageCompoMatch(TabMatch, ObjTournoi.tour);
+                    Tournoi.AffichageCompoMatch(ListMatch);
                     break;
                 case 6:
                     System.out.println("Affichage statistiques joueurs");
-                    Joueur.AffichageStat(TabJoueur);
+                    Joueur.AffichageStat(ListJoueur);
                     break;
                 case 7:
                     System.out.println("Vous quittez le Tournoi");
