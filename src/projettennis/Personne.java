@@ -9,8 +9,8 @@ package projettennis;
  *
  * @author axand
  */
-public class Personne { 
-
+public abstract class Personne { 
+ 
     public String nomNaissance;
     public String dateNaissance;
     public String lieuNaissance;

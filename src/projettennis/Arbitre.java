@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -37,54 +38,11 @@ public class Arbitre extends Personne {
         }
     }
 
-    public static ArrayList<Arbitre> ListeArbitre(int NbrArbitre, String AdrFile) throws FileNotFoundException, IOException {
-
-        File file = new File(AdrFile);
-        FileReader fr = new FileReader(file);
-        BufferedReader br = new BufferedReader(fr);
-        StringBuffer sb = new StringBuffer();
-        String line;
-        int l = 1;
-        int j = 1;
-
-        ArrayList<Arbitre> ListArbitre = new ArrayList();     //<-- NOMBRE DE JOUEUR+1
-        Arbitre arbitre = new Arbitre();
-        while ((line = br.readLine()) != null) {
-
-            if (line.equals(";")) {
-                ListArbitre.add(arbitre);
-                l = 0;
-
-                //  System.out.println("Arbitre "+j+":");
-            }
-
-            switch (l) {
-
-                case 1:
-                    arbitre.prenom = line;
-                    break;
-
-                case 2:
-                    arbitre.nomNaissance = line;
-                    break;
-
-                case 3:
-                    arbitre.dateNaissance = line;
-                    break;
-
-            }
-
-            l = l + 1;
-
-        }
-        fr.close();
-
-        return ListArbitre;
-    }
+    
 
     public static void AffichageArbitre(ArrayList<Arbitre> ListArbitre) {
         System.out.println("Liste des Arbitres : \n");
-        for (int i = 0; i < ListArbitre.size() - 1; i++) {
+        for (int i = 0; i < ListArbitre.size(); i++) {
             System.out.println("Arbitre " + (i + 1));
             System.out.println("Prenom =" + ListArbitre.get(i).prenom);
             System.out.println("Nom de naissance =" + ListArbitre.get(i).nomNaissance);
@@ -92,5 +50,68 @@ public class Arbitre extends Personne {
             System.out.println("\n");
         }
     }
+    
+     public static ArrayList<Arbitre> GenerateurArbitre(String genre) throws FileNotFoundException, IOException {
+        String NomFile = "nom.txt";
+        String PrenomFile ="";
+        ArrayList<Arbitre> ListArbitre = new ArrayList();
+          if (genre.equals("Féminin")) {
+            PrenomFile = "info-arbitreF.txt";;
+        } else if (genre.equals("Masculin")) {
+            PrenomFile = "info-arbitreH.txt";
+        }
+        
+       
+
+        File fileNom = new File(NomFile);
+        FileReader frNom = new FileReader(fileNom);
+        BufferedReader brNom = new BufferedReader(frNom);
+        String lineNom;
+
+        File filePrenom = new File(PrenomFile);
+        FileReader frPrenom = new FileReader(filePrenom);
+        BufferedReader brPrenom = new BufferedReader(frPrenom);
+        String linePrenom;
+
+        ArrayList<String> ListPrenom = new ArrayList();   // ---< voir pq 52 ???
+        ArrayList<String> ListNom = new ArrayList();
+
+        while ((lineNom = brNom.readLine()) != null) {
+            ListNom.add(lineNom);
+        }
+
+        while ((linePrenom = brPrenom.readLine()) != null) {
+            ListPrenom.add(linePrenom);
+
+        }
+
+        ArrayList Random1 = new ArrayList();
+        ArrayList Random2 = new ArrayList();
+       
+
+        for (int k = 0; k < ListPrenom.size(); k++) {
+            Random1.add(k);
+            Random2.add(k);
+       
+        }
+        Collections.shuffle(Random1);
+        Collections.shuffle(Random2);
+  
+
+        for (int p = ListArbitre.size(); p < ListPrenom.size(); p++) {
+            Arbitre arbitre = new Arbitre();
+            arbitre.nomNaissance = ListNom.get((int) Random1.get(p));
+            arbitre.prenom = ListPrenom.get((int) Random2.get(p));
+            
+           
+            ListArbitre.add(arbitre);
+
+        }
+
+        frPrenom.close();
+        frNom.close();
+        return ListArbitre;
+    }
+
 
 }
