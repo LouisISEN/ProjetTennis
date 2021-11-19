@@ -13,83 +13,81 @@ import java.util.ArrayList;
  */
 public class Set {
 
-    public static ArrayList<Match> set(ArrayList<Match> ListMatch, int n, int a, int auto) {
+    public static Match set(Match match, int n, int a, int auto, int setjoueur1, int setjoueur2) {
         
         System.out.println("Debut Set");
-        System.out.println(ListMatch.get(n-1).Joueur1.nomNaissance);
-        System.out.println("numero 1 =" + ListMatch.get(n-1).Joueur1.nomNaissance + " = " + ListMatch.get(n-1).Joueur1.NumeroMatch);
-        System.out.println("numero 2 =" + ListMatch.get(n-1).Joueur2.nomNaissance + " = " + ListMatch.get(n-1).Joueur2.NumeroMatch);
+        
         int jeujoueur1 = 0;
         int jeujoueur2 = 0;
         
-        Match BufferMatch = new Match();
-        BufferMatch =ListMatch.get(n-1);
-        BufferMatch.Joueur1.WinSet = 0;
-        BufferMatch.Joueur2.WinSet = 0;       
-        ListMatch.set(n-1, BufferMatch);
+        
+        match.Joueur1.WinSet = 0;
+        match.Joueur2.WinSet = 0;       
+        
 
-        Set.AffichageScoreJeu(ListMatch, n, jeujoueur1, jeujoueur2);
+    //    Set.AffichageScoreJeu(ListMatch, n, jeujoueur1, jeujoueur2);
 
         while (((jeujoueur1 < 6) & (jeujoueur2 < 6)) | ((Math.abs(jeujoueur1 - jeujoueur2)) < 2)) {
            
-            ListMatch = Jeu.jeu(ListMatch, n, ListMatch.get(n-1).DernierService, auto);
+            match = Jeu.jeu(match, n, match.DernierService, auto, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
             
-            if (ListMatch.get(n-1).DernierService==1){                       
+            if (match.DernierService==1){                       
                
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.DernierService=2;                          
-                ListMatch.set(n-1, BufferMatch);
+                
+                match.DernierService=2;                          
+               
             } else  {
                 
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.DernierService=1;                          
-                ListMatch.set(n-1, BufferMatch);
+                
+               match.DernierService=1;                          
+                
             }
             
             if (a == 1) {
-                System.out.println("Le joueur " + ListMatch.get(n-1).Joueur1.nomNaissance + " a le service");
+                System.out.println("Le joueur " + match.Joueur1.nomNaissance + " a le service");
             } else {
-                System.out.println("Le joueur " + ListMatch.get(n-1).Joueur2.nomNaissance + " a le service");
+                System.out.println("Le joueur " + match.Joueur2.nomNaissance + " a le service");
             }
 
             
-            if (ListMatch.get(n-1).Joueur1.WinJeu == 1) {
+            if (match.Joueur1.WinJeu == 1) {
                 jeujoueur1++;
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur1.JeuJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
+                
+                match.Joueur1.JeuJoueur++;                          
+                
                 
 
             } else {
 
                 jeujoueur2++;
-                 BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur2.JeuJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
+                
+                match.Joueur2.JeuJoueur++;                          
+             
 
             }
-            System.out.println("\n");
-            Set.AffichageScoreJeu(ListMatch, n, jeujoueur1, jeujoueur2);
+            
+         //   Set.AffichageScoreJeu(ListMatch, n, jeujoueur1, jeujoueur2);
         }
         if (jeujoueur1 > jeujoueur2) {
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur1.WinSet=1;                          
-                ListMatch.set(n-1, BufferMatch);
+                
+                match.Joueur1.WinSet=1;                          
+                
         } else {
-             BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur2.WinSet=1;                          
-                ListMatch.set(n-1, BufferMatch);
+             
+                match.Joueur2.WinSet=1;                          
+               
         }
-        System.out.println("\n");
+        
         System.out.println("Fin du Set");
         System.out.println("\n");
-        return ListMatch;
+        return match;
     }
 
-    public static void AffichageScoreJeu(ArrayList<Match> ListMatch, int n, int jeujoueur1, int jeujoueur2) {
+   /* public static void AffichageScoreJeu(ArrayList<Match> ListMatch, int n, int jeujoueur1, int jeujoueur2) {
 
-        System.out.println("    Jeu " + ListMatch.get(n-1).Joueur1.nomNaissance + " - " + ListMatch.get(n-1).Joueur2.nomNaissance + "  :  " + jeujoueur1 + " - " + jeujoueur2);
-
-    }
+        System.out.println("Joueur      JEU");
+        System.out.println( Tournoi.affichageTxt(ListMatch.get(n-1).Joueur1.nomNaissance) +" | "+ jeujoueur1 );
+        System.out.println( Tournoi.affichageTxt(ListMatch.get(n-1).Joueur2.nomNaissance) +" | "+ jeujoueur2);
+    }*/
 
 }

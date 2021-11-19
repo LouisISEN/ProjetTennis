@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class Echange {
 
-    public static int Service(ArrayList<Match> ListMatch, int nbService, int nbMatch) {
+    public static int Service(Match match, int nbService, int nbMatch) {
 
         int a = 1;
         int let = 0;
@@ -25,9 +25,9 @@ public class Echange {
         String joueur;
 
         if (nbService == 1) {
-            joueur = ListMatch.get(nbMatch).Joueur1.nomNaissance;
+            joueur = match.Joueur1.nomNaissance;
         } else {
-            joueur = ListMatch.get(nbMatch).Joueur2.nomNaissance;
+            joueur = match.Joueur2.nomNaissance;
         }
 
         while (a != 0) {
@@ -50,15 +50,15 @@ public class Echange {
         return str;
     }
 
-    public static int ServiceAuto(ArrayList<Match> ListMatch, int nbService, int nbMatch) {
+    public static int ServiceAuto(Match match, int nbService, int nbMatch) {
 
         int a = 1;
         String joueur;
 
         if (nbService == 1) {
-            joueur = ListMatch.get(nbMatch).Joueur1.nomNaissance;
+            joueur = match.Joueur1.nomNaissance;
         } else {
-            joueur = ListMatch.get(nbMatch).Joueur2.nomNaissance;
+            joueur = match.Joueur2.nomNaissance;
         }
 
         System.out.println("Le joueur " + joueur + " sert : ");

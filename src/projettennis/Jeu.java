@@ -17,13 +17,12 @@ public class Jeu {
     int JeuJoueur2;
 
     //fonction pour gerer les echanges et les scores.
-    public static ArrayList<Match> jeu(ArrayList<Match> ListMatch, int n, int a, int auto) {
+    public static Match jeu(Match match, int n, int a, int auto, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
 
-        Match BufferMatch = new Match();
-        BufferMatch = ListMatch.get(n-1);
-        BufferMatch.Joueur1.WinJeu = 0;
-        BufferMatch.Joueur2.WinJeu = 0;
-        ListMatch.set(n-1, BufferMatch);
+        
+        match.Joueur1.WinJeu = 0;
+        match.Joueur2.WinJeu = 0;
+        
 
         System.out.println("debut jeu");
         System.out.println("\n");
@@ -31,121 +30,154 @@ public class Jeu {
         int pointjoueur2 = 0;
         System.out.println(auto);
 
-        if (auto == 1) {
-
-            if (Echange.Service(ListMatch, ListMatch.get(n-1).DernierService, (n-1)) == 1) {
-
-                
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur1.pointJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
-                pointjoueur1++;
-            } else {
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur2.pointJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
-                pointjoueur2++;
-            }
-        } else {
-            if (Echange.ServiceAuto(ListMatch, ListMatch.get(n-1).DernierService, (n-1)) == 1) {
-
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur1.pointJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
-                pointjoueur1++;
-            } else {
-                BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur2.pointJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
-                pointjoueur2++;
-            }
-        }
-
-        Jeu.AffichageScorePoint(ListMatch, pointjoueur1, pointjoueur2, n);
+ 
+        Jeu.AffichageScorePoint(match, pointjoueur1, pointjoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
 
         while ((pointjoueur1 != 5) & (pointjoueur2 != 5)) {
 
             if (auto == 1) {
-                if (Echange.Service(ListMatch, ListMatch.get(n-1).DernierService, (n-1)) == 1) {
+                
+                if (Echange.Service(match, match.DernierService, (n - 1)) == 1) {
+                    if (match.DernierService == 1) {
+                        
+                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
+                            pointjoueur2 = 3;
+                            pointjoueur1 = 3;
+                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
+                            pointjoueur1 = 5;
+                        } else {
+                            pointjoueur1++;
+                        }
 
-                    if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
-                        pointjoueur2 = 3;
-                        pointjoueur1 = 3;
-                    } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
-                        pointjoueur1 = 5;
+                      
+                        match.Joueur1.pointJoueur++;
+                        match.Joueur1.Service++;
+                        
                     } else {
-                        pointjoueur1++;
+                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
+                            pointjoueur1 = 3;
+                            pointjoueur2 = 3;
+                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
+                            pointjoueur2 = 5;
+                        } else {
+                            pointjoueur2++;
+                        }
+                       
+                        match.Joueur2.Service++;
+                        match.Joueur2.pointJoueur++;
+                     
                     }
-                    
-                    BufferMatch =ListMatch.get(n-1);
-                    BufferMatch.Joueur1.pointJoueur++;                          
-                    ListMatch.set(n-1, BufferMatch);
-
                 } else {
-                    if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
-                        pointjoueur1 = 3;
-                        pointjoueur2 = 3;
-                    } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
-                        pointjoueur2 = 5;
+                    if (match.DernierService == 1) {
+                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
+                            pointjoueur1 = 3;
+                            pointjoueur2 = 3;
+                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
+                            pointjoueur2 = 5;
+                        } else {
+                            pointjoueur2++;
+                        }
+                        
+                        match.Joueur1.Faute++;
+                        match.Joueur2.pointJoueur++;
+                     
                     } else {
-                        pointjoueur2++;
+                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
+                            pointjoueur2 = 3;
+                            pointjoueur1 = 3;
+                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
+                            pointjoueur1 = 5;
+                        } else {
+                            pointjoueur1++;
+                        }
+
+                    
+                        match.Joueur2.Faute++;
+                        match.Joueur1.pointJoueur++;
+                   
                     }
-                     BufferMatch =ListMatch.get(n-1);
-                     BufferMatch.Joueur2.pointJoueur++;                          
-                     ListMatch.set(n-1, BufferMatch);
- 
 
                 }
             } else {
-                if (Echange.ServiceAuto(ListMatch, ListMatch.get(n-1).DernierService, n-1) == 1) {
+                          if (Echange.ServiceAuto(match, match.DernierService, (n - 1)) == 1) {
+                    if (match.DernierService == 1) {
+                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
+                            pointjoueur2 = 3;
+                            pointjoueur1 = 3;
+                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
+                            pointjoueur1 = 5;
+                        } else {
+                            pointjoueur1++;
+                        }
 
-                    if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
-                        pointjoueur2 = 3;
-                        pointjoueur1 = 3;
-                    } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
-                        pointjoueur1 = 5;
+                      
+                        match.Joueur1.pointJoueur++;
+                        match.Joueur1.Service++;
+                        
                     } else {
-                        pointjoueur1++;
+                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
+                            pointjoueur1 = 3;
+                            pointjoueur2 = 3;
+                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
+                            pointjoueur2 = 5;
+                        } else {
+                            pointjoueur2++;
+                        }
+                       
+                        match.Joueur2.pointJoueur++;
+                        match.Joueur2.Service++;
+                      
                     }
-                    BufferMatch =ListMatch.get(n-1);
-                    BufferMatch.Joueur1.pointJoueur++;                          
-                    ListMatch.set(n-1, BufferMatch);
-
                 } else {
-                    if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
-                        pointjoueur1 = 3;
-                        pointjoueur2 = 3;
-                    } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
-                        pointjoueur2 = 5;
+                    if (match.DernierService == 1) {
+                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
+                            pointjoueur1 = 3;
+                            pointjoueur2 = 3;
+                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
+                            pointjoueur2 = 5;
+                        } else {
+                            pointjoueur2++;
+                        }
+                       
+                        match.Joueur2.pointJoueur++;
+                        match.Joueur1.Faute++;
+                        
                     } else {
-                        pointjoueur2++;
-                    }
+                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
+                            pointjoueur2 = 3;
+                            pointjoueur1 = 3;
+                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
+                            pointjoueur1 = 5;
+                        } else {
+                            pointjoueur1++;
+                        }
 
-                    BufferMatch =ListMatch.get(n-1);
-                BufferMatch.Joueur2.pointJoueur++;                          
-                ListMatch.set(n-1, BufferMatch);
+                       
+                        match.Joueur1.pointJoueur++;
+                        match.Joueur2.Faute++;
+                        
+                    }
 
                 }
             }
             System.out.println("\n");
-            Jeu.AffichageScorePoint(ListMatch, pointjoueur1, pointjoueur2, n);
+            Jeu.AffichageScorePoint(match, pointjoueur1, pointjoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
             System.out.println("\n");
         }
         if (pointjoueur1 == 5) {
-            BufferMatch = ListMatch.get(n-1);
-            BufferMatch.Joueur1.WinJeu = 1;
-            ListMatch.set(n-1, BufferMatch);
+            
+            match.Joueur1.WinJeu = 1;
+           
         } else {
-            BufferMatch = ListMatch.get(n-1);
-            BufferMatch.Joueur2.WinJeu = 1;
-            ListMatch.set(n-1, BufferMatch);
+           
+            match.Joueur2.WinJeu = 1;
         }
 
         System.out.println("Fin du jeu");
-        return ListMatch;
+        return match;
     }
 
-    public static void AffichageScorePoint(ArrayList<Match> ListMatch, int pointjoueur1, int pointjoueur2, int n) {
+    public static void AffichageScorePoint(Match match, int pointjoueur1, int pointjoueur2, int n, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
         String score1 = "0";
         String score2 = "0";
 
@@ -169,7 +201,7 @@ public class Jeu {
 
             case 5:
                 score1 = "GAGNE";
-                System.out.println(" Jeu gagné par : " + ListMatch.get(n-1).Joueur1.nomNaissance);
+                System.out.println(" Jeu gagné par : " + match.Joueur1.nomNaissance);
                 break;
 
         }
@@ -192,14 +224,16 @@ public class Jeu {
                 break;
             case 5:
                 score2 = "GAGNE";
-                System.out.println(" Jeu gagné par : " + ListMatch.get(n-1).Joueur2.nomNaissance);
+                System.out.println(" Jeu gagné par : " +match.Joueur2.nomNaissance);
                 break;
 
         }
         System.out.println("\n");
-        
-        System.out.println( ListMatch.get(n-1).Joueur1.nomNaissance +" | "+ score1 );
-        System.out.println( ListMatch.get(n-1).Joueur2.nomNaissance +" | "+ score2 );
+        System.out.println("Joueur      SET JEU  POINT");
+        System.out.println(Tournoi.affichageTxt(match.Joueur1.nomNaissance) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
+        System.out.println(Tournoi.affichageTxt(match.Joueur2.nomNaissance) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
         System.out.println("\n");
     }
+    
+     
 }

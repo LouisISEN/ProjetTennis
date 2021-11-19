@@ -13,27 +13,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
 /**
  *
  * @author axand
  */
 public class Joueur extends Personne {
 
+    
+
     public String bras;
     public String entraineur;
     public String sponsor;
     public int classement;
-    public int NumeroMatch=0;
+
     public String qualification = "qualifie";
-    
-    int pointJoueur=0;
-    int SetJoueur=0;
-    int JeuJoueur=0;
-    
-    public int WinSet=0;
-    public int WinJeu=0;
-    
-    
+
+    int pointJoueur = 0;
+    int SetJoueur = 0;
+    int JeuJoueur = 0;
+    int Service=0;
+    int Faute=0;
+
+    public int WinSet = 0;
+    public int WinJeu = 0;
+
     public static ArrayList<Joueur> GenerateurJoueur(String genre, ArrayList<Joueur> ListJoueur) throws FileNotFoundException, IOException {
         String NomFile = "nom.txt";
         String PrenomFile = "";
@@ -56,11 +60,8 @@ public class Joueur extends Personne {
         ArrayList<String> ListPrenom = new ArrayList();   // ---< voir pq 52 ???
         ArrayList<String> ListNom = new ArrayList();
 
-      
-        
-
         while ((lineNom = brNom.readLine()) != null) {
-            ListNom.add(lineNom);     
+            ListNom.add(lineNom);
         }
 
         while ((linePrenom = brPrenom.readLine()) != null) {
@@ -80,7 +81,7 @@ public class Joueur extends Personne {
         Collections.shuffle(Random1);
         Collections.shuffle(Random2);
         Collections.shuffle(Random3);
-        
+
         for (int p = ListJoueur.size(); p < ListNom.size(); p++) {
             Joueur joueur = new Joueur();
             joueur.nomNaissance = ListNom.get((int) Random1.get(p));
@@ -92,23 +93,20 @@ public class Joueur extends Personne {
                 joueur.bras = "gauche";
             }
             ListJoueur.add(joueur);
-         
+
         }
-       
 
         frPrenom.close();
         frNom.close();
         return ListJoueur;
-    } 
+    }
 
     public static void AffichageJoueur(ArrayList<Joueur> ListJoueur) {
 
         System.out.println("Liste des Joueurs : \n");
         int j = 0;
-        
+
         int compteur = 0;
-        
-      
 
         for (int i = 0; i < ListJoueur.size(); i++) {
             System.out.println("Joueur " + (i + 1));
@@ -116,13 +114,13 @@ public class Joueur extends Personne {
             System.out.println("Prenom =" + ListJoueur.get(i).prenom);
             System.out.println("nomNaissance =" + ListJoueur.get(i).nomNaissance);
             System.out.println("Classement =" + ListJoueur.get(i).classement);
-            System.out.println("Numero =" + ListJoueur.get(i).NumeroMatch);
+            //System.out.println("Numero =" + ListJoueur.get(i).NumeroMatch);
             System.out.println("Qualification =" + ListJoueur.get(i).qualification);
             System.out.println("\n");
         }
     }
 
-     public static Joueur NewJoueur(int n) {
+    public static Joueur NewJoueur(int n) {
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
         System.out.println("Bras de votre Joueur (droitier/gaucher):");
@@ -140,18 +138,17 @@ public class Joueur extends Personne {
         return joueur;
     }
 
-    public static void AffichageStat(ArrayList<Joueur> ListJoueur){
-        
-   for (int i=0; i<ListJoueur.size(); i++){
-     System.out.println("Statistiques du Joueur n*"+(i+1)+" :"+ListJoueur.get(i).nomNaissance+" "+ListJoueur.get(i).prenom);
-        
-        System.out.println("Point Marqué : "+ListJoueur.get(i).pointJoueur);
-        System.out.println("Set gagné : "+ListJoueur.get(i).SetJoueur);
-        System.out.println("Jeu gagné : "+ListJoueur.get(i).JeuJoueur);
-        System.out.println("\n");
-        
-        
-   }
-}
+    public static void AffichageStat(ArrayList<Joueur> ListJoueur) {
+        System.out.println("Statistiques joueurs :\n");
+        System.out.println("Numéro    Nom       Prénom       Point     Jeu       Set      Service    Faute");
+        System.out.println("                                                               Réussi");
+        for (int i = 0; i < ListJoueur.size(); i++) {
 
-}                          
+            System.out.println(Tournoi.affichageTxt(String.valueOf(i + 1)) + Tournoi.affichageTxt(ListJoueur.get(i).nomNaissance) + Tournoi.affichageTxt(ListJoueur.get(i).prenom) + ":    " + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).pointJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).JeuJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).SetJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Service))+ Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Faute)));
+
+            System.out.println("\n");
+
+        }
+    }
+
+}
