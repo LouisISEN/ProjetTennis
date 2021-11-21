@@ -144,7 +144,7 @@ public class Joueur extends Personne {
         System.out.println("                                                               Réussi");
         for (int i = 0; i < ListJoueur.size(); i++) {
 
-            System.out.println(Tournoi.affichageTxt(String.valueOf(i + 1)) + Tournoi.affichageTxt(ListJoueur.get(i).nomNaissance) + Tournoi.affichageTxt(ListJoueur.get(i).prenom) + ":    " + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).pointJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).JeuJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).SetJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Service))+ Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Faute)));
+            System.out.println(Tournoi.affichageTxt(String.valueOf(i + 1),10) + Tournoi.affichageTxt(ListJoueur.get(i).nomNaissance,10) + Tournoi.affichageTxt(ListJoueur.get(i).prenom,10) + ":    " + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).pointJoueur),10) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).JeuJoueur),10) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).SetJoueur),10) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Service),10)+ Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Faute),10));
 
             System.out.println("\n");
 

@@ -229,9 +229,9 @@ public class Jeu {
 
         }
         System.out.println("\n");
-        System.out.println("Joueur      SET JEU  POINT");
-        System.out.println(Tournoi.affichageTxt(match.Joueur1.nomNaissance) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
-        System.out.println(Tournoi.affichageTxt(match.Joueur2.nomNaissance) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
+        System.out.println("Joueur                SET JEU  POINT                                                                   Match n*"+n);
+        System.out.println(Tournoi.affichageTxt(match.Joueur1.nomNaissance,10)+ Tournoi.affichageTxt(match.Joueur1.prenom,10) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
+        System.out.println(Tournoi.affichageTxt(match.Joueur2.nomNaissance,10)+ Tournoi.affichageTxt(match.Joueur2.prenom,10) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
         System.out.println("\n");
     }
     

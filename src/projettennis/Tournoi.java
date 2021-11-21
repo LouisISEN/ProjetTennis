@@ -218,8 +218,8 @@ public class Tournoi {
         return ObjTournoi;
     }
 
-    public static String affichageTxt(String txt) {
-        for (int i = txt.length(); i < 10; i++) {
+    public static String affichageTxt(String txt, int nb) {
+        for (int i = txt.length(); i < nb; i++) {
             txt = txt + " ";
         }
         return txt;
@@ -228,8 +228,7 @@ public class Tournoi {
     public static ArrayList<Joueur> Classement(ArrayList<Joueur> ListClassement, Joueur perdant) {
         Joueur BufferJoueur = new Joueur();
         int ajout = 0;
-        
-       
+
         if (ListClassement.isEmpty()) {
             ListClassement.add(perdant);
 
@@ -237,14 +236,12 @@ public class Tournoi {
             int a = ListClassement.size();
             for (int i = 0; i < a; i++) {
                 if (ListClassement.get(i).qualification.equals(perdant.qualification)) {
-                    
-                    
+
                     if (ListClassement.get(i).pointJoueur > perdant.pointJoueur) {
 
-                        
                         BufferJoueur = ListClassement.get(ListClassement.size() - 1);
                         ListClassement.add(BufferJoueur);
-                        
+
                         int k = 2;
 
                         while (ListClassement.size() - k != i) {
@@ -270,7 +267,7 @@ public class Tournoi {
 
     public static void affClassement(ArrayList<Joueur> ListClassement) {
         for (int j = ListClassement.size() - 1; j > -1; j--) {
-            System.out.println(Tournoi.affichageTxt(String.valueOf(128-j)) + Tournoi.affichageTxt(ListClassement.get(j).nomNaissance) + "     Tour  :" + Tournoi.affichageTxt(ListClassement.get(j).qualification) + "   point marque " + Tournoi.affichageTxt(String.valueOf(ListClassement.get(j).pointJoueur)));
+            System.out.println(Tournoi.affichageTxt(String.valueOf(128 - j), 5) + Tournoi.affichageTxt(ListClassement.get(j).nomNaissance, 10) + Tournoi.affichageTxt(ListClassement.get(j).prenom, 10) + "     Tour  :" + Tournoi.affichageTxt(ListClassement.get(j).qualification, 20) + "   point marque " + Tournoi.affichageTxt(String.valueOf(ListClassement.get(j).pointJoueur), 10));
         }
 
     }
@@ -278,11 +275,25 @@ public class Tournoi {
     public static void PresentationPodium(ArrayList<Joueur> ListClassement, Tournoi ObjTournoi) {
         System.out.println("\n\n\n\n\n\n");
         System.out.println("                                                    Le grand Vainqueur du Tournoi " + ObjTournoi.NomTournoi + " est :\n");
-        System.out.println("                                                                        " + ObjTournoi.Vainqueur.prenom + " " + ObjTournoi.Vainqueur.nomNaissance);
-        System.out.println("\n\n\n\n\n\n");
-        System.out.println("\n\n\n\n\n\n");
-        System.out.println("                                                                                1. "+ObjTournoi.Vainqueur.prenom+" "+ObjTournoi.Vainqueur.nomNaissance);
-        System.out.println("\n                                                                     2. "+ListClassement.get(ListClassement.size()-2).nomNaissance+" "+ListClassement.get(ListClassement.size()-2).prenom+ "      3."+ListClassement.get(ListClassement.size()-3).nomNaissance+" "+ListClassement.get(ListClassement.size()-3).prenom);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("                                                                        1. " + ObjTournoi.Vainqueur.prenom + " " + ObjTournoi.Vainqueur.nomNaissance);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("\n                                                        2. " + ListClassement.get(ListClassement.size() - 2).nomNaissance + " " + ListClassement.get(ListClassement.size() - 2).prenom + "         3." + ListClassement.get(ListClassement.size() - 3).nomNaissance + " " + ListClassement.get(ListClassement.size() - 3).prenom + "\n\n");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("FIN DU TOURNOI");
+        Tournoi.affClassement(ListClassement);
     }
 
 }

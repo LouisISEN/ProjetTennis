@@ -62,12 +62,15 @@ public class Match {
                     
                     System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.nomNaissance + " est le gagnant de la petite finale.");
                     System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
+                    match.Joueur1.qualification="Gagnant PF";
                     
                     
                 }
+                else {
                 
                 System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.nomNaissance + " est qualifié pour le tour suivant.");
                 System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
+                }
                 match.Joueur2.qualification = ObjTournoi.tour;
                 match.Perdant=2;
           
@@ -76,11 +79,14 @@ public class Match {
                    
                     System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.nomNaissance + " est le gagnant de la petite finale.");
                     System.out.println("Le joueur 1 " + match.Joueur1.nomNaissance + " est éliminé.");
+                    match.Joueur2.qualification="Gagnant PF";
                     
                 }
+                else {
                 
                 System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.nomNaissance + " est qualifié pour le tour suivant.");
                 System.out.println("Le joueur 1 " + match.Joueur1.nomNaissance + " est éliminé.");
+                }
                 match.Joueur1.qualification = ObjTournoi.tour;
                 match.Perdant=1;
         }

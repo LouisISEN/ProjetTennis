@@ -153,10 +153,10 @@ public class ProjetTennis {
                                 BufferMatch = Match.JouerM(ListMatch.get(IntMatch - 1), IntMatch, ObjTournoi, auto);
                                 if (BufferMatch.Perdant == 1) {
                                     ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur1);
-                                    System.out.println("joueur1 perdant");
+                                   
                                 } else {
                                     ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur2);
-                                    System.out.println("joueur2 perdant");
+                                    
                                 }
 
                                 ListMatch.set(IntMatch - 1, BufferMatch);
@@ -175,19 +175,19 @@ public class ProjetTennis {
                         if ((ObjTournoi.nbTour == 7)) {
 
                             System.out.println(ObjTournoi.nbTour);
-
+                             Tournoi.affClassement(ListClassement);
                             System.out.println("\nDebut de la " + ObjTournoi.tour + "\n");
                             BufferMatch = Match.JouerM(ListMatch.get(0), n, ObjTournoi, auto);
                             if (BufferMatch.Perdant == 1) {
-                                ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur1);
-                                ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur2);
-                                System.out.println("joueur1 perdant");
+                                ListClassement.set(ListClassement.size()-2,BufferMatch.Joueur1);
+                                ListClassement.set(ListClassement.size()-1, BufferMatch.Joueur2);
+                               
                             } else {
-                                ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur2);
-                                ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur1);
-                                System.out.println("joueur2 perdant");
+                                ListClassement.set(ListClassement.size()-1,BufferMatch.Joueur2);
+                                ListClassement.set(ListClassement.size()-2,BufferMatch.Joueur1);
+                                
                             }
-                            Tournoi.affClassement(ListClassement);
+                            
                             ListMatch.set(0, BufferMatch);
                             ObjTournoi.nbTour++;
                         } else {
@@ -199,10 +199,10 @@ public class ProjetTennis {
                                     if ((ObjTournoi.nbTour != 6)||(ObjTournoi.nbTour != 7)) {
                                         if (BufferMatch.Perdant == 1) {
                                             ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur1);
-                                            System.out.println("joueur1 perdant");
+                                          
                                         } else {
                                             ListClassement = Tournoi.Classement(ListClassement, BufferMatch.Joueur2);
-                                            System.out.println("joueur2 perdant");
+                                            
                                         }
                                     }
                                     ListMatch.set(n - 1, BufferMatch);
