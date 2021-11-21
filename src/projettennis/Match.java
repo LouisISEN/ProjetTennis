@@ -16,13 +16,15 @@ public class Match {
 
     Joueur Joueur1 = new Joueur();
     Joueur Joueur2 = new Joueur();
+    
+    
     Arbitre arbitre = new Arbitre();
     int Resultat = 0;
     int DernierService = 0;
+    int Perdant = 0;
 
     public static Match JouerM(Match match, int n, Tournoi ObjTournoi, int auto) {
 
-        
         int NbrSetMax = 0;
         int setjoueur1 = 0;
         int setjoueur2 = 0;
@@ -57,27 +59,33 @@ public class Match {
         }
         if (setjoueur1 == NbrSetMax) {
                 if (ObjTournoi.nbTour==7){
-                    match.Joueur1.qualification="Gagnant Petite finale";
-                    match.Joueur2.qualification="Perdant Petite finale";
+                    
+                    System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.nomNaissance + " est le gagnant de la petite finale.");
+                    System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
+                    
+                    
                 }
                 
                 System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.nomNaissance + " est qualifié pour le tour suivant.");
                 System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
                 match.Joueur2.qualification = ObjTournoi.tour;
+                match.Perdant=2;
           
         } else {
                 if (ObjTournoi.nbTour==7){
-                    match.Joueur2.qualification="Gagnant Petite finale";
-                    match.Joueur1.qualification="Perdant Petite finale";
+                   
+                    System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.nomNaissance + " est le gagnant de la petite finale.");
+                    System.out.println("Le joueur 1 " + match.Joueur1.nomNaissance + " est éliminé.");
+                    
                 }
                 
                 System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.nomNaissance + " est qualifié pour le tour suivant.");
                 System.out.println("Le joueur 1 " + match.Joueur1.nomNaissance + " est éliminé.");
                 match.Joueur1.qualification = ObjTournoi.tour;
-            
+                match.Perdant=1;
         }
 
-    match.Resultat  = 1;
+    match.Resultat  = 1;              
     
 
     return match ;
@@ -99,11 +107,5 @@ public static int DeterminationService(Match match, int n) {            //dertmi
         System.out.println("Le joueur " + joueur + " commence avec le service");
         return nb;
     }
-
-  /*  public static void AffichageScoreSet(ArrayList<Match> ListMatch, int n, int setjoueur1, int setjoueur2) {
-
-        System.out.println("    SET " + ListMatch.get(n-1).Joueur1.nomNaissance + " - " + ListMatch.get(n-1).Joueur2.nomNaissance + "  :  " + setjoueur1 + " - " + setjoueur2);
-
-    }*/
 
 }
