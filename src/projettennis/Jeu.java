@@ -20,8 +20,8 @@ public class Jeu {
     public static Match jeu(Match match, int n, int a, int auto, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
 
         
-        match.Joueur1.WinJeu = 0;
-        match.Joueur2.WinJeu = 0;
+        match.Joueur1.setWinJeu(0);
+        match.Joueur2.setWinJeu(0);
         
 
         System.out.println("debut jeu");
@@ -50,8 +50,8 @@ public class Jeu {
                         }
 
                       
-                        match.Joueur1.pointJoueur++;
-                        match.Joueur1.Service++;
+                        match.Joueur1.incrementePointJoueur();
+                        match.Joueur1.incrementeServiceJoueur();
                         
                     } else {
                         if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
@@ -63,8 +63,8 @@ public class Jeu {
                             pointjoueur2++;
                         }
                        
-                        match.Joueur2.Service++;
-                        match.Joueur2.pointJoueur++;
+                        match.Joueur2.incrementeServiceJoueur();
+                        match.Joueur2.incrementePointJoueur();
                      
                     }
                 } else {
@@ -78,8 +78,8 @@ public class Jeu {
                             pointjoueur2++;
                         }
                         
-                        match.Joueur1.Faute++;
-                        match.Joueur2.pointJoueur++;
+                        match.Joueur1.incrementeFauteJoueur();
+                        match.Joueur2.incrementePointJoueur();
                      
                     } else {
                         if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
@@ -92,8 +92,8 @@ public class Jeu {
                         }
 
                     
-                        match.Joueur2.Faute++;
-                        match.Joueur1.pointJoueur++;
+                        match.Joueur2.incrementeFauteJoueur();
+                        match.Joueur1.incrementePointJoueur();
                    
                     }
 
@@ -111,8 +111,8 @@ public class Jeu {
                         }
 
                       
-                        match.Joueur1.pointJoueur++;
-                        match.Joueur1.Service++;
+                        match.Joueur1.incrementePointJoueur();
+                        match.Joueur1.incrementeServiceJoueur();
                         
                     } else {
                         if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
@@ -124,8 +124,8 @@ public class Jeu {
                             pointjoueur2++;
                         }
                        
-                        match.Joueur2.pointJoueur++;
-                        match.Joueur2.Service++;
+                        match.Joueur2.incrementePointJoueur();
+                        match.Joueur2.incrementeServiceJoueur();
                       
                     }
                 } else {
@@ -139,8 +139,8 @@ public class Jeu {
                             pointjoueur2++;
                         }
                        
-                        match.Joueur2.pointJoueur++;
-                        match.Joueur1.Faute++;
+                        match.Joueur2.incrementePointJoueur();
+                        match.Joueur1.incrementeFauteJoueur();
                         
                     } else {
                         if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
@@ -153,8 +153,8 @@ public class Jeu {
                         }
 
                        
-                        match.Joueur1.pointJoueur++;
-                        match.Joueur2.Faute++;
+                        match.Joueur1.incrementePointJoueur();
+                        match.Joueur2.incrementeFauteJoueur();;
                         
                     }
 
@@ -166,11 +166,11 @@ public class Jeu {
         }
         if (pointjoueur1 == 5) {
             
-            match.Joueur1.WinJeu = 1;
+            match.Joueur1.setWinJeu(1);
            
         } else {
            
-            match.Joueur2.WinJeu = 1;
+            match.Joueur2.setWinJeu(1);
         }
 
         System.out.println("Fin du jeu");
@@ -201,7 +201,7 @@ public class Jeu {
 
             case 5:
                 score1 = "GAGNE";
-                System.out.println(" Jeu gagné par : " + match.Joueur1.nomNaissance);
+                System.out.println(" Jeu gagné par : " + match.Joueur1.getNomNaissance());
                 break;
 
         }
@@ -224,14 +224,14 @@ public class Jeu {
                 break;
             case 5:
                 score2 = "GAGNE";
-                System.out.println(" Jeu gagné par : " +match.Joueur2.nomNaissance);
+                System.out.println(" Jeu gagné par : " +match.Joueur2.getNomNaissance());
                 break;
 
         }
         System.out.println("\n");
         System.out.println("Joueur      SET JEU  POINT");
-        System.out.println(Tournoi.affichageTxt(match.Joueur1.nomNaissance) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
-        System.out.println(Tournoi.affichageTxt(match.Joueur2.nomNaissance) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
+        System.out.println(Tournoi.affichageTxt(match.Joueur1.getNomNaissance()) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
+        System.out.println(Tournoi.affichageTxt(match.Joueur2.getNomNaissance()) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
         System.out.println("\n");
     }
     

@@ -21,8 +21,8 @@ public class Set {
         int jeujoueur2 = 0;
         
         
-        match.Joueur1.WinSet = 0;
-        match.Joueur2.WinSet = 0;       
+        match.Joueur1.setWinSet(0);
+        match.Joueur2.setWinSet(0);       
         
 
     //    Set.AffichageScoreJeu(ListMatch, n, jeujoueur1, jeujoueur2);
@@ -44,16 +44,16 @@ public class Set {
             }
             
             if (a == 1) {
-                System.out.println("Le joueur " + match.Joueur1.nomNaissance + " a le service");
+                System.out.println("Le joueur " + match.Joueur1.getNomNaissance() + " a le service");
             } else {
-                System.out.println("Le joueur " + match.Joueur2.nomNaissance + " a le service");
+                System.out.println("Le joueur " + match.Joueur2.getNomNaissance() + " a le service");
             }
 
             
-            if (match.Joueur1.WinJeu == 1) {
+            if (match.Joueur1.getWinJeu() == 1) {
                 jeujoueur1++;
                 
-                match.Joueur1.JeuJoueur++;                          
+                match.Joueur1.incrementeJeuJoueur();                          
                 
                 
 
@@ -61,7 +61,7 @@ public class Set {
 
                 jeujoueur2++;
                 
-                match.Joueur2.JeuJoueur++;                          
+                match.Joueur2.incrementeJeuJoueur();                          
              
 
             }
@@ -70,11 +70,11 @@ public class Set {
         }
         if (jeujoueur1 > jeujoueur2) {
                 
-                match.Joueur1.WinSet=1;                          
+                match.Joueur1.setWinSet(1);                          
                 
         } else {
              
-                match.Joueur2.WinSet=1;                          
+                match.Joueur2.setWinSet(1);                          
                
         }
         

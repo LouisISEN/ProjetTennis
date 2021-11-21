@@ -25,9 +25,9 @@ public class Echange {
         String joueur;
 
         if (nbService == 1) {
-            joueur = match.Joueur1.nomNaissance;
+            joueur = match.Joueur1.getNomNaissance();
         } else {
-            joueur = match.Joueur2.nomNaissance;
+            joueur = match.Joueur2.getNomNaissance();
         }
 
         while (a != 0) {
@@ -56,9 +56,9 @@ public class Echange {
         String joueur;
 
         if (nbService == 1) {
-            joueur = match.Joueur1.nomNaissance;
+            joueur = match.Joueur1.getNomNaissance();
         } else {
-            joueur = match.Joueur2.nomNaissance;
+            joueur = match.Joueur2.getNomNaissance();
         }
 
         System.out.println("Le joueur " + joueur + " sert : ");

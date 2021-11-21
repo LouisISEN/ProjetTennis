@@ -44,9 +44,9 @@ public class Arbitre extends Personne {
         System.out.println("Liste des Arbitres : \n");
         for (int i = 0; i < ListArbitre.size(); i++) {
             System.out.println("Arbitre " + (i + 1));
-            System.out.println("Prenom =" + ListArbitre.get(i).prenom);
-            System.out.println("Nom de naissance =" + ListArbitre.get(i).nomNaissance);
-            System.out.println("Date de naissance =" + ListArbitre.get(i).dateNaissance);
+            System.out.println("Prenom =" + ListArbitre.get(i).getPrenom());
+            System.out.println("Nom de naissance =" + ListArbitre.get(i).getNomNaissance());
+            System.out.println("Date de naissance =" + ListArbitre.get(i).getDateNaissance());
             System.out.println("\n");
         }
     }
@@ -100,8 +100,8 @@ public class Arbitre extends Personne {
 
         for (int p = ListArbitre.size(); p < ListPrenom.size(); p++) {
             Arbitre arbitre = new Arbitre();
-            arbitre.nomNaissance = ListNom.get((int) Random1.get(p));
-            arbitre.prenom = ListPrenom.get((int) Random2.get(p));
+            arbitre.setNomNaissance(ListNom.get((int) Random1.get(p)));
+            arbitre.setPrenom(ListPrenom.get((int) Random2.get(p)));
             
            
             ListArbitre.add(arbitre);
