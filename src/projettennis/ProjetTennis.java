@@ -244,7 +244,7 @@ public class ProjetTennis {
                     break;
                 case 6:
                     System.out.println("Affichage statistiques joueurs");
-                    Joueur.AffichageStat(ListJoueur);
+                    Statistiques.AffichageStat(ListJoueur);
                     break;
                 case 7:
                     System.out.println("Vous quittez le Tournoi");

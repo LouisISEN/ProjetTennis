@@ -26,6 +26,7 @@ public class Joueur extends Personne {
     public String entraineur;
     public String sponsor;
     public int classement;
+    public int numero;
 
     public String qualification = "qualifie";
 
@@ -39,20 +40,20 @@ public class Joueur extends Personne {
     public int WinJeu = 0;
 
     public static ArrayList<Joueur> GenerateurJoueur(String genre, ArrayList<Joueur> ListJoueur) throws FileNotFoundException, IOException {
-        String NomFile = "nom.txt";
-        String PrenomFile = "";
+        String nomFile = "nom.txt";
+        String prenomFile = "";
         if (genre.equals("Féminin")) {
-            PrenomFile = "prenomF.txt";
+            prenomFile = "prenomF.txt";
         } else if (genre.equals("Masculin")) {
-            PrenomFile = "prenomM.txt";
+            prenomFile = "prenomM.txt";
         }
 
-        File fileNom = new File(NomFile);
+        File fileNom = new File(nomFile);
         FileReader frNom = new FileReader(fileNom);
         BufferedReader brNom = new BufferedReader(frNom);
         String lineNom;
 
-        File filePrenom = new File(PrenomFile);
+        File filePrenom = new File(prenomFile);
         FileReader frPrenom = new FileReader(filePrenom);
         BufferedReader brPrenom = new BufferedReader(frPrenom);
         String linePrenom;
@@ -87,6 +88,7 @@ public class Joueur extends Personne {
             joueur.nomNaissance = ListNom.get((int) Random1.get(p));
             joueur.prenom = ListPrenom.get((int) Random2.get(p));
             joueur.classement = p + 1;
+            joueur.numero = p + 1;
             if (((int) Random3.get(p)) % 2 == 0) {
                 joueur.bras = "droit";
             } else {
@@ -109,13 +111,13 @@ public class Joueur extends Personne {
         int compteur = 0;
 
         for (int i = 0; i < ListJoueur.size(); i++) {
-            System.out.println("Joueur " + (i + 1));
-            System.out.println("Bras =" + ListJoueur.get(i).bras);
-            System.out.println("Prenom =" + ListJoueur.get(i).prenom);
-            System.out.println("nomNaissance =" + ListJoueur.get(i).nomNaissance);
-            System.out.println("Classement =" + ListJoueur.get(i).classement);
-            //System.out.println("Numero =" + ListJoueur.get(i).NumeroMatch);
-            System.out.println("Qualification =" + ListJoueur.get(i).qualification);
+            System.out.println("Joueur n*  " + (i + 1));
+            System.out.println("Prise de la raquette : " + ListJoueur.get(i).bras);
+            System.out.println("Prenom               : " + ListJoueur.get(i).prenom);
+            System.out.println("Nom de naissance     : " + ListJoueur.get(i).nomNaissance);
+            System.out.println("Classement           : " + ListJoueur.get(i).classement);
+            System.out.println("Numero Tournoi       : " + ListJoueur.get(i).numero);
+            System.out.println("Qualification        : " + ListJoueur.get(i).qualification);
             System.out.println("\n");
         }
     }
@@ -123,7 +125,7 @@ public class Joueur extends Personne {
     public static Joueur NewJoueur(int n) {
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bras de votre Joueur (droitier/gaucher):");
+        System.out.println("Prise de la raquette (droit/gauche) ?");
         String str = sc.nextLine();
         joueur.bras = str;
         System.out.println("Prenom de votre Joueur :");
@@ -133,22 +135,12 @@ public class Joueur extends Personne {
         str = sc.nextLine();
         joueur.nomNaissance = str;
         joueur.classement = n + 1;
+        joueur.numero = n+1;
         joueur.qualification = "qualifie";
 
         return joueur;
     }
 
-    public static void AffichageStat(ArrayList<Joueur> ListJoueur) {
-        System.out.println("Statistiques joueurs :\n");
-        System.out.println("Numéro    Nom       Prénom       Point     Jeu       Set      Service    Faute");
-        System.out.println("                                                               Réussi");
-        for (int i = 0; i < ListJoueur.size(); i++) {
-
-            System.out.println(Tournoi.affichageTxt(String.valueOf(i + 1),10) + Tournoi.affichageTxt(ListJoueur.get(i).nomNaissance,10) + Tournoi.affichageTxt(ListJoueur.get(i).prenom,10) + ":    " + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).pointJoueur),10) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).JeuJoueur),10) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).SetJoueur),10) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Service),10)+ Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Faute),10));
-
-            System.out.println("\n");
-
-        }
-    }
+    
 
 }
