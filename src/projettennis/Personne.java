@@ -11,12 +11,11 @@ package projettennis;
  */
 public abstract class Personne { 
  
-    public String nomNaissance;
-    public String dateNaissance;
-    public String lieuNaissance;
-    public String dateDeces;
-    public String genre;
-
+    public String nomNaissance;    
+    public String dateNaissance;   
+    public String lieuNaissance;   
+    public String dateDeces;      
+    public String genre;          
     public String nomCourant;
     public String prenom;
     public String surnom;

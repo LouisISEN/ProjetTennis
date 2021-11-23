@@ -13,40 +13,36 @@ import java.util.ArrayList;
  */
 public class Jeu {
 
-    int JeuJoueur1;
-    int JeuJoueur2;
+    int jeuJoueur1=0;
+    int jeuJoueur2=0;
 
-    //fonction pour gerer les echanges et les scores.
-    public static Match jeu(Match match, int n, int a, int auto, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
+    public static Match jeu(Match match, Tournoi ObjTournoi, int n, int a, int auto, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
 
-        
+        Echange point = new Echange();
         match.Joueur1.WinJeu = 0;
         match.Joueur2.WinJeu = 0;
         
 
-        System.out.println("debut jeu");
+        System.out.println("Debut jeu");
         System.out.println("\n");
-        int pointjoueur1 = 0;
-        int pointjoueur2 = 0;
-        System.out.println(auto);
 
  
-        Jeu.AffichageScorePoint(match, pointjoueur1, pointjoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
+        Jeu.AffichageScorePoint(match, ObjTournoi,point.pointJoueur1, point.pointJoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
 
-        while ((pointjoueur1 != 5) & (pointjoueur2 != 5)) {
+        while ((point.pointJoueur1 != 5) && (point.pointJoueur2 != 5)) {
 
             if (auto == 1) {
                 
                 if (Echange.Service(match, match.DernierService, (n - 1)) == 1) {
                     if (match.DernierService == 1) {
                         
-                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
-                            pointjoueur2 = 3;
-                            pointjoueur1 = 3;
-                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
-                            pointjoueur1 = 5;
+                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
+                            point.pointJoueur2 = 3;
+                            point.pointJoueur1 = 3;
+                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
+                            point.pointJoueur1 = 5;
                         } else {
-                            pointjoueur1++;
+                            point.pointJoueur1++;
                         }
 
                       
@@ -54,13 +50,13 @@ public class Jeu {
                         match.Joueur1.Service++;
                         
                     } else {
-                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
-                            pointjoueur1 = 3;
-                            pointjoueur2 = 3;
-                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
-                            pointjoueur2 = 5;
+                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
+                            point.pointJoueur1 = 3;
+                            point.pointJoueur2 = 3;
+                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
+                            point.pointJoueur2 = 5;
                         } else {
-                            pointjoueur2++;
+                            point.pointJoueur2++;
                         }
                        
                         match.Joueur2.Service++;
@@ -69,26 +65,26 @@ public class Jeu {
                     }
                 } else {
                     if (match.DernierService == 1) {
-                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
-                            pointjoueur1 = 3;
-                            pointjoueur2 = 3;
-                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
-                            pointjoueur2 = 5;
+                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
+                            point.pointJoueur1 = 3;
+                            point.pointJoueur2 = 3;
+                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
+                            point.pointJoueur2 = 5;
                         } else {
-                            pointjoueur2++;
+                            point.pointJoueur2++;
                         }
                         
                         match.Joueur1.Faute++;
                         match.Joueur2.pointJoueur++;
                      
                     } else {
-                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
-                            pointjoueur2 = 3;
-                            pointjoueur1 = 3;
-                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
-                            pointjoueur1 = 5;
+                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
+                            point.pointJoueur2 = 3;
+                            point.pointJoueur1 = 3;
+                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
+                            point.pointJoueur1 = 5;
                         } else {
-                            pointjoueur1++;
+                            point.pointJoueur1++;
                         }
 
                     
@@ -101,13 +97,13 @@ public class Jeu {
             } else {
                           if (Echange.ServiceAuto(match, match.DernierService, (n - 1)) == 1) {
                     if (match.DernierService == 1) {
-                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
-                            pointjoueur2 = 3;
-                            pointjoueur1 = 3;
-                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
-                            pointjoueur1 = 5;
+                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
+                            point.pointJoueur2 = 3;
+                            point.pointJoueur1 = 3;
+                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
+                            point.pointJoueur1 = 5;
                         } else {
-                            pointjoueur1++;
+                            point.pointJoueur1++;
                         }
 
                       
@@ -115,13 +111,13 @@ public class Jeu {
                         match.Joueur1.Service++;
                         
                     } else {
-                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
-                            pointjoueur1 = 3;
-                            pointjoueur2 = 3;
-                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
-                            pointjoueur2 = 5;
+                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
+                            point.pointJoueur1 = 3;
+                            point.pointJoueur2 = 3;
+                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
+                            point.pointJoueur2 = 5;
                         } else {
-                            pointjoueur2++;
+                            point.pointJoueur2++;
                         }
                        
                         match.Joueur2.pointJoueur++;
@@ -130,26 +126,26 @@ public class Jeu {
                     }
                 } else {
                     if (match.DernierService == 1) {
-                        if ((pointjoueur2 == 3) && (pointjoueur1 == 4)) {
-                            pointjoueur1 = 3;
-                            pointjoueur2 = 3;
-                        } else if ((pointjoueur2 == 3) && (pointjoueur1 < 3)) {
-                            pointjoueur2 = 5;
+                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
+                            point.pointJoueur1 = 3;
+                            point.pointJoueur2 = 3;
+                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
+                            point.pointJoueur2 = 5;
                         } else {
-                            pointjoueur2++;
+                            point.pointJoueur2++;
                         }
                        
                         match.Joueur2.pointJoueur++;
                         match.Joueur1.Faute++;
                         
                     } else {
-                        if ((pointjoueur1 == 3) && (pointjoueur2 == 4)) {
-                            pointjoueur2 = 3;
-                            pointjoueur1 = 3;
-                        } else if ((pointjoueur1 == 3) && (pointjoueur2 < 3)) {
-                            pointjoueur1 = 5;
+                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
+                            point.pointJoueur2 = 3;
+                            point.pointJoueur1 = 3;
+                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
+                            point.pointJoueur1 = 5;
                         } else {
-                            pointjoueur1++;
+                            point.pointJoueur1++;
                         }
 
                        
@@ -161,10 +157,10 @@ public class Jeu {
                 }
             }
             System.out.println("\n");
-            Jeu.AffichageScorePoint(match, pointjoueur1, pointjoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
+            Jeu.AffichageScorePoint(match, ObjTournoi, point.pointJoueur1, point.pointJoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
             System.out.println("\n");
         }
-        if (pointjoueur1 == 5) {
+        if (point.pointJoueur1 == 5) {
             
             match.Joueur1.WinJeu = 1;
            
@@ -177,7 +173,7 @@ public class Jeu {
         return match;
     }
 
-    public static void AffichageScorePoint(Match match, int pointjoueur1, int pointjoueur2, int n, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
+    public static void AffichageScorePoint(Match match, Tournoi ObjTournoi, int pointjoueur1, int pointjoueur2, int n, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
         String score1 = "0";
         String score2 = "0";
 
@@ -229,9 +225,9 @@ public class Jeu {
 
         }
         System.out.println("\n");
-        System.out.println("Joueur                SET JEU  POINT                                                                   Match n*"+n);
-        System.out.println(Tournoi.affichageTxt(match.Joueur1.nomNaissance,10)+ Tournoi.affichageTxt(match.Joueur1.prenom,10) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
-        System.out.println(Tournoi.affichageTxt(match.Joueur2.nomNaissance,10)+ Tournoi.affichageTxt(match.Joueur2.prenom,10) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
+        System.out.println("Joueur                SET JEU  POINT                                                                   "+Utilitaire.affichageTxt(ObjTournoi.tour, 15)+"Match n*"+n);
+        System.out.println(Utilitaire.affichageTxt(match.Joueur1.nomNaissance,10)+ Utilitaire.affichageTxt(match.Joueur1.prenom,10) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
+        System.out.println(Utilitaire.affichageTxt(match.Joueur2.nomNaissance,10)+ Utilitaire.affichageTxt(match.Joueur2.prenom,10) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
         System.out.println("\n");
     }
     

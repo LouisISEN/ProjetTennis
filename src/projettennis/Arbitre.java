@@ -19,10 +19,6 @@ import java.util.Collections;
  */
 public class Arbitre extends Personne {
 
-    public static void score(int score1, int score2) {
-        System.out.println("Le score est de" + score1 + "-" + score2);
-    }
-
     public static void annonce(int n, String joueur) {
         switch (n) {
             case 1:

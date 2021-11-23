@@ -16,6 +16,10 @@ import java.util.Scanner;
  */
 public class Echange {
 
+    
+    int pointJoueur1=0;
+    int pointJoueur2=0;
+    
     public static int Service(Match match, int nbService, int nbMatch) {
 
         int a = 1;
