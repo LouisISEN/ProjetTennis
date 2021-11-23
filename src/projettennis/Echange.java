@@ -16,6 +16,9 @@ import java.util.Scanner;
  */
 public class Echange {
 
+    int pointJoueur1 = 0;
+    int pointJoueur2 = 0;
+
     public static int Service(Match match, int nbService, int nbMatch) {
 
         int a = 1;
@@ -53,6 +56,8 @@ public class Echange {
     public static int ServiceAuto(Match match, int nbService, int nbMatch) {
 
         int a = 1;
+        int nb=0;
+        int let=0;
         String joueur;
 
         if (nbService == 1) {
@@ -63,11 +68,12 @@ public class Echange {
 
         System.out.println("Le joueur " + joueur + " sert : ");
         Random random = new Random();
-        int nb;
+        
         int Borne1 = 100;
         int Borne2 = 0;
         nb = 1 + random.nextInt(Borne1 - Borne2);
-        if ((1 <= nb) & (nb < 45)) {
+
+           if ((1 <= nb) & (nb < 45)) {
             nb = 1;
         }
         if ((45 <= nb) & (nb < 90)) {
@@ -76,7 +82,22 @@ public class Echange {
         if ((90 <= nb) & (nb <= 100)) {
             nb = 3;
         }
-       Arbitre.annonce(nb, joueur);
+        while (a != 0) {
+
+            if ((nb == 1) || (nb == 2)) {
+                a = 0;
+            } else if (nb == 3) {
+                let++;
+            }
+
+            if (let == 2) {
+                nb = 2;
+                a = 0;
+            }
+
+            Arbitre.annonce(nb, joueur);
+
+        }
 
         return nb;
     }

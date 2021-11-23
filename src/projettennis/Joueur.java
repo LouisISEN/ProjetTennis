@@ -20,154 +20,40 @@ import java.util.Scanner;
  */
 public class Joueur extends Personne {
 
-    public String getBras() {
-        return bras;
-    }
-
-    public void setBras(String bras) {
-        this.bras = bras;
-    }
-
-    public String getEntraineur() {
-        return entraineur;
-    }
-
-    public void setEntraineur(String entraineur) {
-        this.entraineur = entraineur;
-    }
-
-    public String getSponsor() {
-        return sponsor;
-    }
-
-    public void setSponsor(String sponsor) {
-        this.sponsor = sponsor;
-    }
-
-    public int getClassement() {
-        return classement;
-    }
-
-    public void setClassement(int classement) {
-        this.classement = classement;
-    }
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
-
-    public int getPointJoueur() {
-        return pointJoueur;
-    }
-
-    public void setPointJoueur(int pointJoueur) {
-        this.pointJoueur = pointJoueur;
-    }
-
-    public int getSetJoueur() {
-        return SetJoueur;
-    }
-
-    public void setSetJoueur(int SetJoueur) {
-        this.SetJoueur = SetJoueur;
-    }
-
-    public int getJeuJoueur() {
-        return JeuJoueur;
-    }
-
-    public void setJeuJoueur(int JeuJoueur) {
-        this.JeuJoueur = JeuJoueur;
-    }
-
-    public int getService() {
-        return Service;
-    }
-
-    public void setService(int Service) {
-        this.Service = Service;
-    }
-
-    public int getFaute() {
-        return Faute;
-    }
-
-    public void setFaute(int Faute) {
-        this.Faute = Faute;
-    }
-
-    public int getWinSet() {
-        return WinSet;
-    }
-
-    public void setWinSet(int WinSet) {
-        this.WinSet = WinSet;
-    }
-
-    public int getWinJeu() {
-        return WinJeu;
-    }
-
-    public void setWinJeu(int WinJeu) {
-        this.WinJeu = WinJeu;
-    }
-
     
-    private String bras;
-    private String entraineur;
-    private String sponsor;
-    private int classement;
 
-    private String qualification = "qualifie";
+    public String bras;
+    public String entraineur;
+    public String sponsor;
+    public int classement;
+    public int numero;
 
-    private int pointJoueur = 0;
-    private int SetJoueur = 0;
-    private int JeuJoueur = 0;
-    private int Service=0;
-    private int Faute=0;
+    public String qualification = "qualifie";
 
-    private int WinSet = 0;
-    private int WinJeu = 0;
-    
-    public void incrementeSetJoueur(){
-        SetJoueur++;
-    }
-    
-    public void incrementeJeuJoueur(){
-        JeuJoueur++;
-    }
-    
-    public void incrementePointJoueur(){
-        pointJoueur++;
-    }
-    
-    public void incrementeServiceJoueur(){
-        Service++;
-    }
-    
-    public void incrementeFauteJoueur(){
-        Faute++;
-    }
-    
+    int pointJoueur = 0;
+    int SetJoueur = 0;
+    int JeuJoueur = 0;
+    int Service=0;
+    int Faute=0;
+
+    public int WinSet = 0;
+    public int WinJeu = 0;
+
     public static ArrayList<Joueur> GenerateurJoueur(String genre, ArrayList<Joueur> ListJoueur) throws FileNotFoundException, IOException {
-        String NomFile = "nom.txt";
-        String PrenomFile = "";
+        String nomFile = "nom.txt";
+        String prenomFile = "";
         if (genre.equals("Féminin")) {
-            PrenomFile = "prenomF.txt";
+            prenomFile = "prenomF.txt";
         } else if (genre.equals("Masculin")) {
-            PrenomFile = "prenomM.txt";
+            prenomFile = "prenomM.txt";
         }
 
-        File fileNom = new File(NomFile);
+        File fileNom = new File(nomFile);
         FileReader frNom = new FileReader(fileNom);
         BufferedReader brNom = new BufferedReader(frNom);
         String lineNom;
 
-        File filePrenom = new File(PrenomFile);
+        File filePrenom = new File(prenomFile);
         FileReader frPrenom = new FileReader(filePrenom);
         BufferedReader brPrenom = new BufferedReader(frPrenom);
         String linePrenom;
@@ -199,9 +85,10 @@ public class Joueur extends Personne {
 
         for (int p = ListJoueur.size(); p < ListNom.size(); p++) {
             Joueur joueur = new Joueur();
-            joueur.setNomNaissance(ListNom.get((int) Random1.get(p)));
-            joueur.setPrenom(ListPrenom.get((int) Random2.get(p)));
+            joueur.nomNaissance = ListNom.get((int) Random1.get(p));
+            joueur.prenom = ListPrenom.get((int) Random2.get(p));
             joueur.classement = p + 1;
+            joueur.numero = p + 1;
             if (((int) Random3.get(p)) % 2 == 0) {
                 joueur.bras = "droit";
             } else {
@@ -224,13 +111,13 @@ public class Joueur extends Personne {
         int compteur = 0;
 
         for (int i = 0; i < ListJoueur.size(); i++) {
-            System.out.println("Joueur " + (i + 1));
-            System.out.println("Bras =" + ListJoueur.get(i).bras);
-            System.out.println("Prenom =" + ListJoueur.get(i).getPrenom());
-            System.out.println("nomNaissance =" + ListJoueur.get(i).getNomNaissance());
-            System.out.println("Classement =" + ListJoueur.get(i).classement);
-            //System.out.println("Numero =" + ListJoueur.get(i).NumeroMatch);
-            System.out.println("Qualification =" + ListJoueur.get(i).qualification);
+            System.out.println("Joueur n*  " + (i + 1));
+            System.out.println("Prise de la raquette : " + ListJoueur.get(i).bras);
+            System.out.println("Prenom               : " + ListJoueur.get(i).prenom);
+            System.out.println("Nom de naissance     : " + ListJoueur.get(i).nomNaissance);
+            System.out.println("Classement           : " + ListJoueur.get(i).classement);
+            System.out.println("Numero Tournoi       : " + ListJoueur.get(i).numero);
+            System.out.println("Qualification        : " + ListJoueur.get(i).qualification);
             System.out.println("\n");
         }
     }
@@ -238,32 +125,22 @@ public class Joueur extends Personne {
     public static Joueur NewJoueur(int n) {
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bras de votre Joueur (droitier/gaucher):");
+        System.out.println("Prise de la raquette (droit/gauche) ?");
         String str = sc.nextLine();
         joueur.bras = str;
         System.out.println("Prenom de votre Joueur :");
         str = sc.nextLine();
-        joueur.setPrenom(str); 
+        joueur.prenom = str;
         System.out.println("nomNaissance de votre Joueur :");
         str = sc.nextLine();
-        joueur.setNomNaissance(str);
+        joueur.nomNaissance = str;
         joueur.classement = n + 1;
+        joueur.numero = n+1;
         joueur.qualification = "qualifie";
 
         return joueur;
     }
 
-    public static void AffichageStat(ArrayList<Joueur> ListJoueur) {
-        System.out.println("Statistiques joueurs :\n");
-        System.out.println("Numéro    Nom       Prénom       Point     Jeu       Set      Service    Faute");
-        System.out.println("                                                               Réussi");
-        for (int i = 0; i < ListJoueur.size(); i++) {
-
-            System.out.println(Tournoi.affichageTxt(String.valueOf(i + 1)) + Tournoi.affichageTxt(ListJoueur.get(i).getNomNaissance()) + Tournoi.affichageTxt(ListJoueur.get(i).getPrenom()) + ":    " + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).pointJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).JeuJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).SetJoueur)) + Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Service))+ Tournoi.affichageTxt(String.valueOf(ListJoueur.get(i).Faute)));
-
-            System.out.println("\n");
-
-        }
-    }
+    
 
 }

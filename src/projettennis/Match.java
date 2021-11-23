@@ -5,7 +5,7 @@
  */
 package projettennis;
 
-import java.util.ArrayList;
+
 import java.util.Random;
 
 /**
@@ -16,82 +16,73 @@ public class Match {
 
     Joueur Joueur1 = new Joueur();
     Joueur Joueur2 = new Joueur();
-    
-    
+
     Arbitre arbitre = new Arbitre();
-    int Resultat = 0;
-    int DernierService = 0;
-    int Perdant = 0;
+    int resultat = 0;                               //savoir si le match a deja été joué ou non, 1 oui 2 non
+    int dernierService = 0;
+    int perdant = 0;
 
     public static Match JouerM(Match match, int n, Tournoi ObjTournoi, int auto) {
-
+        Set set = new Set();
         int NbrSetMax = 0;
-        int setjoueur1 = 0;
-        int setjoueur2 = 0;
 
         if (ObjTournoi.genre.equals("Masculin")) {
             NbrSetMax = 3;
         } else {
             NbrSetMax = 2;
         }
-        System.out.println("Debut du match " + n + " " + match.Joueur1.getNomNaissance() + " contre " + match.Joueur2.getNomNaissance());
+        System.out.println("Debut du match n*" + n + " : " + match.Joueur1.nomNaissance + " " + match.Joueur1.prenom + " contre " + match.Joueur2.nomNaissance + " " + match.Joueur1.prenom);
 
-        while ((setjoueur1 != NbrSetMax) & (setjoueur2 != NbrSetMax)) {
+        while ((set.setJoueur1 != NbrSetMax) & (set.setJoueur2 != NbrSetMax)) {
+            match.dernierService=Match.DeterminationService(match, n);
+            match = Set.set(match, ObjTournoi, n, match.dernierService, auto, set.setJoueur1, set.setJoueur2);
 
-            match = Set.set(match, n, match.DernierService, auto, setjoueur1, setjoueur2);
+            if (match.Joueur1.WinSet == 1) {
+                set.setJoueur1++;
+                match.Joueur1.SetJoueur++;
+            } else {
+                set.setJoueur2++;
+                match.Joueur2.SetJoueur++;
+            }
+        }
+        if (set.setJoueur1 == NbrSetMax) {
+            if (ObjTournoi.nbTour == 7) {
 
-            if (match.Joueur1.getWinSet() == 1) {
-                setjoueur1++;
-                
-                match.Joueur1.incrementeSetJoueur();
-             
+                System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.nomNaissance + " est le gagnant de la petite finale.");
+                System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
+                match.Joueur1.qualification = "Gagnant PF";
 
             } else {
-                setjoueur2++;
-                
-                match.Joueur2.incrementeSetJoueur();
-               
+
+                System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.nomNaissance + " est qualifié pour le tour suivant.");
+                System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
             }
-            System.out.println("\n");
-            //  Match.AffichageScoreSet(ListMatch, n, setjoueur1, setjoueur2);
-            System.out.println("\n");
+            match.Joueur2.qualification = ObjTournoi.tour;
+            match.perdant = 2;
 
-        }
-        if (setjoueur1 == NbrSetMax) {
-                if (ObjTournoi.nbTour==7){
-                    
-                    System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.getNomNaissance() + " est le gagnant de la petite finale.");
-                    System.out.println("Le joueur 2 " + match.Joueur2.getNomNaissance() + " est éliminé.");
-                    
-                    
-                }
-                
-                System.out.println("Fin du Match, Le joueur 1 " + match.Joueur1.getNomNaissance() + " est qualifié pour le tour suivant.");
-                System.out.println("Le joueur 2 " + match.Joueur2.getNomNaissance() + " est éliminé.");
-                match.Joueur2.setQualification(ObjTournoi.tour);
-                match.Perdant=2;
-          
         } else {
-                if (ObjTournoi.nbTour==7){
-                   
-                    System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.getNomNaissance() + " est le gagnant de la petite finale.");
-                    System.out.println("Le joueur 1 " + match.Joueur1.getNomNaissance() + " est éliminé.");
-                    
-                }
-                
-                System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.getNomNaissance() + " est qualifié pour le tour suivant.");
-                System.out.println("Le joueur 1 " + match.Joueur1.getNomCourant() + " est éliminé.");
-                match.Joueur1.setQualification(ObjTournoi.tour);
-                match.Perdant=1;
+            if (ObjTournoi.nbTour == 7) {
+
+                System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.nomNaissance + " est le gagnant de la petite finale.");
+                System.out.println("Le joueur 1 " + match.Joueur1.nomNaissance + " est éliminé.");
+                match.Joueur2.qualification = "Gagnant PF";
+
+            } else {
+
+                System.out.println("Fin du Match, Le joueur 2 " + match.Joueur2.nomNaissance + " est qualifié pour le tour suivant.");
+                System.out.println("Le joueur 1 " + match.Joueur1.nomNaissance + " est éliminé.");
+            }
+
+            match.Joueur1.qualification = ObjTournoi.tour;
+            match.perdant = 1;
         }
+        System.out.println("\n\n");
+        match.resultat = 1;
 
-    match.Resultat  = 1;              
-    
+        return match;
+    }
 
-    return match ;
-}
-
-public static int DeterminationService(Match match, int n) {            //dertmine qui commence avec le service
+    public static int DeterminationService(Match match, int n) {            //dertmine qui commence avec le service
 
         Random random = new Random();
         int nb;
@@ -100,9 +91,9 @@ public static int DeterminationService(Match match, int n) {            //dertmi
         String joueur;
         nb = 1 + random.nextInt(Borne1 - Borne2);
         if (nb == 1) {
-            joueur = match.Joueur1.getNomNaissance();
+            joueur = match.Joueur1.nomNaissance;
         } else {
-            joueur = match.Joueur2.getNomNaissance();
+            joueur = match.Joueur2.nomNaissance;
         }
         System.out.println("Le joueur " + joueur + " commence avec le service");
         return nb;
