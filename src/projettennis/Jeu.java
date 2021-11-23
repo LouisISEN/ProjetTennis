@@ -19,9 +19,9 @@ public class Jeu {
     public static Match jeu(Match match, Tournoi ObjTournoi, int n, int a, int auto, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
 
         Echange point = new Echange();
+        
         match.Joueur1.WinJeu = 0;
         match.Joueur2.WinJeu = 0;
-        
 
         System.out.println("Debut jeu");
         System.out.println("\n");
@@ -33,8 +33,8 @@ public class Jeu {
 
             if (auto == 1) {
                 
-                if (Echange.Service(match, match.DernierService, (n - 1)) == 1) {
-                    if (match.DernierService == 1) {
+                if (Echange.Service(match, match.dernierService, (n - 1)) == 1) {
+                    if (match.dernierService == 1) {
                         
                         if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
                             point.pointJoueur2 = 3;
@@ -64,7 +64,7 @@ public class Jeu {
                      
                     }
                 } else {
-                    if (match.DernierService == 1) {
+                    if (match.dernierService == 1) {
                         if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
                             point.pointJoueur1 = 3;
                             point.pointJoueur2 = 3;
@@ -95,8 +95,8 @@ public class Jeu {
 
                 }
             } else {
-                          if (Echange.ServiceAuto(match, match.DernierService, (n - 1)) == 1) {
-                    if (match.DernierService == 1) {
+                          if (Echange.ServiceAuto(match, match.dernierService, (n - 1)) == 1) {
+                    if (match.dernierService == 1) {
                         if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
                             point.pointJoueur2 = 3;
                             point.pointJoueur1 = 3;
@@ -125,7 +125,7 @@ public class Jeu {
                       
                     }
                 } else {
-                    if (match.DernierService == 1) {
+                    if (match.dernierService == 1) {
                         if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
                             point.pointJoueur1 = 3;
                             point.pointJoueur2 = 3;

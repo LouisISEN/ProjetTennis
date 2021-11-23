@@ -18,9 +18,9 @@ public class Match {
     Joueur Joueur2 = new Joueur();
 
     Arbitre arbitre = new Arbitre();
-    int Resultat = 0;                               //savoir si le match a deja été joué ou non, 1 oui 2 non
-    int DernierService = 0;
-    int Perdant = 0;
+    int resultat = 0;                               //savoir si le match a deja été joué ou non, 1 oui 2 non
+    int dernierService = 0;
+    int perdant = 0;
 
     public static Match JouerM(Match match, int n, Tournoi ObjTournoi, int auto) {
         Set set = new Set();
@@ -34,8 +34,8 @@ public class Match {
         System.out.println("Debut du match n*" + n + " : " + match.Joueur1.nomNaissance + " " + match.Joueur1.prenom + " contre " + match.Joueur2.nomNaissance + " " + match.Joueur1.prenom);
 
         while ((set.setJoueur1 != NbrSetMax) & (set.setJoueur2 != NbrSetMax)) {
-            match.DernierService=Match.DeterminationService(match, n);
-            match = Set.set(match, ObjTournoi, n, match.DernierService, auto, set.setJoueur1, set.setJoueur2);
+            match.dernierService=Match.DeterminationService(match, n);
+            match = Set.set(match, ObjTournoi, n, match.dernierService, auto, set.setJoueur1, set.setJoueur2);
 
             if (match.Joueur1.WinSet == 1) {
                 set.setJoueur1++;
@@ -58,7 +58,7 @@ public class Match {
                 System.out.println("Le joueur 2 " + match.Joueur2.nomNaissance + " est éliminé.");
             }
             match.Joueur2.qualification = ObjTournoi.tour;
-            match.Perdant = 2;
+            match.perdant = 2;
 
         } else {
             if (ObjTournoi.nbTour == 7) {
@@ -74,10 +74,10 @@ public class Match {
             }
 
             match.Joueur1.qualification = ObjTournoi.tour;
-            match.Perdant = 1;
+            match.perdant = 1;
         }
         System.out.println("\n\n");
-        match.Resultat = 1;
+        match.resultat = 1;
 
         return match;
     }
