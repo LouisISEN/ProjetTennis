@@ -34,7 +34,11 @@ public class Match {
         } else {
             NbrSetMax = 2;
         }
+<<<<<<< Updated upstream
         System.out.println("Debut du match " + n + " " + match.Joueur1.getNomNaissance() + " contre " + match.Joueur2.getNomNaissance());
+=======
+        System.out.println("Debut du match n*" + n + " : " + match.Joueur1.nomNaissance + " " + match.Joueur1.prenom + " contre " + match.Joueur2.nomNaissance + " " + match.Joueur2.prenom);
+>>>>>>> Stashed changes
 
         while ((setjoueur1 != NbrSetMax) & (setjoueur2 != NbrSetMax)) {
 

@@ -44,7 +44,7 @@ public class Echange {
                 a = 0;
             }
 
-            Arbitre.annonce(str, joueur);
+            Arbitre.annonce(str, joueur); 
 
         }
         return str;
@@ -53,6 +53,8 @@ public class Echange {
     public static int ServiceAuto(Match match, int nbService, int nbMatch) {
 
         int a = 1;
+        int let = 0;
+        int nb=0;
         String joueur;
 
         if (nbService == 1) {
@@ -63,20 +65,36 @@ public class Echange {
 
         System.out.println("Le joueur " + joueur + " sert : ");
         Random random = new Random();
-        int nb;
+        
         int Borne1 = 100;
         int Borne2 = 0;
+        
+        while(a!=0){
+            
         nb = 1 + random.nextInt(Borne1 - Borne2);
+        
         if ((1 <= nb) & (nb < 45)) {
-            nb = 1;
+            nb = 1;                         //marque
         }
         if ((45 <= nb) & (nb < 90)) {
-            nb = 2;
+            nb = 2;                         //faute
         }
         if ((90 <= nb) & (nb <= 100)) {
-            nb = 3;
+            nb = 3;                         //let
         }
-       Arbitre.annonce(nb, joueur);
+        
+            if ((nb == 1) || (nb == 2)) {
+                a = 0;
+            } else if (nb == 3) {
+                let++;
+            }
+
+            if (let == 2) {
+                nb = 2;
+                a = 0;
+            }
+            Arbitre.annonce(nb, joueur);
+        }
 
         return nb;
     }

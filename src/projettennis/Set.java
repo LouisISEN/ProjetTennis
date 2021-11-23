@@ -12,10 +12,19 @@ import java.util.ArrayList;
  * @author axand
  */
 public class Set {
+<<<<<<< Updated upstream
+=======
+
+    int setJoueur1;
+    int setJoueur2;
+
+    public static Match set(Match match, Tournoi ObjTournoi, int n, int a, int auto, int setjoueur1, int setjoueur2) {
+>>>>>>> Stashed changes
 
     public static Match set(Match match, int n, int a, int auto, int setjoueur1, int setjoueur2) {
         
         System.out.println("Debut Set");
+<<<<<<< Updated upstream
         
         int jeujoueur1 = 0;
         int jeujoueur2 = 0;
@@ -57,6 +66,29 @@ public class Set {
                 
                 
 
+=======
+
+        Jeu jeu = new Jeu();
+        match.Joueur1.WinSet = 0;
+        match.Joueur2.WinSet = 0;
+
+        while (((jeu.jeuJoueur1 < 6) & (jeu.jeuJoueur2 < 6)) | ((Math.abs(jeu.jeuJoueur1 - jeu.jeuJoueur2)) < 2)) {
+            if (match.DernierService == 1) {
+                System.out.println("Le joueur " + match.Joueur1.nomNaissance + " a le service");
+            } else {
+                System.out.println("Le joueur " + match.Joueur2.nomNaissance + " a le service");
+            }
+            match = Jeu.jeu(match, ObjTournoi, n, match.DernierService, auto, jeu.jeuJoueur1, jeu.jeuJoueur2, setjoueur1, setjoueur2);
+            if (match.DernierService == 1) {
+                match.DernierService = 2;
+            } else {
+                match.DernierService = 1;
+            }
+
+            if (match.Joueur1.WinJeu == 1) {
+                jeu.jeuJoueur1++;
+                match.Joueur1.JeuJoueur++;
+>>>>>>> Stashed changes
             } else {
 
                 jeujoueur2++;
