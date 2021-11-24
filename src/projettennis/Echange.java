@@ -81,7 +81,7 @@ public class Echange {
     }
 
     public static int ServiceAuto(Match match, int nbService, int nbMatch) {            //joue le service automatiquement, le résultat du service est aléatoirement
-
+        
         int a = 1;
         int nb=0;
         int let=0;
@@ -102,12 +102,15 @@ public class Echange {
 
            if ((1 <= nb) & (nb < 45)) {                     //probabilité de 0.45 d'avoir marqué, de 0.45 de faire faute et de 0.10 de faire un let
             nb = 1;
+            Spectateur.applaudir();
         }
         if ((45 <= nb) & (nb < 90)) {
             nb = 2;
+            Spectateur.huer();
         }
         if ((90 <= nb) & (nb <= 100)) {
             nb = 3;
+           Spectateur.crier();
         }
         while (a != 0) {
 

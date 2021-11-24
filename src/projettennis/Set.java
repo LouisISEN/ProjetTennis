@@ -8,12 +8,14 @@ package projettennis;
 import java.util.ArrayList;
 
 /**
+ * La class Set permet de gérer les nombre de Jeu dans un set, ainsi que les
+ * statistiques joueurs (nombre de jeu gagné)
  *
  * @author axand
  */
 public class Set {
-    
-    private int setJoueur1;
+
+    private int setJoueur1;             // attributs faisant avancer le match 
     private int setJoueur2;
 
     public int getSetJoueur1() {
@@ -40,42 +42,40 @@ public class Set {
         setJoueur2++;
     }
 
-    
-
-    
     public static Match set(Match match, Tournoi ObjTournoi, int n, int a, int auto, int setJoueur1, int setJoueur2) {
 
         System.out.println("Debut Set");
-        
-  
-        Jeu jeu = new Jeu();
+
+        Jeu jeu = new Jeu();                //créer un nouveau jeu
         match.joueur1.setWinSet(0);
         match.joueur2.setWinSet(0);
 
         while (((jeu.getJeuJoueur1() < 6) & (jeu.getJeuJoueur2() < 6)) | ((Math.abs(jeu.getJeuJoueur1() - jeu.getJeuJoueur2())) < 2)) {
-
-            match = Jeu.jeu(match, ObjTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
-            if (match.getDernierService()== 1) {
-                match.setDernierService(2);
-            } else {
-                match.setDernierService(1);
-            }
-            if (a == 1) {
+    // Le set se joue jusqu'à ce que l'un des 2 joueurs gagnent 6 jeux à condition qu'il y ait 2 jeux d'ecarts, sinon on continue
+            if (a == 1) {                                                                       //Affichage du joueur qui a le service a chaque jeu
                 System.out.println("Le joueur " + match.joueur1.getNomNaissance() + " a le service");
             } else {
                 System.out.println("Le joueur " + match.joueur2.getNomNaissance() + " a le service");
             }
-            if (match.joueur1.getWinJeu() == 1) {
-                jeu.IncrementeJeuJoueur1();;
-                match.joueur1.IncrementeJeuJoueur();;
+            
+            match = Jeu.jeu(match, ObjTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
+            if (match.getDernierService() == 1) {                                                //appel de la fonction jeu qui gére les affichages scores et les échanges
+                match.setDernierService(2);                                                     // Permet d'alterner les services à chaque jeu
             } else {
-                jeu.IncrementeJeuJoueur2();;
+                match.setDernierService(1);
+            }
+
+            if (match.joueur1.getWinJeu() == 1) {                                               //si le joueur1 gagne le jeu on incremente sa statistiques jeu gagné
+                jeu.IncrementeJeuJoueur1();;                                                    //et la variable jeujoueur1 qui permet l'avancement du set
+                match.joueur1.IncrementeJeuJoueur();;
+            } else {                                                                             //si le joueur2 gagne le jeu on incremente sa statistiques jeu gagné
+                jeu.IncrementeJeuJoueur2();;                                                     //et la variable jeujoueur1 qui permet l'avancement du set
 
                 match.joueur2.IncrementeJeuJoueur();;
             }
         }
-        if (jeu.getJeuJoueur1() > jeu.getJeuJoueur2()) {
-
+        if (jeu.getJeuJoueur1() > jeu.getJeuJoueur2()) {                                         // Détermine qui a gagné le set
+            
             match.joueur1.setWinSet(1);
 
         } else {
@@ -83,7 +83,7 @@ public class Set {
             match.joueur2.setWinSet(1);
 
         }
-
+        Spectateur.applaudir();
         System.out.println("Fin du Set");
         return match;
     }

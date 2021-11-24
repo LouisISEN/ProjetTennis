@@ -18,7 +18,7 @@ import java.util.Scanner;
  *La class Joueur permet de créer un/des joueurs manuellement, générer des joueurs avec des attributs aléatoires, ainsi que d'afficher la liste de joueur
  * @author axand
  */
-public class Joueur extends Personne {
+public class Joueur extends Personne implements Vetement {
 
 
     private String bras;
@@ -316,6 +316,11 @@ public class Joueur extends Personne {
 
         return joueur;
     }
+    
+    @Override
+    public void ChangerVetement() {
+        System.out.println("Change de T-shirt");
+}
 
     
 
