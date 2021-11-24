@@ -20,13 +20,15 @@ import java.util.Scanner;
  */
 public class Joueur extends Personne {
 
-    
 
     private String bras;
     private String entraineur;
-    private String sponsor;
     private int classement;
     private int numero;
+    private int taille;
+    private String sponsor;
+    private int anneeNaissance;
+    private String nationalite;
 
     private String qualification = "qualifie";
 
@@ -39,6 +41,30 @@ public class Joueur extends Personne {
     private int winSet = 0;
     private int winJeu = 0;
 
+
+    public int getTaille() {
+        return this.taille;
+    }
+
+    public void setTaille(int taille) {
+        this.taille = taille;
+    }
+
+    public int getAnneeNaissance() {
+        return this.anneeNaissance;
+    }
+
+    public void setAnneeNaissance(int anneeNaissance) {
+        this.anneeNaissance = anneeNaissance;
+    }
+
+    public String getNationalite() {
+        return this.nationalite;
+    }
+
+    public void setNationalite(String nationalite) {
+        this.nationalite = nationalite;
+    }
 
     public void IncrementePointJoueur() {
         pointJoueur++;
@@ -168,55 +194,78 @@ public class Joueur extends Personne {
 
     public static ArrayList<Joueur> GenerateurJoueur(String genre, ArrayList<Joueur> listeJoueur) throws FileNotFoundException, IOException {
         String nomFile = "nom.txt";         //ligne la = taille, sponsor, année de naissance (et en déduire l'âge), nationalité
-        String prenomFile = "";     
+        String prenomFile = "";
+        String sponsorFile="sponsor.txt";
+        String nationaliteFile="nationalite.txt";
         if (genre.equals("Féminin")) {
             prenomFile = "prenomF.txt";
         } else if (genre.equals("Masculin")) {
             prenomFile = "prenomM.txt";
         }
 
-        File fileNom = new File(nomFile);       //ligne la
-        FileReader frNom = new FileReader(fileNom);     //ligne la
-        BufferedReader brNom = new BufferedReader(frNom);       //ligne la
-        String lineNom;     //ligne la
+        File fileNom = new File(nomFile);        
+        FileReader frNom = new FileReader(fileNom);      
+        BufferedReader brNom = new BufferedReader(frNom);       
+        String lineNom;     
 
         File filePrenom = new File(prenomFile);
         FileReader frPrenom = new FileReader(filePrenom);
         BufferedReader brPrenom = new BufferedReader(frPrenom);
         String linePrenom;
 
-        ArrayList<String> ListPrenom = new ArrayList<String>();  
-        ArrayList<String> ListNom = new ArrayList<String>();        //ligne la
+        File fileSponsor = new File(sponsorFile);
+        FileReader frSponsor = new FileReader(fileSponsor);
+        BufferedReader brSponsor = new BufferedReader(frSponsor);
+        String lineSponsor;
+
+        File fileNationalite = new File(nationaliteFile);
+        FileReader frNationalite = new FileReader(fileNationalite);
+        BufferedReader brNationalite = new BufferedReader(frNationalite);
+        String lineNationalite;
+
+        ArrayList<String> listPrenom = new ArrayList<String>();  
+        ArrayList<String> listNom = new ArrayList<String>();        //ligne la
+        ArrayList<String> listSponsor = new ArrayList<String>();
+        ArrayList<String> listNationalite = new ArrayList<String>();
 
         while ((lineNom = brNom.readLine()) != null) {      //ligne la, while qui ajoute dans la liste les noms du .txt
-            ListNom.add(lineNom);
+            listNom.add(lineNom);
         }
 
         while ((linePrenom = brPrenom.readLine()) != null) {
-            ListPrenom.add(linePrenom);
+            listPrenom.add(linePrenom);
 
         }
+    
 
-        ArrayList Random1 = new ArrayList();        //ligne la
-        ArrayList Random2 = new ArrayList();
-        ArrayList Random3 = new ArrayList();
-
-        for (int k = 0; k < ListNom.size(); k++) {      //ligne la, remplace la liste random de chiffres
-            Random1.add(k);
-            Random2.add(k);
-            Random3.add(k);
+        while ((lineNationalite = brNationalite.readLine()) != null) {
+            listNationalite.add(lineNationalite);
         }
-        Collections.shuffle(Random1);       //ligne la, mélange les chiffres 
-        Collections.shuffle(Random2);
-        Collections.shuffle(Random3);
 
-        for (int p = listeJoueur.size(); p < ListNom.size(); p++) {     //ligne la
+        while ((lineSponsor = brSponsor.readLine()) != null) {
+            listSponsor.add(lineSponsor);
+        }
+
+        ArrayList random1 = new ArrayList();        //ligne la
+        ArrayList random2 = new ArrayList();
+        ArrayList random3 = new ArrayList();
+
+        for (int k = 0; k < listNom.size(); k++) {      //ligne la, remplace la liste random de chiffres
+            random1.add(k);
+            random2.add(k);
+            random3.add(k);
+        }
+        Collections.shuffle(random1);       //ligne la, mélange les chiffres 
+        Collections.shuffle(random2);
+        Collections.shuffle(random3);
+
+        for (int p = listeJoueur.size(); p < listNom.size(); p++) {     //ligne la
             Joueur joueur = new Joueur();   //ligne la
-            joueur.setNomNaissance(ListNom.get((int) Random1.get(p)));  //ligne la
-            joueur.setPrenom(ListPrenom.get((int) Random2.get(p)));
+            joueur.setNomNaissance(listNom.get((int) random1.get(p)));  //ligne la
+            joueur.setPrenom(listPrenom.get((int) random2.get(p)));
             joueur.classement = p + 1;
             joueur.numero = p + 1;
-            if (((int) Random3.get(p)) % 2 == 0) {
+            if (((int) random3.get(p)) % 2 == 0) {
                 joueur.bras = "droit";
             } else {
                 joueur.bras = "gauche";
