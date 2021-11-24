@@ -50,7 +50,7 @@ public class Arbitre extends Personne {
      public static ArrayList<Arbitre> GenerateurArbitre(String genre) throws FileNotFoundException, IOException {
         String NomFile = "nom.txt";
         String PrenomFile ="";
-        ArrayList<Arbitre> ListArbitre = new ArrayList();
+        ArrayList<Arbitre> ListArbitre = new ArrayList<Arbitre>();
           if (genre.equals("Féminin")) {
             PrenomFile = "info-arbitreF.txt";;
         } else if (genre.equals("Masculin")) {

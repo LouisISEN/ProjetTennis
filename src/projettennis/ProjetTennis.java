@@ -166,57 +166,57 @@ public class ProjetTennis {
                                 }
                             }
                             if (str3.equals("oui") == true){
-                            Scanner NumMatch = new Scanner(System.in);
-                            int IntMatch = 0;
+                            Scanner numMatch = new Scanner(System.in);
+                            int intMatch = 0;
 
                             if (str3.equals("oui") == true) {
-                                while ((IntMatch == 0) || (IntMatch > listMatch.size())) {
+                                while ((intMatch == 0) || (intMatch > listMatch.size())) {
                                     System.out.println(" Quel match voulez vous jouer (numero du match) ?");
 
                                     try {
-                                        IntMatch = Integer.parseInt(NumMatch.nextLine());
+                                        intMatch = Integer.parseInt(numMatch.nextLine());
                                     } catch (NumberFormatException e) {
                                         System.out.println("EXCEPTION");
                                     }
-                                    if ((IntMatch == 0) && IntMatch > listMatch.size()) {
+                                    if ((intMatch == 0) && intMatch > listMatch.size()) {
                                         System.out.println("Numero de match invalide");
                                     }
                                 }
                                
                                 auto = 1;
-                                if (listMatch.get(IntMatch - 1).getResultat() == 1) {
-                                    System.out.println("le match n*" + IntMatch + " a deja ete joué.");
+                                if (listMatch.get(intMatch - 1).getResultat() == 1) {
+                                    System.out.println("le match n*" + intMatch + " a deja ete joué.");
 
                                 } else {
-                                    Match BufferMatch = new Match();
+                                    Match bufferMatch = new Match();
                                     if (objTournoi.getNbTour() == 7) {
                                         System.out.println(objTournoi.getNbTour());
 
-                                        BufferMatch = Match.JouerM(listMatch.get(0), IntMatch, objTournoi, auto);
-                                        if (BufferMatch.getPerdant() == 1) {
-                                            listClassement.set(listClassement.size() - 2, BufferMatch.joueur1);
-                                            listClassement.set(listClassement.size() - 1, BufferMatch.joueur2);
+                                        bufferMatch = Match.JouerM(listMatch.get(0), intMatch, objTournoi, auto);
+                                        if (bufferMatch.getPerdant() == 1) {
+                                            listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);
+                                            listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);
 
                                         } else {
-                                            listClassement.set(listClassement.size() - 2, BufferMatch.joueur2);
-                                            listClassement.set(listClassement.size() - 1, BufferMatch.joueur1);
+                                            listClassement.set(listClassement.size() - 2, bufferMatch.joueur2);
+                                            listClassement.set(listClassement.size() - 1, bufferMatch.joueur1);
 
                                         }
                                     } else {
 
-                                        BufferMatch = Match.JouerM(listMatch.get(IntMatch - 1), IntMatch, objTournoi, auto);
+                                        bufferMatch = Match.JouerM(listMatch.get(intMatch - 1), intMatch, objTournoi, auto);
                                         if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {
-                                            if (BufferMatch.getPerdant() == 1) {
-                                                listClassement = Tournoi.Classement(listClassement, BufferMatch.joueur1);
+                                            if (bufferMatch.getPerdant() == 1) {
+                                                listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur1);
 
                                             } else {
-                                                listClassement = Tournoi.Classement(listClassement, BufferMatch.joueur2);
+                                                listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur2);
 
                                             }
                                         }
                                     }
 
-                                    listMatch.set(IntMatch - 1, BufferMatch);
+                                    listMatch.set(intMatch - 1, bufferMatch);
 
                                 }
                                 System.out.println("Voulez-vous jouer un autre Match ?");
@@ -230,41 +230,41 @@ public class ProjetTennis {
                         Utilitaire.delay(2000);
                         auto = 2;
                         int n = 1;
-                        Match BufferMatch = new Match();
+                        Match bufferMatch = new Match();
                         if ((objTournoi.getNbTour() == 7)) {
 
                             System.out.println(objTournoi.getNbTour());
 
                             System.out.println("\n");
-                            BufferMatch = Match.JouerM(listMatch.get(0), n, objTournoi, auto);
-                            if (BufferMatch.getPerdant() == 1) {
-                                listClassement.set(listClassement.size() - 2, BufferMatch.joueur1);
-                                listClassement.set(listClassement.size() - 1, BufferMatch.joueur2);
+                            bufferMatch = Match.JouerM(listMatch.get(0), n, objTournoi, auto);
+                            if (bufferMatch.getPerdant() == 1) {
+                                listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);
+                                listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);
 
                             } else {
-                                listClassement.set(listClassement.size() - 2, BufferMatch.joueur2);
-                                listClassement.set(listClassement.size() - 1, BufferMatch.joueur1);
+                                listClassement.set(listClassement.size() - 2, bufferMatch.joueur2);
+                                listClassement.set(listClassement.size() - 1, bufferMatch.joueur1);
 
                             }
 
-                            listMatch.set(0, BufferMatch);
+                            listMatch.set(0, bufferMatch);
                             objTournoi.IncrementeNbTour();
                         } else {
                             while (n <= listMatch.size()) {
                                 if (listMatch.get(n - 1).getResultat()== 0) {
 
                                   
-                                    BufferMatch = Match.JouerM(listMatch.get(n - 1), n, objTournoi, auto);
+                                    bufferMatch = Match.JouerM(listMatch.get(n - 1), n, objTournoi, auto);
                                     if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {
-                                        if (BufferMatch.getPerdant() == 1) {
-                                            listClassement = Tournoi.Classement(listClassement, BufferMatch.joueur1);
+                                        if (bufferMatch.getPerdant() == 1) {
+                                            listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur1);
 
                                         } else {
-                                            listClassement = Tournoi.Classement(listClassement, BufferMatch.joueur2);
+                                            listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur2);
 
                                         }
                                     }
-                                    listMatch.set(n - 1, BufferMatch);
+                                    listMatch.set(n - 1, bufferMatch);
 
                                 }
                                 n++;

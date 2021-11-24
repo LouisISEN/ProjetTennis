@@ -227,6 +227,8 @@ public class Joueur extends Personne {
         ArrayList<String> listNom = new ArrayList<String>();        //ligne la
         ArrayList<String> listSponsor = new ArrayList<String>();
         ArrayList<String> listNationalite = new ArrayList<String>();
+        ArrayList<Integer> listTaille = new ArrayList<Integer>();
+        ArrayList<Integer> listAnneeNaissance = new ArrayList<Integer>();
 
         while ((lineNom = brNom.readLine()) != null) {      //ligne la, while qui ajoute dans la liste les noms du .txt
             listNom.add(lineNom);
@@ -246,34 +248,70 @@ public class Joueur extends Personne {
             listSponsor.add(lineSponsor);
         }
 
-        ArrayList random1 = new ArrayList();        //ligne la
-        ArrayList random2 = new ArrayList();
-        ArrayList random3 = new ArrayList();
+        ArrayList<Integer> random1 = new ArrayList<Integer>();        //ligne la
+        ArrayList<Integer> random2 = new ArrayList<Integer>();
+        ArrayList<Integer> random3 = new ArrayList<Integer>();      //pour les noms, prénoms, bras des joueurs
+        ArrayList<Integer> random4 = new ArrayList<Integer>();      //pour les tailles
+        ArrayList<Integer> random5 = new ArrayList<Integer>();      //pour les années de naissance
+        ArrayList<Integer> random6 = new ArrayList<Integer>();      //pour les nationalités
+        
 
         for (int k = 0; k < listNom.size(); k++) {      //ligne la, remplace la liste random de chiffres
             random1.add(k);
             random2.add(k);
             random3.add(k);
         }
-        Collections.shuffle(random1);       //ligne la, mélange les chiffres 
+        for (int j = 160; j<220;j++) {      //tailles des joueurs comprises entre 160 et 220cm
+            random4.add(j);
+        }
+        for (int h = 1976; h<2003;h++) {        //date de naissance comprises entre 1976 et 2003
+            random5.add(h);
+        }
+
+        for(int u = 0;u<33;u++) {       //pour avoir autant de valeurs dans random6 que dans listNationalite
+            random6.add(u);
+        }
+
+        Collections.shuffle(random1);       //mélange les chiffres dans les listes random
         Collections.shuffle(random2);
         Collections.shuffle(random3);
+        Collections.shuffle(random4);
+        Collections.shuffle(random5);
+        Collections.shuffle(random6);
 
-        for (int p = listeJoueur.size(); p < listNom.size(); p++) {     //ligne la
-            Joueur joueur = new Joueur();   //ligne la
-            joueur.setNomNaissance(listNom.get((int) random1.get(p)));  //ligne la
-            joueur.setPrenom(listPrenom.get((int) random2.get(p)));
-            joueur.setNationalite(listNationalite.get((int)random1.get(p)));
-            joueur.setSponsor(listSponsor.get((int)random2.get(p)));
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        for (int p = listeJoueur.size(); p < listNom.size(); p++) {      
+            Joueur joueur = new Joueur();
+            joueur.setNomNaissance(listNom.get(random1.get(p)));  
+            joueur.setPrenom(listPrenom.get(random2.get(p)));
+            if (a==33) {
+                a=0;
+            }
+            if (b==59) {
+                b=0;
+            }
+            //
+            if (c==26) {
+                c=0;
+            }
+            joueur.setNationalite(listNationalite.get(random6.get(a)));
+            joueur.setSponsor(listSponsor.get(random6.get(a)));
+            joueur.setTaille(random4.get(b));
+            joueur.setAnneeNaissance(random5.get(c));
             joueur.classement = p + 1;
             joueur.numero = p + 1;
-            if (((int) random3.get(p)) % 2 == 0) {
+            
+            if ((random3.get(p)) % 2 == 0) {
                 joueur.bras = "droit";
             } else {
                 joueur.bras = "gauche";
             }
             listeJoueur.add(joueur);
-
+            a++;
+            b++;
+            c++;
         }
 
         frPrenom.close();
@@ -290,10 +328,14 @@ public class Joueur extends Personne {
             System.out.println("Prise de la raquette : " + listeJoueur.get(i).bras);
             System.out.println("Prenom               : " + listeJoueur.get(i).getPrenom());
             System.out.println("Nom de naissance     : " + listeJoueur.get(i).getNomNaissance());
+            System.out.println("Nationalite          : " + listeJoueur.get(i).nationalite);
+            System.out.println("Annee de naissance   : " + listeJoueur.get(i).anneeNaissance);
+            System.out.println("Taille               : " + listeJoueur.get(i).taille);
             System.out.println("Classement           : " + listeJoueur.get(i).classement);
             System.out.println("Numero Tournoi       : " + listeJoueur.get(i).numero);
             System.out.println("Qualification        : " + listeJoueur.get(i).qualification);
-            //ligne la à rajouter ici pour les attributs
+            System.out.println("Sponsor              : " + listeJoueur.get(i).sponsor);
+            
             System.out.println("\n");
         }
     }
@@ -301,15 +343,36 @@ public class Joueur extends Personne {
     public static Joueur NewJoueur(int n) {
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
+        Scanner sc2 = new Scanner(System.in);
         System.out.println("Prise de la raquette (droit/gauche) ?");
         String str = sc.nextLine();
         joueur.bras = str;
+
         System.out.println("Prenom de votre Joueur :");
         str = sc.nextLine();
         joueur.setPrenom(str);
+
         System.out.println("nomNaissance de votre Joueur :");
         str = sc.nextLine();
         joueur.setNomNaissance(str);
+
+        System.out.println("Annee de naissance de votre Joueur :");
+        int str2 = sc2.nextInt();
+        joueur.setAnneeNaissance(str2);
+
+        System.out.println("Nationalite de votre Joueur :");
+        str = sc.nextLine();
+        joueur.setNationalite(str);
+
+        System.out.println("Taille de votre Joueur :");
+        str2 = sc2.nextInt();
+        joueur.setTaille(str2);
+
+        System.out.println("Sponsor de votre Joueur :");
+        str = sc.nextLine();
+        joueur.setSponsor(str);
+        
+
         joueur.classement = n + 1;
         joueur.numero = n+1;
         joueur.qualification = "qualifie";
