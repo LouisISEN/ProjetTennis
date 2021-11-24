@@ -263,6 +263,8 @@ public class Joueur extends Personne {
             Joueur joueur = new Joueur();   //ligne la
             joueur.setNomNaissance(listNom.get((int) random1.get(p)));  //ligne la
             joueur.setPrenom(listPrenom.get((int) random2.get(p)));
+            joueur.setNationalite(listNationalite.get((int)random1.get(p)));
+            joueur.setSponsor(listSponsor.get((int)random2.get(p)));
             joueur.classement = p + 1;
             joueur.numero = p + 1;
             if (((int) random3.get(p)) % 2 == 0) {
