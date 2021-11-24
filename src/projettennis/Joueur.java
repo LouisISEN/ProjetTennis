@@ -66,23 +66,23 @@ public class Joueur extends Personne implements Vetement {
         this.nationalite = nationalite;
     }
 
-    public void IncrementePointJoueur() {
+    public void incrementePointJoueur() {
         pointJoueur++;
     }
 
-    public void IncrementeService() {
+    public void incrementeService() {
         service++;
     }
 
-    public void IncrementeFaute() {
+    public void incrementeFaute() {
         faute++;
     }
 
-    public void IncrementeSetJoueur() {
+    public void incrementeSetJoueur() {
         setJoueur++;
     }
 
-    public void IncrementeJeuJoueur() {
+    public void incrementeJeuJoueur() {
         jeuJoueur++;
     }
 
@@ -192,7 +192,7 @@ public class Joueur extends Personne implements Vetement {
     }
     
 
-    public static ArrayList<Joueur> GenerateurJoueur(String genre, ArrayList<Joueur> listeJoueur) throws FileNotFoundException, IOException {
+    public static ArrayList<Joueur> generateurJoueur(String genre, ArrayList<Joueur> listeJoueur) throws FileNotFoundException, IOException {
         String nomFile = "nom.txt";         //ligne la = taille, sponsor, année de naissance (et en déduire l'âge), nationalité
         String prenomFile = "";
         String sponsorFile="sponsor.txt";
@@ -227,8 +227,7 @@ public class Joueur extends Personne implements Vetement {
         ArrayList<String> listNom = new ArrayList<String>();        
         ArrayList<String> listSponsor = new ArrayList<String>();
         ArrayList<String> listNationalite = new ArrayList<String>();
-        ArrayList<Integer> listTaille = new ArrayList<Integer>();
-        ArrayList<Integer> listAnneeNaissance = new ArrayList<Integer>();
+       
 
         while ((lineNom = brNom.readLine()) != null) {      // while qui ajoute dans la liste les noms du .txt
             listNom.add(lineNom);
@@ -249,9 +248,9 @@ public class Joueur extends Personne implements Vetement {
         }
 
 
-        ArrayList<Integer> random1 = new ArrayList<Integer>();        //ligne la
+        ArrayList<Integer> random1 = new ArrayList<Integer>();       //on met le plus de listes random possibles afin de rendre le plus aléatoire possible les combinaisons d'attributs
         ArrayList<Integer> random2 = new ArrayList<Integer>();
-        ArrayList<Integer> random3 = new ArrayList<Integer>();      //pour les noms, prénoms, bras des joueurs
+        ArrayList<Integer> random3 = new ArrayList<Integer>();      //les 3 premières listes Random = pour les noms, prénoms, bras des joueurs
         ArrayList<Integer> random4 = new ArrayList<Integer>();      //pour les tailles
         ArrayList<Integer> random5 = new ArrayList<Integer>();      //pour les années de naissance
         ArrayList<Integer> random6 = new ArrayList<Integer>();      //pour les nationalités
@@ -321,7 +320,7 @@ public class Joueur extends Personne implements Vetement {
         return listeJoueur;
     }
 
-    public static void AffichageJoueur(ArrayList<Joueur> listeJoueur) {     //affichage des attributs des joueurs
+    public static void affichageJoueur(ArrayList<Joueur> listeJoueur) {     //affichage des attributs des joueurs
 
         System.out.println("Liste des Joueurs : \n");
 
@@ -342,7 +341,7 @@ public class Joueur extends Personne implements Vetement {
         }
     }
 
-    public static Joueur NewJoueur(int n) {    //creer un/des nouveau joueur manuellement 
+    public static Joueur newJoueur(int n) {    //creer un/des nouveau joueur manuellement 
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
@@ -354,20 +353,33 @@ public class Joueur extends Personne implements Vetement {
         str = sc.nextLine();
         joueur.setPrenom(str);
 
-        System.out.println("nomNaissance de votre Joueur :");
+        System.out.println("Nom de naissance de votre Joueur :");
         str = sc.nextLine();
         joueur.setNomNaissance(str);
 
-        System.out.println("Annee de naissance de votre Joueur :");
-        int str2 = sc2.nextInt();
+        System.out.println("Annee de naissance de votre Joueur (entre 1976 et 2003) :");
+        int str2=0;
+        while ((str2 < 1976) || (str2 > 2003)) {
+            try {
+                str2 = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("EXCEPTION : Veuillez entrer une année de naissance comprise entre 1976 et 2003.");
+            }
+        }
         joueur.setAnneeNaissance(str2);
 
         System.out.println("Nationalite de votre Joueur :");
         str = sc.nextLine();
         joueur.setNationalite(str);
 
-        System.out.println("Taille de votre Joueur :");
-        str2 = sc2.nextInt();
+        System.out.println("Taille de votre Joueur en centimetres (entre 160 et 220):");
+        while ((str2 < 160) || (str2 > 220 )) {
+            try {
+                str2 = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("EXCEPTION : Veuillez entrer une taille comprise entre 160 et 220 (en cm).");
+            }
+        }
         joueur.setTaille(str2);
 
         System.out.println("Sponsor de votre Joueur :");
@@ -383,7 +395,7 @@ public class Joueur extends Personne implements Vetement {
     }
     
     @Override
-    public void ChangerVetement() {
+    public void changerVetement() {
         System.out.println("Change de T-shirt");
 }
 

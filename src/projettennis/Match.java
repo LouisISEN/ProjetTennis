@@ -47,32 +47,32 @@ public class Match {
     }
     
 
-    public static Match JouerM(Match match, int n, Tournoi ObjTournoi, int auto) {
+    public static Match jouerM(Match match, int n, Tournoi objTournoi, int auto) {
         Set set = new Set();
-        int NbrSetMax = 0;
+        int nbrSetMax = 0;
 
-        if (ObjTournoi.getGenre().equals("Masculin")) {                 //En 2 set gagnant pour les femmes et 3 pour les hommes
-            NbrSetMax = 3;
+        if (objTournoi.getGenre().equals("Masculin")) {                 //En 2 set gagnant pour les femmes et 3 pour les hommes
+            nbrSetMax = 3;
         } else {
-            NbrSetMax = 2;
+            nbrSetMax = 2;
         }
         System.out.println("Debut du match n*" + n + " : " + match.joueur1.getNomNaissance() + " " + match.joueur1.getPrenom()+ " contre " + match.joueur2.getNomNaissance() + " " + match.joueur1.getPrenom());
 
-        while ((set.getSetJoueur1() != NbrSetMax) & (set.getSetJoueur2() != NbrSetMax)) {                       //Continue a jouer de nouveau set tant que aucun joueur n'a gagné NbrSetMax set
-            match.dernierService=Match.DeterminationService(match, n);                                          // Determine qui sert au debut du match
-            match = Set.set(match, ObjTournoi, n, match.dernierService, auto, set.getSetJoueur1(), set.getSetJoueur2());    //joue un nouveau set 
+        while ((set.getSetJoueur1() != nbrSetMax) & (set.getSetJoueur2() != nbrSetMax)) {                       //Continue a jouer de nouveau set tant que aucun joueur n'a gagné nbrSetMax set
+            match.dernierService=Match.determinationService(match, n);                                          // Determine qui sert au debut du match
+            match = Set.gestionSet(match, objTournoi, n, match.dernierService, auto, set.getSetJoueur1(), set.getSetJoueur2());    //joue un nouveau set 
 
             if (match.joueur1.getWinSet()== 1) {                        // si le joueur 1 gagne un set, on incremente la variable setjoueur1 pour l'avancement du match
-                set.IncrementeSetJoueur1();;                            // et la statistique SetJoueur
-                match.joueur1.IncrementeSetJoueur();;
+                set.incrementeSetJoueur1();;                            // et la statistique SetJoueur
+                match.joueur1.incrementeSetJoueur();;
             } else {
-                set.IncrementeSetJoueur2();;                    // si le joueur 1 gagne un set, on incremente la variable setjoueur1 pour l'avancement du match
-                match.joueur2.IncrementeSetJoueur();;           // et la statistique SetJoueur
+                set.incrementeSetJoueur2();;                    // si le joueur 1 gagne un set, on incremente la variable setjoueur1 pour l'avancement du match
+                match.joueur2.incrementeSetJoueur();;           // et la statistique SetJoueur
                
             }
         }
-        if (set.getSetJoueur1() == NbrSetMax) {                 //Si un joueur a gagné le NbrSetMax, fin du match, ici Joueur 1 est le gagnant
-            if (ObjTournoi.getNbTour() == 7) {                  //NbTour=7 correspond a la petite finale
+        if (set.getSetJoueur1() == nbrSetMax) {                 //Si un joueur a gagné le nbrSetMax, fin du match, ici Joueur 1 est le gagnant
+            if (objTournoi.getNbTour() == 7) {                  //NbTour=7 correspond a la petite finale
 
                 System.out.println("Fin du Match, Le joueur 1 " + match.joueur1.getNomNaissance() + " est le gagnant de la petite finale.");
                 System.out.println("Le joueur 2 " + match.joueur2.getNomNaissance() + " est éliminé.");
@@ -83,11 +83,11 @@ public class Match {
                 System.out.println("Fin du Match, Le joueur 1 " + match.joueur1.getNomNaissance() + " est qualifié pour le tour suivant.");
                 System.out.println("Le joueur 2 " + match.joueur2.getNomNaissance() + " est éliminé.");
             }
-            match.joueur2.setQualification(ObjTournoi.getTour());                 // L'attribut qualification du joueur perdant est égal au tour dans lequel il a perdu
+            match.joueur2.setQualification(objTournoi.getTour());                 // L'attribut qualification du joueur perdant est égal au tour dans lequel il a perdu
             match.perdant = 2;                                                    // Le perdant est le joueur 2
 
         } else {
-            if (ObjTournoi.getNbTour() == 7) {                                    // pareil qu'au dessus mais avec le joueur 2 gagnant
+            if (objTournoi.getNbTour() == 7) {                                    // pareil qu'au dessus mais avec le joueur 2 gagnant
 
                 System.out.println("Fin du Match, Le joueur 2 " + match.joueur2.getNomNaissance() + " est le gagnant de la petite finale.");
                 System.out.println("Le joueur 1 " + match.joueur1.getNomNaissance() + " est éliminé.");
@@ -99,7 +99,7 @@ public class Match {
                 System.out.println("Le joueur 1 " + match.joueur1.getNomNaissance() + " est éliminé.");
             }
 
-            match.joueur1.setQualification(ObjTournoi.getTour());
+            match.joueur1.setQualification(objTournoi.getTour());
             match.perdant = 1;
         }
         System.out.println("\n\n");
@@ -108,14 +108,14 @@ public class Match {
         return match; 
     }
 
-    public static int DeterminationService(Match match, int n) {            //dertmine qui commence avec le service
+    public static int determinationService(Match match, int n) {            //dertmine qui commence avec le service
 
         Random random = new Random();
         int nb;
-        int Borne1 = 2;
-        int Borne2 = 0;
+        int borne1 = 2;
+        int borne2 = 0;
         String joueur;
-        nb = 1 + random.nextInt(Borne1 - Borne2);                   // nombre aléatoire 1 ou 2
+        nb = 1 + random.nextInt(borne1 - borne2);                   // nombre aléatoire 1 ou 2
         if (nb == 1) {
             joueur = match.joueur1.getNomNaissance();
         } else {

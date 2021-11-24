@@ -30,7 +30,7 @@ public class Spectateur extends Personne implements Vetement {
     }
     
     @Override
-    public void ChangerVetement() {
+    public void changerVetement() {
         System.out.println("Change de chemise");
 }
 

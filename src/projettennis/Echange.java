@@ -37,16 +37,16 @@ public class Echange {
         this.pointJoueur2 = pointJoueur2;
     }
 
-    public void IncrementePointJoueur1() {
+    public void incrementePointJoueur1() {
         pointJoueur1++;
     }
 
-    public void IncrementePointJoueur2() {
+    public void incrementePointJoueur2() {
         pointJoueur2++;
     }
 
     
-    public static int Service(Match match, int nbService, int nbMatch) {   // Joue les services manuellement
+    public static int service(Match match, int nbService, int nbMatch) {   // Joue les services manuellement
 
         int a = 1;
         int let = 0;
@@ -74,13 +74,13 @@ public class Echange {
                 a = 0;
             }
 
-            Arbitre.annonce(str, joueur);           //annonce de l'arbitre le resultat du service
+            Arbitre.annonce(str, joueur);           //Annonce de l'arbitre le resultat du service
 
         }
         return str;
     }
 
-    public static int ServiceAuto(Match match, int nbService, int nbMatch) {            //joue le service automatiquement, le résultat du service est aléatoirement
+    public static int serviceAuto(Match match, int nbService, int nbMatch) {            //joue le service automatiquement, le résultat du service est aléatoirement
         
         int a = 1;
         int nb=0;
@@ -96,9 +96,9 @@ public class Echange {
         System.out.println("Le joueur " + joueur + " sert : ");
         Random random = new Random();
         
-        int Borne1 = 100;
-        int Borne2 = 0;
-        nb = 1 + random.nextInt(Borne1 - Borne2);
+        int borne1 = 100;
+        int borne2 = 0;
+        nb = 1 + random.nextInt(borne1 - borne2);
 
            if ((1 <= nb) & (nb < 45)) {                     //probabilité de 0.45 d'avoir marqué, de 0.45 de faire faute et de 0.10 de faire un let
             nb = 1;

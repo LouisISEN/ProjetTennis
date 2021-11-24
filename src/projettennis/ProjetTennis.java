@@ -39,7 +39,7 @@ public class ProjetTennis {
         System.out.println("                                                          5- Exit");
         System.out.println("\n Choisissez le tournoi (en saisissant le chiffre associé) : ");
 
-        objTournoi = Tournoi.ChoixTournoi(objTournoi);
+        objTournoi = Tournoi.choixTournoi(objTournoi);
 
         if (objTournoi.getExit() == 1) {
             return;
@@ -50,7 +50,7 @@ public class ProjetTennis {
         System.out.println("\n\n                                                  CREATION DU TOURNOI EN COURS... \n");
         Utilitaire.delay(3000);
 
-        System.out.println("Le Tournoi " + objTournoi.getNomTournoi() + " se joue à 128 joueurs, voulez vous créer un/plusieurs joueurs manuellement (dans le cas contraire ils seront générés de facon aléatoire)");
+        System.out.println("Le Tournoi " + objTournoi.getNomTournoi() + " se joue à 128 joueurs, voulez vous créer un/plusieurs joueurs manuellement (dans le cas contraire ils seront générés de facon aléatoire) oui/ non");
         Scanner sc = new Scanner(System.in);
         String str ="";
 
@@ -63,7 +63,7 @@ public class ProjetTennis {
                                 }
                             }
                             if (str.equals("oui") == true){
-                                listJoueur.add(Joueur.NewJoueur(listJoueur.size()));
+                                listJoueur.add(Joueur.newJoueur(listJoueur.size()));
                                 System.out.println("Creer un autre joueur ?");
                                 str="";
                             }
@@ -78,7 +78,7 @@ public class ProjetTennis {
                 str = sc.nextLine();
             }
             if (str.equals("oui")) {
-                Joueur.AffichageJoueur(listJoueur);
+                Joueur.affichageJoueur(listJoueur);
             }
             System.out.println("Génération des joueurs " + (nbrJoueur - listJoueur.size()) + " restants...");
 
@@ -88,11 +88,11 @@ public class ProjetTennis {
         Utilitaire.delay(3000);
         System.out.println("Génération des arbitres...");
         Utilitaire.delay(1000);
-        listJoueur = Joueur.GenerateurJoueur(objTournoi.getGenre(), listJoueur);
-        listArbitre = Arbitre.GenerateurArbitre(objTournoi.getGenre());
+        listJoueur = Joueur.generateurJoueur(objTournoi.getGenre(), listJoueur);
+        listArbitre = Arbitre.generateurArbitre(objTournoi.getGenre());
 
-        listMatch = Tournoi.CompoMatch(listJoueur, listArbitre, objTournoi.getNbTour());
-        listQualif = Tournoi.ListeQualif(listMatch, objTournoi.getNbTour());
+        listMatch = Tournoi.compoMatch(listJoueur, listArbitre, objTournoi.getNbTour());
+        listQualif = Tournoi.listeQualif(listMatch, objTournoi.getNbTour());
 
         Scanner sc2 = new Scanner(System.in);
         int str2;
@@ -149,7 +149,7 @@ public class ProjetTennis {
 
             switch (str2) {
                 case 1:
-                    Tournoi.AffichageCompoMatch(listMatch, objTournoi);
+                    Tournoi.affichageCompoMatch(listMatch, objTournoi);
                     System.out.println("\n");
                     System.out.println("\n");
                     System.out.println("\n");
@@ -192,7 +192,7 @@ public class ProjetTennis {
                                     if (objTournoi.getNbTour() == 7) {
                                         System.out.println(objTournoi.getNbTour());
 
-                                        bufferMatch = Match.JouerM(listMatch.get(0), intMatch, objTournoi, auto);
+                                        bufferMatch = Match.jouerM(listMatch.get(0), intMatch, objTournoi, auto);
                                         if (bufferMatch.getPerdant() == 1) {
                                             listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);
                                             listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);
@@ -204,13 +204,13 @@ public class ProjetTennis {
                                         }
                                     } else {
 
-                                        bufferMatch = Match.JouerM(listMatch.get(intMatch - 1), intMatch, objTournoi, auto);
+                                        bufferMatch = Match.jouerM(listMatch.get(intMatch - 1), intMatch, objTournoi, auto);
                                         if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {
                                             if (bufferMatch.getPerdant() == 1) {
-                                                listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur1);
+                                                listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);
 
                                             } else {
-                                                listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur2);
+                                                listClassement = Tournoi.classement(listClassement, bufferMatch.joueur2);
 
                                             }
                                         }
@@ -236,7 +236,7 @@ public class ProjetTennis {
                             System.out.println(objTournoi.getNbTour());
 
                             System.out.println("\n");
-                            bufferMatch = Match.JouerM(listMatch.get(0), n, objTournoi, auto);
+                            bufferMatch = Match.jouerM(listMatch.get(0), n, objTournoi, auto);
                             if (bufferMatch.getPerdant() == 1) {
                                 listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);
                                 listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);
@@ -248,19 +248,19 @@ public class ProjetTennis {
                             }
 
                             listMatch.set(0, bufferMatch);
-                            objTournoi.IncrementeNbTour();
+                            objTournoi.incrementeNbTour();
                         } else {
                             while (n <= listMatch.size()) {
                                 if (listMatch.get(n - 1).getResultat()== 0) {
 
                                   
-                                    bufferMatch = Match.JouerM(listMatch.get(n - 1), n, objTournoi, auto);
+                                    bufferMatch = Match.jouerM(listMatch.get(n - 1), n, objTournoi, auto);
                                     if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {
                                         if (bufferMatch.getPerdant() == 1) {
-                                            listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur1);
+                                            listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);
 
                                         } else {
-                                            listClassement = Tournoi.Classement(listClassement, bufferMatch.joueur2);
+                                            listClassement = Tournoi.classement(listClassement, bufferMatch.joueur2);
 
                                         }
                                     }
@@ -269,18 +269,18 @@ public class ProjetTennis {
                                 }
                                 n++;
                             }
-                            objTournoi.IncrementeNbTour();
+                            objTournoi.incrementeNbTour();
 
                         }
-                        listQualif = Tournoi.ListeQualif(listMatch, objTournoi.getNbTour());
-                        listMatch = Tournoi.CompoMatch(listQualif, listArbitre, objTournoi.getNbTour());
+                        listQualif = Tournoi.listeQualif(listMatch, objTournoi.getNbTour());
+                        listMatch = Tournoi.compoMatch(listQualif, listArbitre, objTournoi.getNbTour());
 
                         menu2 = 1;
                         if (listQualif.size() == 1) {
                             menu1 = 1;
-                            objTournoi.Vainqueur = listQualif.get(0);
+                            objTournoi.vainqueur = listQualif.get(0);
                             listClassement.add(listQualif.get(0));
-                            Tournoi.PresentationPodium(listClassement, objTournoi);
+                            Tournoi.presentationPodium(listClassement, objTournoi);
 
                         }
 
@@ -288,25 +288,25 @@ public class ProjetTennis {
 
                     break;
                 case 2:
-                    Arbitre.AffichageArbitre(listArbitre);
+                    Arbitre.affichageArbitre(listArbitre);
                     break;
                 case 3:
-                    Joueur.AffichageJoueur(listJoueur);
+                    Joueur.affichageJoueur(listJoueur);
                     break;
                 case 4:
 
-                    Tournoi.AffichageQualif(listQualif);
+                    Tournoi.affichageQualif(listQualif);
                     break;
                 case 5:
-                    Tournoi.AffichageCompoMatch(listMatch, objTournoi);
+                    Tournoi.affichageCompoMatch(listMatch, objTournoi);
                     break;
                 case 6:
                     System.out.println("Affichage statistiques joueurs");
-                    Statistiques.AffichageStat(listJoueur);
+                    Statistiques.affichageStat(listJoueur);
                     break;
                 case 7:
                     System.out.println("Classement actuel :");
-                    Tournoi.AffichageClassement(listClassement);
+                    Tournoi.affichageClassement(listClassement);
                     break;
                 case 8:
                     System.out.println("Vous quittez le Tournoi");
@@ -315,7 +315,7 @@ public class ProjetTennis {
             }
 
         }
-        Tournoi.MenuFin(listClassement, listJoueur, objTournoi);
+        Tournoi.menuFin(listClassement, listJoueur, objTournoi);
           
     }
 

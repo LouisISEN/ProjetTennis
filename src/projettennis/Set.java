@@ -34,15 +34,15 @@ public class Set {
         this.setJoueur2 = setJoueur2;
     }
 
-    public void IncrementeSetJoueur1() {
+    public void incrementeSetJoueur1() {
         setJoueur1++;
     }
 
-    public void IncrementeSetJoueur2() {
+    public void incrementeSetJoueur2() {
         setJoueur2++;
     }
 
-    public static Match set(Match match, Tournoi ObjTournoi, int n, int a, int auto, int setJoueur1, int setJoueur2) {
+    public static Match gestionSet(Match match, Tournoi objTournoi, int n, int a, int auto, int setJoueur1, int setJoueur2) {
 
         System.out.println("Debut Set");
 
@@ -58,7 +58,7 @@ public class Set {
                 System.out.println("Le joueur " + match.joueur2.getNomNaissance() + " a le service");
             }
             
-            match = Jeu.jeu(match, ObjTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
+            match = Jeu.gestionJeu(match, objTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
             if (match.getDernierService() == 1) {                                                //appel de la fonction jeu qui gére les affichages scores et les échanges
                 match.setDernierService(2);                                                     // Permet d'alterner les services à chaque jeu
             } else {
@@ -66,12 +66,12 @@ public class Set {
             }
 
             if (match.joueur1.getWinJeu() == 1) {                                               //si le joueur1 gagne le jeu on incremente sa statistiques jeu gagné
-                jeu.IncrementeJeuJoueur1();;                                                    //et la variable jeujoueur1 qui permet l'avancement du set
-                match.joueur1.IncrementeJeuJoueur();;
+                jeu.incrementeJeuJoueur1();;                                                    //et la variable jeujoueur1 qui permet l'avancement du set
+                match.joueur1.incrementeJeuJoueur();;
             } else {                                                                             //si le joueur2 gagne le jeu on incremente sa statistiques jeu gagné
-                jeu.IncrementeJeuJoueur2();;                                                     //et la variable jeujoueur1 qui permet l'avancement du set
+                jeu.incrementeJeuJoueur2();;                                                     //et la variable jeujoueur1 qui permet l'avancement du set
 
-                match.joueur2.IncrementeJeuJoueur();;
+                match.joueur2.incrementeJeuJoueur();;
             }
         }
         if (jeu.getJeuJoueur1() > jeu.getJeuJoueur2()) {                                         // Détermine qui a gagné le set

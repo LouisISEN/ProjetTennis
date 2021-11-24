@@ -15,7 +15,7 @@ import java.util.Collections;
 
 /**
  *La class Arbitre qui permet de générer les arbitres ainsi que d'afficher la liste générée.
- *L'arbitre peut faire des annonces concernant les echanges : point, faute ou let.
+ *L'arbitre peut faire des Annonces concernant les echanges : point, faute ou let.
  * @author axand
  */
 public class Arbitre extends Personne {
@@ -37,77 +37,77 @@ public class Arbitre extends Personne {
 
     
 
-    public static void AffichageArbitre(ArrayList<Arbitre> ListArbitre) {
+    public static void affichageArbitre(ArrayList<Arbitre> listArbitre) {
         System.out.println("Liste des Arbitres : \n");
-        for (int i = 0; i < ListArbitre.size(); i++) {
+        for (int i = 0; i < listArbitre.size(); i++) {
             System.out.println("Arbitre " + (i + 1));
-            System.out.println("Prenom =" + ListArbitre.get(i).getPrenom());
-            System.out.println("Nom de naissance =" + ListArbitre.get(i).getNomNaissance());
-            System.out.println("Date de naissance =" + ListArbitre.get(i).getDateNaissance());
+            System.out.println("Prenom =" + listArbitre.get(i).getPrenom());
+            System.out.println("Nom de naissance =" + listArbitre.get(i).getNomNaissance());
+            System.out.println("Date de naissance =" + listArbitre.get(i).getDateNaissance());
             System.out.println("\n");
         }
     }
     
-     public static ArrayList<Arbitre> GenerateurArbitre(String genre) throws FileNotFoundException, IOException {
-        String NomFile = "nom.txt";
-        String PrenomFile ="";
-        ArrayList<Arbitre> ListArbitre = new ArrayList<Arbitre>();
+     public static ArrayList<Arbitre> generateurArbitre(String genre) throws FileNotFoundException, IOException {
+        String nomFile = "nom.txt";
+        String prenomFile ="";
+        ArrayList<Arbitre> listArbitre = new ArrayList<Arbitre>();
           if (genre.equals("Féminin")) {
-            PrenomFile = "info-arbitreF.txt";;
+            prenomFile = "info-arbitreF.txt";;
         } else if (genre.equals("Masculin")) {
-            PrenomFile = "info-arbitreH.txt";
+            prenomFile = "info-arbitreH.txt";
         }
         
        
 
-        File fileNom = new File(NomFile);
+        File fileNom = new File(nomFile);
         FileReader frNom = new FileReader(fileNom);
         BufferedReader brNom = new BufferedReader(frNom);
         String lineNom;
 
-        File filePrenom = new File(PrenomFile);
+        File filePrenom = new File(prenomFile);
         FileReader frPrenom = new FileReader(filePrenom);
         BufferedReader brPrenom = new BufferedReader(frPrenom);
         String linePrenom;
 
-        ArrayList<String> ListPrenom = new ArrayList(); 
-        ArrayList<String> ListNom = new ArrayList();
+        ArrayList<String> listPrenom = new ArrayList(); 
+        ArrayList<String> listNom = new ArrayList();
 
         while ((lineNom = brNom.readLine()) != null) {
-            ListNom.add(lineNom);
+            listNom.add(lineNom);
         }
 
         while ((linePrenom = brPrenom.readLine()) != null) {
-            ListPrenom.add(linePrenom);
+            listPrenom.add(linePrenom);
 
         }
 
-        ArrayList Random1 = new ArrayList();
-        ArrayList Random2 = new ArrayList();
+        ArrayList random1 = new ArrayList();
+        ArrayList random2 = new ArrayList();
        
 
-        for (int k = 0; k < ListPrenom.size(); k++) {
-            Random1.add(k);
-            Random2.add(k);
+        for (int k = 0; k < listPrenom.size(); k++) {
+            random1.add(k);
+            random2.add(k);
        
         }
-        Collections.shuffle(Random1);
-        Collections.shuffle(Random2);
+        Collections.shuffle(random1);
+        Collections.shuffle(random2);
   
 
-        for (int p = ListArbitre.size(); p < ListPrenom.size(); p++) {
+        for (int p = listArbitre.size(); p < listPrenom.size(); p++) {
             Arbitre arbitre = new Arbitre();
-            arbitre.setNomNaissance(ListNom.get((int) Random1.get(p)));
-            arbitre.setPrenom(ListPrenom.get((int) Random2.get(p)));
+            arbitre.setNomNaissance(listNom.get((int) random1.get(p)));
+            arbitre.setPrenom(listPrenom.get((int) random2.get(p)));
             
            
-            ListArbitre.add(arbitre);
+            listArbitre.add(arbitre);
 
         }
 
         frPrenom.close();
         frNom.close();
-        return ListArbitre;
+        return listArbitre;
     }
 
 

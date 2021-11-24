@@ -11,7 +11,7 @@ package projettennis;
  */
 public interface Vetement {
     
-    public void ChangerVetement();
+    public void changerVetement();
   
     
 }
