@@ -101,7 +101,6 @@ public class Tournoi {
         this.Resultat = Resultat;
     }
 
-
     public static ArrayList<Joueur> ListeQualif(ArrayList<Match> ListMatch, int nbTour) {
 
         ArrayList<Joueur> ListQualif = new ArrayList();
@@ -259,49 +258,48 @@ public class Tournoi {
     public static Tournoi ChoixTournoi(Tournoi ObjTournoi) {
         int str = 0;
         Scanner sc = new Scanner(System.in);
-        while ((str==0)||(str>5)) {
+        while ((str == 0) || (str > 5)) {
             try {
                 str = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("EXCEPTION : Veuillez entrer un chiffre et non un caractère.");
             }
         }
-            if (str==5){
-                System.out.println("Vous avez quitté la création de tournoi");
-                    ObjTournoi.Exit = 1;
-            }
-            else {
-                ObjTournoi = Tournoi.Genre(ObjTournoi, str);
-            }
-   
+        if (str == 5) {
+            System.out.println("Vous avez quitté la création de tournoi");
+            ObjTournoi.Exit = 1;
+        } else {
+            ObjTournoi = Tournoi.Genre(ObjTournoi, str);
+        }
+
         return ObjTournoi;
     }
 
-    public static ArrayList<Joueur> Classement(ArrayList<Joueur> ListClassement, Joueur perdant) {
+    public static ArrayList<Joueur> Classement(ArrayList<Joueur> listClassement, Joueur perdant) {
         Joueur BufferJoueur = new Joueur();
         int ajout = 0;
 
-        if (ListClassement.isEmpty()) {
-            ListClassement.add(perdant);
+        if (listClassement.isEmpty()) {
+            listClassement.add(perdant);
 
         } else {
-            int a = ListClassement.size();
+            int a = listClassement.size();
             for (int i = 0; i < a; i++) {
-                if (ListClassement.get(i).getQualification().equals(perdant.getQualification())) {
+                if (listClassement.get(i).getQualification().equals(perdant.getQualification())) {
 
-                    if (ListClassement.get(i).getPointJoueur() > perdant.getPointJoueur()) {
+                    if (listClassement.get(i).getPointJoueur() > perdant.getPointJoueur()) {
 
-                        BufferJoueur = ListClassement.get(ListClassement.size() - 1);
-                        ListClassement.add(BufferJoueur);
+                        BufferJoueur = listClassement.get(listClassement.size() - 1);
+                        listClassement.add(BufferJoueur);
 
                         int k = 2;
 
-                        while (ListClassement.size() - k != i) {
+                        while (listClassement.size() - k != i) {
 
-                            ListClassement.set(ListClassement.size() - k, ListClassement.get(ListClassement.size() - k - 1));
+                            listClassement.set(listClassement.size() - k, listClassement.get(listClassement.size() - k - 1));
                             k++;
                         }
-                        ListClassement.set(i, perdant);
+                        listClassement.set(i, perdant);
                         ajout = 1;
                         break;
                     }
@@ -310,30 +308,69 @@ public class Tournoi {
             }
             if (ajout != 1) {
 
-                ListClassement.add(perdant);
+                listClassement.add(perdant);
             }
         }
 
-        return ListClassement;
+        return listClassement;
     }
 
-    public static void affClassement(ArrayList<Joueur> ListClassement) {
-        for (int j = ListClassement.size() - 1; j > -1; j--) {
-            System.out.println(Utilitaire.affichageTxt(String.valueOf(128 - j), 5) + Utilitaire.affichageTxt(ListClassement.get(j).getNomNaissance(), 10) + Utilitaire.affichageTxt(ListClassement.get(j).getPrenom(), 10) + "     Tour  :" + Utilitaire.affichageTxt(ListClassement.get(j).getQualification(), 20) + "   point marque " + Utilitaire.affichageTxt(String.valueOf(ListClassement.get(j).getPointJoueur()), 10));
+    public static void AffichageClassement(ArrayList<Joueur> listClassement) {
+        for (int j = listClassement.size() - 1; j > -1; j--) {
+            System.out.println(Utilitaire.affichageTxt(String.valueOf(128 - j), 5) + Utilitaire.affichageTxt(listClassement.get(j).getNomNaissance(), 10) + Utilitaire.affichageTxt(listClassement.get(j).getPrenom(), 10) + "     Tour  :" + Utilitaire.affichageTxt(listClassement.get(j).getQualification(), 20) + "   point marque " + Utilitaire.affichageTxt(String.valueOf(listClassement.get(j).getPointJoueur()), 10));
         }
 
     }
 
-    public static void PresentationPodium(ArrayList<Joueur> ListClassement, Tournoi ObjTournoi) {
+    public static void PresentationPodium(ArrayList<Joueur> listClassement, Tournoi ObjTournoi) {
         System.out.println("\n\n\n\n\n\n");
         System.out.println("                                                    Le grand Vainqueur du Tournoi " + ObjTournoi.NomTournoi + " est :\n");
         Utilitaire.delay(3000);
         System.out.println("                                                                        1. " + ObjTournoi.Vainqueur.getPrenom() + " " + ObjTournoi.Vainqueur.getNomNaissance());
         Utilitaire.delay(3000);
-        System.out.println("\n                                                        2. " + ListClassement.get(ListClassement.size() - 2).getNomNaissance() + " " + ListClassement.get(ListClassement.size() - 2).getPrenom() + "                   3." + ListClassement.get(ListClassement.size() - 3).getNomNaissance() + " " + ListClassement.get(ListClassement.size() - 3).getPrenom() + "\n\n");
+        System.out.println("\n                                                        2. " + listClassement.get(listClassement.size() - 2).getNomNaissance() + " " + listClassement.get(listClassement.size() - 2).getPrenom() + "                   3." + listClassement.get(listClassement.size() - 3).getNomNaissance() + " " + listClassement.get(listClassement.size() - 3).getPrenom() + "\n\n");
         Utilitaire.delay(3000);
         System.out.println("FIN DU TOURNOI");
-        Tournoi.affClassement(ListClassement);
     }
 
+    public static void MenuFin(ArrayList<Joueur> listClassement, ArrayList<Joueur> ListJoueur, Tournoi ObjTournoi) {
+        int a = 0;
+        Scanner sc = new Scanner(System.in);
+        int str;
+        while (a == 0) {
+            str = 0;
+            System.out.println("\n\n\n");
+            System.out.println("                                                            Menu de fin du Tournoi");
+            System.out.println("                                                       1 - Afficher la liste des joueurs");
+            System.out.println("                                                       2 - Afficher le classement");
+            System.out.println("                                                       3 - Afficher le podium");
+            System.out.println("                                                       4 - Afficher les statistiques");
+            System.out.println("                                                       5 - Exit");
+            while ((str == 0) || (str > 8)) {
+                try {
+                    str = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("EXCEPTION");
+                }
+            }
+            switch (str) {
+                case 1:
+                    Joueur.AffichageJoueur(ListJoueur);
+                    break;
+                case 2:
+                    Tournoi.AffichageClassement(listClassement);
+                    break;
+                case 3:
+                    Tournoi.PresentationPodium(listClassement, ObjTournoi);
+                    break;
+                case 4:
+                    Statistiques.AffichageStat(ListJoueur);
+                    break;
+                case 5:
+                    a = 1;
+                    break;
+            }
+
+        }
+    }
 }
