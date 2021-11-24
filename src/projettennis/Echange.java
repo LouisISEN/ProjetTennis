@@ -11,12 +11,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- *
+ *La class échange permet de jouer les services de facon automatique ou de facon manuelle.
+ * 
  * @author axand
  */
 public class Echange {
     
-    private int pointJoueur1 = 0;
+    private int pointJoueur1 = 0;               // attributs faisant avancer le match 
     private int pointJoueur2 = 0;
 
 
@@ -45,7 +46,7 @@ public class Echange {
     }
 
     
-    public static int Service(Match match, int nbService, int nbMatch) {
+    public static int Service(Match match, int nbService, int nbMatch) {   // Joue les services manuellement
 
         int a = 1;
         int let = 0;
@@ -60,26 +61,26 @@ public class Echange {
         }
 
         while (a != 0) {
-            System.out.println("Le joueur " + joueur + " marque-t-il (1)? fait-il faute (2)? ou let (3) ?Manu");
-            str = sc.nextInt();
-            if ((str == 1) || (str == 2)) {
+            System.out.println("Le joueur " + joueur + " marque-t-il (1)? fait-il faute (2)? ou let (3) ?");
+            str = sc.nextInt();                     // Porpose 3 choix, le joueur marque, fait faute, ou fait let (donc 2e service)
+            if ((str == 1) || (str == 2)) {         
                 a = 0;
             } else if (str == 3) {
                 let++;
             }
 
-            if (let == 2) {
+            if (let == 2) {                     // si 2 Let, faute
                 str = 2;
                 a = 0;
             }
 
-            Arbitre.annonce(str, joueur);
+            Arbitre.annonce(str, joueur);           //annonce de l'arbitre le resultat du service
 
         }
         return str;
     }
 
-    public static int ServiceAuto(Match match, int nbService, int nbMatch) {
+    public static int ServiceAuto(Match match, int nbService, int nbMatch) {            //joue le service automatiquement, le résultat du service est aléatoirement
 
         int a = 1;
         int nb=0;
@@ -99,7 +100,7 @@ public class Echange {
         int Borne2 = 0;
         nb = 1 + random.nextInt(Borne1 - Borne2);
 
-           if ((1 <= nb) & (nb < 45)) {
+           if ((1 <= nb) & (nb < 45)) {                     //probabilité de 0.45 d'avoir marqué, de 0.45 de faire faute et de 0.10 de faire un let
             nb = 1;
         }
         if ((45 <= nb) & (nb < 90)) {

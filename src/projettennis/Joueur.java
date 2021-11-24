@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 /**
- *
+ *La class Joueur permet de créer un/des joueurs manuellement, générer des joueurs avec des attributs aléatoires, ainsi que d'afficher la liste de joueur
  * @author axand
  */
 public class Joueur extends Personne {
@@ -30,9 +30,9 @@ public class Joueur extends Personne {
     private int anneeNaissance;
     private String nationalite;
 
-    private String qualification = "qualifie";
+    private String qualification = "qualifie";  // si le joueur est élimniné, qualification prend le nom du tour ou le joueur fut élimniné
 
-    private int pointJoueur = 0;
+    private int pointJoueur = 0;            //attribut statistique du joueur
     private int setJoueur = 0;
     private int jeuJoueur = 0;
     private int service=0;
@@ -224,11 +224,11 @@ public class Joueur extends Personne {
         String lineNationalite;
 
         ArrayList<String> listPrenom = new ArrayList<String>();  
-        ArrayList<String> listNom = new ArrayList<String>();        //ligne la
+        ArrayList<String> listNom = new ArrayList<String>();        
         ArrayList<String> listSponsor = new ArrayList<String>();
         ArrayList<String> listNationalite = new ArrayList<String>();
 
-        while ((lineNom = brNom.readLine()) != null) {      //ligne la, while qui ajoute dans la liste les noms du .txt
+        while ((lineNom = brNom.readLine()) != null) {      // while qui ajoute dans la liste les noms du .txt
             listNom.add(lineNom);
         }
 
@@ -246,22 +246,22 @@ public class Joueur extends Personne {
             listSponsor.add(lineSponsor);
         }
 
-        ArrayList random1 = new ArrayList();        //ligne la
+        ArrayList random1 = new ArrayList();      //liste de nombre random
         ArrayList random2 = new ArrayList();
         ArrayList random3 = new ArrayList();
 
-        for (int k = 0; k < listNom.size(); k++) {      //ligne la, remplace la liste random de chiffres
+        for (int k = 0; k < listNom.size(); k++) {      //ajoute des nombres de la liste =
             random1.add(k);
             random2.add(k);
             random3.add(k);
         }
-        Collections.shuffle(random1);       //ligne la, mélange les chiffres 
+        Collections.shuffle(random1);       // mélange les nombres pour avoir une liste aléatoire
         Collections.shuffle(random2);
         Collections.shuffle(random3);
 
-        for (int p = listeJoueur.size(); p < listNom.size(); p++) {     //ligne la
-            Joueur joueur = new Joueur();   //ligne la
-            joueur.setNomNaissance(listNom.get((int) random1.get(p)));  //ligne la
+        for (int p = listeJoueur.size(); p < listNom.size(); p++) {     //creer autant de joueur (supplementaire si on a deja crée des joueurs manuellement)qu'il faut pour avoir 128 joueurs
+            Joueur joueur = new Joueur();   //création d'un joueur et des ses attributs aléatoires
+            joueur.setNomNaissance(listNom.get((int) random1.get(p)));  
             joueur.setPrenom(listPrenom.get((int) random2.get(p)));
             joueur.setNationalite(listNationalite.get((int)random1.get(p)));
             joueur.setSponsor(listSponsor.get((int)random2.get(p)));
@@ -281,7 +281,7 @@ public class Joueur extends Personne {
         return listeJoueur;
     }
 
-    public static void AffichageJoueur(ArrayList<Joueur> listeJoueur) {
+    public static void AffichageJoueur(ArrayList<Joueur> listeJoueur) {     //affichage des attributs des joueurs
 
         System.out.println("Liste des Joueurs : \n");
 
@@ -293,12 +293,12 @@ public class Joueur extends Personne {
             System.out.println("Classement           : " + listeJoueur.get(i).classement);
             System.out.println("Numero Tournoi       : " + listeJoueur.get(i).numero);
             System.out.println("Qualification        : " + listeJoueur.get(i).qualification);
-            //ligne la à rajouter ici pour les attributs
+   
             System.out.println("\n");
         }
     }
 
-    public static Joueur NewJoueur(int n) {
+    public static Joueur NewJoueur(int n) {    //creer un/des nouveau joueur manuellement 
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
         System.out.println("Prise de la raquette (droit/gauche) ?");

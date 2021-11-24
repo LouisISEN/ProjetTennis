@@ -10,20 +10,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ *La class Tournoi permet de :
+ * créer un tournoi (choisir le tournoi ainsi que le genre)
+ * la création de la liste des joueurs qualifiés (qui sert a la composition des matchs) et son affichage 
+ * la création d'une composition aléatoire des matchs et son affichage
+ * le classement et son affichage
+ * la présentation du podium
+ * le menu de fin de tournoi
  * @author axand
  */
 public class Tournoi {
 
-    private int Exit = 0;
+    private int Exit = 0;         //pour quitter le tournoi et le programme
     private String NomTournoi;
     private String genre;
-    private String lieu;
-    private String surface;
-    private String tour = "1";
-    private int nbTour = 1;
-    Joueur Vainqueur = new Joueur();
-    private int Resultat = 0;
+    private String tour = "1";    //String qui peut prendre la valeu tour 1, tour 2,tour 3 huitième de finale, quart de finale, demi finale, petite finale, finale
+    private int nbTour = 1;       // prend la valeur 1,2,3,4,5,6,7,8 (voir ci dessus a quoi correspond les tours)
+    Joueur Vainqueur = new Joueur(); 
+    private int Resultat = 0;           // si le match a deja été joué ou non (0 pour non et 1 pour 1)
 
     public void IncrementeNbTour() {
         nbTour++;
@@ -51,22 +55,6 @@ public class Tournoi {
 
     public void setGenre(String genre) {
         this.genre = genre;
-    }
-
-    public String getLieu() {
-        return this.lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
-
-    public String getSurface() {
-        return this.surface;
-    }
-
-    public void setSurface(String surface) {
-        this.surface = surface;
     }
 
     public String getTour() {
