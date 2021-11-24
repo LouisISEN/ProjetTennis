@@ -13,171 +13,197 @@ import java.util.ArrayList;
  */
 public class Jeu {
 
-    int jeuJoueur1=0;
-    int jeuJoueur2=0;
+    private int jeuJoueur1=0;
+    private int jeuJoueur2=0;
 
-    public static Match jeu(Match match, Tournoi ObjTournoi, int n, int a, int auto, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
+
+    public int getJeuJoueur1() {
+        return this.jeuJoueur1;
+    }
+
+    public void setJeuJoueur1(int jeuJoueur1) {
+        this.jeuJoueur1 = jeuJoueur1;
+    }
+
+    public int getJeuJoueur2() {
+        return this.jeuJoueur2;
+    }
+
+    public void setJeuJoueur2(int jeuJoueur2) {
+        this.jeuJoueur2 = jeuJoueur2;
+    }
+
+    public void IncrementeJeuJoueur1() {
+        jeuJoueur1++;
+    }
+
+    public void IncrementeJeuJoueur2() {
+        jeuJoueur2++;
+    }
+
+
+    public static Match jeu(Match match, Tournoi ObjTournoi, int n, int a, int auto, int jeuJoueur1, int jeuJoueur2, int setJoueur1, int setJoueur2) {
 
         Echange point = new Echange();
         
-        match.Joueur1.WinJeu = 0;
-        match.Joueur2.WinJeu = 0;
+        match.joueur1.setWinJeu(0);
+        match.joueur2.setWinJeu(0);
 
         System.out.println("Debut jeu");
         System.out.println("\n");
 
  
-        Jeu.AffichageScorePoint(match, ObjTournoi,point.pointJoueur1, point.pointJoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
+        Jeu.AffichageScorePoint(match, ObjTournoi,point.getPointJoueur1(), point.getPointJoueur2(), n, jeuJoueur1, jeuJoueur2, setJoueur1, setJoueur2);
 
-        while ((point.pointJoueur1 != 5) && (point.pointJoueur2 != 5)) {
+        while ((point.getPointJoueur1() != 5) && (point.getPointJoueur2() != 5)) {
 
             if (auto == 1) {
                 
-                if (Echange.Service(match, match.dernierService, (n - 1)) == 1) {
-                    if (match.dernierService == 1) {
+                if (Echange.Service(match, match.getDernierService(), (n - 1)) == 1) {
+                    if (match.getDernierService() == 1) {
                         
-                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
-                            point.pointJoueur2 = 3;
-                            point.pointJoueur1 = 3;
-                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
-                            point.pointJoueur1 = 5;
+                        if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() == 4)) {
+                            point.setPointJoueur2(3);
+                            point.setPointJoueur1(3);
+                        } else if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() < 3)) {
+                            point.setPointJoueur1(5);
                         } else {
-                            point.pointJoueur1++;
+                            point.IncrementePointJoueur1();;
                         }
 
                       
-                        match.Joueur1.pointJoueur++;
-                        match.Joueur1.Service++;
+                        match.joueur1.IncrementePointJoueur();
+                        match.joueur1.IncrementeService();;
                         
                     } else {
-                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
-                            point.pointJoueur1 = 3;
-                            point.pointJoueur2 = 3;
-                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
-                            point.pointJoueur2 = 5;
+                        if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() == 4)) {
+                            point.setPointJoueur1(3);
+                            point.setPointJoueur2(3);
+                        } else if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() < 3)) {
+                            point.setPointJoueur2(5);
                         } else {
-                            point.pointJoueur2++;
+                            point.IncrementePointJoueur2();;
                         }
                        
-                        match.Joueur2.Service++;
-                        match.Joueur2.pointJoueur++;
+                        match.joueur2.IncrementeService();;
+                        match.joueur2.IncrementePointJoueur();;
                      
                     }
                 } else {
-                    if (match.dernierService == 1) {
-                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
-                            point.pointJoueur1 = 3;
-                            point.pointJoueur2 = 3;
-                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
-                            point.pointJoueur2 = 5;
+                    if (match.getDernierService() == 1) {
+                        if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() == 4)) {
+                            point.setPointJoueur1(3);
+                            point.setPointJoueur2(3);
+                        } else if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() < 3)) {
+                            point.setPointJoueur2(5);
                         } else {
-                            point.pointJoueur2++;
+                            point.IncrementePointJoueur2();;
                         }
                         
-                        match.Joueur1.Faute++;
-                        match.Joueur2.pointJoueur++;
+                        match.joueur1.IncrementeFaute();;
+                        match.joueur2.IncrementePointJoueur();;
                      
                     } else {
-                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
-                            point.pointJoueur2 = 3;
-                            point.pointJoueur1 = 3;
-                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
-                            point.pointJoueur1 = 5;
+                        if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2()== 4)) {
+                            point.setPointJoueur2(3);
+                            point.setPointJoueur1(3);
+                        } else if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() < 3)) {
+                            point.setPointJoueur1(5);
                         } else {
-                            point.pointJoueur1++;
+                            point.IncrementePointJoueur1();
                         }
 
                     
-                        match.Joueur2.Faute++;
-                        match.Joueur1.pointJoueur++;
+                        match.joueur2.IncrementeFaute();;
+                        match.joueur1.IncrementePointJoueur();
                    
                     }
 
                 }
             } else {
-                          if (Echange.ServiceAuto(match, match.dernierService, (n - 1)) == 1) {
-                    if (match.dernierService == 1) {
-                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
-                            point.pointJoueur2 = 3;
-                            point.pointJoueur1 = 3;
-                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
-                            point.pointJoueur1 = 5;
+                          if (Echange.ServiceAuto(match, match.getDernierService(), (n - 1)) == 1) {
+                    if (match.getDernierService() == 1) {
+                        if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() == 4)) {
+                            point.setPointJoueur2(3);
+                            point.setPointJoueur1(3);
+                        } else if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() < 3)) {
+                            point.setPointJoueur1(5);
                         } else {
-                            point.pointJoueur1++;
+                            point.IncrementePointJoueur1();;
                         }
 
                       
-                        match.Joueur1.pointJoueur++;
-                        match.Joueur1.Service++;
+                        match.joueur1.IncrementePointJoueur();;
+                        match.joueur1.IncrementeService();;
                         
                     } else {
-                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
-                            point.pointJoueur1 = 3;
-                            point.pointJoueur2 = 3;
-                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
-                            point.pointJoueur2 = 5;
+                        if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() == 4)) {
+                            point.setPointJoueur1(3);
+                            point.setPointJoueur2(3);
+                        } else if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() < 3)) {
+                            point.setPointJoueur2(5);
                         } else {
-                            point.pointJoueur2++;
+                            point.IncrementePointJoueur2();;
                         }
                        
-                        match.Joueur2.pointJoueur++;
-                        match.Joueur2.Service++;
+                        match.joueur2.IncrementePointJoueur();;
+                        match.joueur2.IncrementeService();;
                       
                     }
                 } else {
-                    if (match.dernierService == 1) {
-                        if ((point.pointJoueur2 == 3) && (point.pointJoueur1 == 4)) {
-                            point.pointJoueur1 = 3;
-                            point.pointJoueur2 = 3;
-                        } else if ((point.pointJoueur2 == 3) && (point.pointJoueur1 < 3)) {
-                            point.pointJoueur2 = 5;
+                    if (match.getDernierService() == 1) {
+                        if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() == 4)) {
+                            point.setPointJoueur1(3);
+                            point.setPointJoueur2(3);
+                        } else if ((point.getPointJoueur2() == 3) && (point.getPointJoueur1() < 3)) {
+                            point.setPointJoueur2(5);
                         } else {
-                            point.pointJoueur2++;
+                            point.IncrementePointJoueur2();;
                         }
                        
-                        match.Joueur2.pointJoueur++;
-                        match.Joueur1.Faute++;
+                        match.joueur2.IncrementePointJoueur();;
+                        match.joueur1.IncrementeFaute();;
                         
                     } else {
-                        if ((point.pointJoueur1 == 3) && (point.pointJoueur2 == 4)) {
-                            point.pointJoueur2 = 3;
-                            point.pointJoueur1 = 3;
-                        } else if ((point.pointJoueur1 == 3) && (point.pointJoueur2 < 3)) {
-                            point.pointJoueur1 = 5;
+                        if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() == 4)) {
+                            point.setPointJoueur2(3);
+                            point.setPointJoueur1(3);
+                        } else if ((point.getPointJoueur1() == 3) && (point.getPointJoueur2() < 3)) {
+                            point.setPointJoueur1(5);
                         } else {
-                            point.pointJoueur1++;
+                            point.IncrementePointJoueur1();
                         }
 
                        
-                        match.Joueur1.pointJoueur++;
-                        match.Joueur2.Faute++;
+                        match.joueur1.IncrementePointJoueur();;
+                        match.joueur2.IncrementeFaute();;
                         
                     }
 
                 }
             }
             System.out.println("\n");
-            Jeu.AffichageScorePoint(match, ObjTournoi, point.pointJoueur1, point.pointJoueur2, n, jeujoueur1, jeujoueur2, setjoueur1, setjoueur2);
+            Jeu.AffichageScorePoint(match, ObjTournoi, point.getPointJoueur1(), point.getPointJoueur2(), n, jeuJoueur1, jeuJoueur2, setJoueur1, setJoueur2);
             System.out.println("\n");
         }
-        if (point.pointJoueur1 == 5) {
+        if (point.getPointJoueur1() == 5) {
             
-            match.Joueur1.WinJeu = 1;
+            match.joueur1.setWinJeu(1);;
            
         } else {
            
-            match.Joueur2.WinJeu = 1;
+            match.joueur2.setWinJeu(1);
         }
 
         System.out.println("Fin du jeu");
         return match;
     }
 
-    public static void AffichageScorePoint(Match match, Tournoi ObjTournoi, int pointjoueur1, int pointjoueur2, int n, int jeujoueur1, int jeujoueur2, int setjoueur1, int setjoueur2) {
+    public static void AffichageScorePoint(Match match, Tournoi ObjTournoi, int pointJoueur1, int pointJoueur2, int n, int jeuJoueur1, int jeuJoueur2, int setJoueur1, int setJoueur2) {
         String score1 = "0";
         String score2 = "0";
 
-        switch (pointjoueur1) {
+        switch (pointJoueur1) {
             case 0:
                 score1 = "0";
                 break;
@@ -197,11 +223,11 @@ public class Jeu {
 
             case 5:
                 score1 = "GAGNE";
-                System.out.println(" Jeu gagné par : " + match.Joueur1.nomNaissance);
+                System.out.println(" Jeu gagné par : " + match.joueur1.getNomNaissance());
                 break;
 
         }
-        switch (pointjoueur2) {
+        switch (pointJoueur2) {
             case 0:
                 score2 = "0";
                 break;
@@ -220,14 +246,14 @@ public class Jeu {
                 break;
             case 5:
                 score2 = "GAGNE";
-                System.out.println(" Jeu gagné par : " +match.Joueur2.nomNaissance);
+                System.out.println(" Jeu gagné par : " +match.joueur2.getNomNaissance());
                 break;
 
         }
         System.out.println("\n");
-        System.out.println("Joueur                SET JEU  POINT                                                                   "+Utilitaire.affichageTxt(ObjTournoi.tour, 15)+"Match n*"+n);
-        System.out.println(Utilitaire.affichageTxt(match.Joueur1.nomNaissance,10)+ Utilitaire.affichageTxt(match.Joueur1.prenom,10) + " | "+ setjoueur1+" | "+ jeujoueur1 +" | " + score1);
-        System.out.println(Utilitaire.affichageTxt(match.Joueur2.nomNaissance,10)+ Utilitaire.affichageTxt(match.Joueur2.prenom,10) + " | "+ setjoueur2+" | "+ jeujoueur2 +" | " + score2);
+        System.out.println("Joueur                SET JEU  POINT                                                                   "+Utilitaire.affichageTxt(ObjTournoi.getTour(), 15)+"Match n*"+n);
+        System.out.println(Utilitaire.affichageTxt(match.joueur1.getNomNaissance(),10)+ Utilitaire.affichageTxt(match.joueur1.getPrenom(),10) + " | "+ setJoueur1+" | "+ jeuJoueur1 +" | " + score1);
+        System.out.println(Utilitaire.affichageTxt(match.joueur2.getNomNaissance(),10)+ Utilitaire.affichageTxt(match.joueur2.getPrenom(),10) + " | "+ setJoueur2+" | "+ jeuJoueur2 +" | " + score2);
         System.out.println("\n");
     }
     

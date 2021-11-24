@@ -18,7 +18,7 @@ public class Statistiques {
         System.out.println("                                                               Réussi");
         for (int i = 0; i < ListJoueur.size(); i++) {
 
-            System.out.println(Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).numero),10) + Utilitaire.affichageTxt(ListJoueur.get(i).nomNaissance,10) + Utilitaire.affichageTxt(ListJoueur.get(i).prenom,10) + ":    " + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).pointJoueur),10) + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).JeuJoueur),10) + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).SetJoueur),10) + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).Service),10)+ Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).Faute),10));
+            System.out.println(Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).getNumero()),10) + Utilitaire.affichageTxt(ListJoueur.get(i).getNomNaissance(),10) + Utilitaire.affichageTxt(ListJoueur.get(i).getPrenom(),10) + ":    " + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).getPointJoueur()),10) + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).getJeuJoueur()),10) + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).getSetJoueur()),10) + Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).getService()),10)+ Utilitaire.affichageTxt(String.valueOf(ListJoueur.get(i).getFaute()),10));
 
             System.out.println("\n");
 

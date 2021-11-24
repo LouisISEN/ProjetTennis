@@ -15,10 +15,36 @@ import java.util.Scanner;
  * @author axand
  */
 public class Echange {
+    
+    private int pointJoueur1 = 0;
+    private int pointJoueur2 = 0;
 
-    int pointJoueur1 = 0;
-    int pointJoueur2 = 0;
 
+    public int getPointJoueur1() {
+        return this.pointJoueur1;
+    }
+
+    public void setPointJoueur1(int pointJoueur1) {
+        this.pointJoueur1 = pointJoueur1;
+    }
+
+    public int getPointJoueur2() {
+        return this.pointJoueur2;
+    }
+
+    public void setPointJoueur2(int pointJoueur2) {
+        this.pointJoueur2 = pointJoueur2;
+    }
+
+    public void IncrementePointJoueur1() {
+        pointJoueur1++;
+    }
+
+    public void IncrementePointJoueur2() {
+        pointJoueur2++;
+    }
+
+    
     public static int Service(Match match, int nbService, int nbMatch) {
 
         int a = 1;
@@ -28,9 +54,9 @@ public class Echange {
         String joueur;
 
         if (nbService == 1) {
-            joueur = match.Joueur1.getNomNaissance();
+            joueur = match.joueur1.getNomNaissance();
         } else {
-            joueur = match.Joueur2.getNomNaissance();
+            joueur = match.joueur2.getNomNaissance();
         }
 
         while (a != 0) {
@@ -61,9 +87,9 @@ public class Echange {
         String joueur;
 
         if (nbService == 1) {
-            joueur = match.Joueur1.getNomNaissance();
+            joueur = match.joueur1.getNomNaissance();
         } else {
-            joueur = match.Joueur2.getNomNaissance();
+            joueur = match.joueur2.getNomNaissance();
         }
 
         System.out.println("Le joueur " + joueur + " sert : ");

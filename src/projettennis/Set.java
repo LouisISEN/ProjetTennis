@@ -13,47 +13,74 @@ import java.util.ArrayList;
  */
 public class Set {
     
-    int setJoueur1;
-    int setJoueur2;
+    private int setJoueur1;
+    private int setJoueur2;
+
+    public int getSetJoueur1() {
+        return this.setJoueur1;
+    }
+
+    public void setSetJoueur1(int setJoueur1) {
+        this.setJoueur1 = setJoueur1;
+    }
+
+    public int getSetJoueur2() {
+        return this.setJoueur2;
+    }
+
+    public void setSetJoueur2(int setJoueur2) {
+        this.setJoueur2 = setJoueur2;
+    }
+
+    public void IncrementeSetJoueur1() {
+        setJoueur1++;
+    }
+
+    public void IncrementeSetJoueur2() {
+        setJoueur2++;
+    }
+
     
-    public static Match set(Match match, Tournoi ObjTournoi, int n, int a, int auto, int setjoueur1, int setjoueur2) {
+
+    
+    public static Match set(Match match, Tournoi ObjTournoi, int n, int a, int auto, int setJoueur1, int setJoueur2) {
 
         System.out.println("Debut Set");
         
   
         Jeu jeu = new Jeu();
-        match.Joueur1.WinSet = 0;
-        match.Joueur2.WinSet = 0;
+        match.joueur1.setWinSet(0);
+        match.joueur2.setWinSet(0);
 
-        while (((jeu.jeuJoueur1 < 6) & (jeu.jeuJoueur2 < 6)) | ((Math.abs(jeu.jeuJoueur1 - jeu.jeuJoueur2)) < 2)) {
+        while (((jeu.getJeuJoueur1() < 6) & (jeu.getJeuJoueur2() < 6)) | ((Math.abs(jeu.getJeuJoueur1() - jeu.getJeuJoueur2())) < 2)) {
 
-            match = Jeu.jeu(match, ObjTournoi, n, match.DernierService, auto, jeu.jeuJoueur1, jeu.jeuJoueur2, setjoueur1, setjoueur2);
-            if (match.DernierService == 1) {
-                match.DernierService = 2;
+            match = Jeu.jeu(match, ObjTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
+            if (match.getDernierService()== 1) {
+                match.setDernierService(2);
             } else {
-                match.DernierService = 1;
+                match.setDernierService(1);
             }
             if (a == 1) {
-                System.out.println("Le joueur " + match.Joueur1.nomNaissance + " a le service");
+                System.out.println("Le joueur " + match.joueur1.getNomNaissance() + " a le service");
             } else {
-                System.out.println("Le joueur " + match.Joueur2.nomNaissance + " a le service");
+                System.out.println("Le joueur " + match.joueur2.getNomNaissance() + " a le service");
             }
-            if (match.Joueur1.WinJeu == 1) {
-                jeu.jeuJoueur1++;
-                match.Joueur1.JeuJoueur++;
+            if (match.joueur1.getWinJeu() == 1) {
+                jeu.IncrementeJeuJoueur1();;
+                match.joueur1.IncrementeJeuJoueur();;
             } else {
-                jeu.jeuJoueur2++;
+                jeu.IncrementeJeuJoueur2();;
 
-                match.Joueur2.JeuJoueur++;
+                match.joueur2.IncrementeJeuJoueur();;
             }
         }
-        if (jeu.jeuJoueur1 > jeu.jeuJoueur2) {
+        if (jeu.getJeuJoueur1() > jeu.getJeuJoueur2()) {
 
-            match.Joueur1.WinSet = 1;
+            match.joueur1.setWinSet(1);
 
         } else {
 
-            match.Joueur2.WinSet = 1;
+            match.joueur2.setWinSet(1);
 
         }
 

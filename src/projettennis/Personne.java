@@ -11,16 +11,106 @@ package projettennis;
  */
 public abstract class Personne { 
  
-    public String nomNaissance;    
-    public String dateNaissance;   
-    public String lieuNaissance;   
-    public String dateDeces;      
-    public String genre;          
-    public String nomCourant;
-    public String prenom;
-    public String surnom;
-    public String nationalite;
-    public int taille;
-    public int poids;
+    private String nomNaissance;    
+    private String dateNaissance;   
+    private String lieuNaissance;   
+    private String dateDeces;      
+    private String genre;          
+    private String nomCourant;
+    private String prenom;
+    private String surnom;
+    private String nationalite;
+    private int taille;
+    private int poids;
+
+
+    public String getNomNaissance() {
+        return this.nomNaissance;
+    }
+
+    public void setNomNaissance(String nomNaissance) {
+        this.nomNaissance = nomNaissance;
+    }
+
+    public String getDateNaissance() {
+        return this.dateNaissance;
+    }
+
+    public void setDateNaissance(String dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public String getLieuNaissance() {
+        return this.lieuNaissance;
+    }
+
+    public void setLieuNaissance(String lieuNaissance) {
+        this.lieuNaissance = lieuNaissance;
+    }
+
+    public String getDateDeces() {
+        return this.dateDeces;
+    }
+
+    public void setDateDeces(String dateDeces) {
+        this.dateDeces = dateDeces;
+    }
+
+    public String getGenre() {
+        return this.genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getNomCourant() {
+        return this.nomCourant;
+    }
+
+    public void setNomCourant(String nomCourant) {
+        this.nomCourant = nomCourant;
+    }
+
+    public String getPrenom() {
+        return this.prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getSurnom() {
+        return this.surnom;
+    }
+
+    public void setSurnom(String surnom) {
+        this.surnom = surnom;
+    }
+
+    public String getNationalite() {
+        return this.nationalite;
+    }
+
+    public void setNationalite(String nationalite) {
+        this.nationalite = nationalite;
+    }
+
+    public int getTaille() {
+        return this.taille;
+    }
+
+    public void setTaille(int taille) {
+        this.taille = taille;
+    }
+
+    public int getPoids() {
+        return this.poids;
+    }
+
+    public void setPoids(int poids) {
+        this.poids = poids;
+    }
+
 
 }

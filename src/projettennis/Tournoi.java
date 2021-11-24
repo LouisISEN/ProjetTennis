@@ -15,15 +15,92 @@ import java.util.Scanner;
  */
 public class Tournoi {
 
-    int Exit = 0;
-    String NomTournoi;
-    String genre;
-    String lieu;
-    String surface;
-    String tour = "1";
-    int nbTour = 1;
+    private int Exit = 0;
+    private String NomTournoi;
+    private String genre;
+    private String lieu;
+    private String surface;
+    private String tour = "1";
+    private int nbTour = 1;
     Joueur Vainqueur = new Joueur();
-    int Resultat = 0;
+    private int Resultat = 0;
+
+    public void IncrementeNbTour() {
+        nbTour++;
+    }
+
+    public int getExit() {
+        return this.Exit;
+    }
+
+    public void setExit(int Exit) {
+        this.Exit = Exit;
+    }
+
+    public String getNomTournoi() {
+        return this.NomTournoi;
+    }
+
+    public void setNomTournoi(String NomTournoi) {
+        this.NomTournoi = NomTournoi;
+    }
+
+    public String getGenre() {
+        return this.genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getLieu() {
+        return this.lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public String getSurface() {
+        return this.surface;
+    }
+
+    public void setSurface(String surface) {
+        this.surface = surface;
+    }
+
+    public String getTour() {
+        return this.tour;
+    }
+
+    public void setTour(String tour) {
+        this.tour = tour;
+    }
+
+    public int getNbTour() {
+        return this.nbTour;
+    }
+
+    public void setNbTour(int nbTour) {
+        this.nbTour = nbTour;
+    }
+
+    public Joueur getVainqueur() {
+        return this.Vainqueur;
+    }
+
+    public void setVainqueur(Joueur Vainqueur) {
+        this.Vainqueur = Vainqueur;
+    }
+
+    public int getResultat() {
+        return this.Resultat;
+    }
+
+    public void setResultat(int Resultat) {
+        this.Resultat = Resultat;
+    }
+
 
     public static ArrayList<Joueur> ListeQualif(ArrayList<Match> ListMatch, int nbTour) {
 
@@ -31,23 +108,23 @@ public class Tournoi {
 
         for (int k = 0; k < ListMatch.size(); k++) {
 
-            if (ListMatch.get(k).Joueur1.qualification.equals("Demi-finale")) {
-                ListQualif.add(ListMatch.get(k).Joueur1);
-                System.out.println("Joueur1 trouve");
+            if (ListMatch.get(k).joueur1.getQualification().equals("Demi-finale")) {
+                ListQualif.add(ListMatch.get(k).joueur1);
+                System.out.println("joueur1 trouve");
             }
-            if (ListMatch.get(k).Joueur2.qualification.equals("Demi-finale")) {
-                ListQualif.add(ListMatch.get(k).Joueur2);
+            if (ListMatch.get(k).joueur2.getQualification().equals("Demi-finale")) {
+                ListQualif.add(ListMatch.get(k).joueur2);
                 System.out.println("joueur2 trouve");
             }
 
         }
 
         for (int k = 0; k < ListMatch.size(); k++) {
-            if (ListMatch.get(k).Joueur1.qualification.equals("qualifie")) {
-                ListQualif.add(ListMatch.get(k).Joueur1);
+            if (ListMatch.get(k).joueur1.getQualification().equals("qualifie")) {
+                ListQualif.add(ListMatch.get(k).joueur1);
             }
-            if (ListMatch.get(k).Joueur2.qualification.equals("qualifie")) {
-                ListQualif.add(ListMatch.get(k).Joueur2);
+            if (ListMatch.get(k).joueur2.getQualification().equals("qualifie")) {
+                ListQualif.add(ListMatch.get(k).joueur2);
             }
         }
 
@@ -59,7 +136,7 @@ public class Tournoi {
 
         for (int i = 0; i < ListQualif.size(); i++) {
 
-            System.out.println("Joueur numero " + (i + 1) + " qualifié = " + ListQualif.get(i).nomNaissance + " " + ListQualif.get(i).qualification);
+            System.out.println("Joueur numero " + (i + 1) + " qualifié = " + ListQualif.get(i).getNomNaissance() + " " + ListQualif.get(i).getQualification());
         }
         System.out.println("\n");
     }
@@ -94,8 +171,8 @@ public class Tournoi {
 
                 Match match = new Match();
 
-                match.Joueur1 = ListQualif.get((int) numbers.get(k));
-                match.Joueur2 = ListQualif.get((int) numbers.get(k + 1));
+                match.joueur1 = ListQualif.get((int) numbers.get(k));
+                match.joueur2 = ListQualif.get((int) numbers.get(k + 1));
                 match.arbitre = ListArbitre.get((int) numbers2.get(a));
                 ListMatch.add(match);
                 k++;
@@ -112,8 +189,8 @@ public class Tournoi {
 
                 Match match = new Match();
 
-                match.Joueur1 = ListQualif.get(k);
-                match.Joueur2 = ListQualif.get(k + 1);
+                match.joueur1 = ListQualif.get(k);
+                match.joueur2 = ListQualif.get(k + 1);
                 match.arbitre = ListArbitre.get(a);
                 ListMatch.add(match);
                 k++;
@@ -133,8 +210,8 @@ public class Tournoi {
         }
         System.out.println("Composition des matchs " + ObjTournoi.tour + " :");
         for (int i = 0; i < n; i++) {
-            System.out.println("\nMatch n*" + (i + 1) + " : " + ListMatch.get(i).Joueur1.nomNaissance + " " + ListMatch.get(i).Joueur1.prenom + " VS " + ListMatch.get(i).Joueur2.nomNaissance + " " + ListMatch.get(i).Joueur2.prenom);
-            System.out.println("Arbitre : " + ListMatch.get(i).arbitre.nomNaissance + " " + ListMatch.get(i).arbitre.prenom);
+            System.out.println("\nMatch n*" + (i + 1) + " : " + ListMatch.get(i).joueur1.getNomNaissance() + " " + ListMatch.get(i).joueur1.getPrenom() + " VS " + ListMatch.get(i).joueur2.getNomNaissance() + " " + ListMatch.get(i).joueur2.getPrenom());
+            System.out.println("Arbitre : " + ListMatch.get(i).arbitre.getNomNaissance() + " " + ListMatch.get(i).arbitre.getPrenom());
         }
         System.out.println("\n");
     }
@@ -210,9 +287,9 @@ public class Tournoi {
         } else {
             int a = ListClassement.size();
             for (int i = 0; i < a; i++) {
-                if (ListClassement.get(i).qualification.equals(perdant.qualification)) {
+                if (ListClassement.get(i).getQualification().equals(perdant.getQualification())) {
 
-                    if (ListClassement.get(i).pointJoueur > perdant.pointJoueur) {
+                    if (ListClassement.get(i).getPointJoueur() > perdant.getPointJoueur()) {
 
                         BufferJoueur = ListClassement.get(ListClassement.size() - 1);
                         ListClassement.add(BufferJoueur);
@@ -242,7 +319,7 @@ public class Tournoi {
 
     public static void affClassement(ArrayList<Joueur> ListClassement) {
         for (int j = ListClassement.size() - 1; j > -1; j--) {
-            System.out.println(Utilitaire.affichageTxt(String.valueOf(128 - j), 5) + Utilitaire.affichageTxt(ListClassement.get(j).nomNaissance, 10) + Utilitaire.affichageTxt(ListClassement.get(j).prenom, 10) + "     Tour  :" + Utilitaire.affichageTxt(ListClassement.get(j).qualification, 20) + "   point marque " + Utilitaire.affichageTxt(String.valueOf(ListClassement.get(j).pointJoueur), 10));
+            System.out.println(Utilitaire.affichageTxt(String.valueOf(128 - j), 5) + Utilitaire.affichageTxt(ListClassement.get(j).getNomNaissance(), 10) + Utilitaire.affichageTxt(ListClassement.get(j).getPrenom(), 10) + "     Tour  :" + Utilitaire.affichageTxt(ListClassement.get(j).getQualification(), 20) + "   point marque " + Utilitaire.affichageTxt(String.valueOf(ListClassement.get(j).getPointJoueur()), 10));
         }
 
     }
@@ -251,9 +328,9 @@ public class Tournoi {
         System.out.println("\n\n\n\n\n\n");
         System.out.println("                                                    Le grand Vainqueur du Tournoi " + ObjTournoi.NomTournoi + " est :\n");
         Utilitaire.delay(3000);
-        System.out.println("                                                                        1. " + ObjTournoi.Vainqueur.prenom + " " + ObjTournoi.Vainqueur.nomNaissance);
+        System.out.println("                                                                        1. " + ObjTournoi.Vainqueur.getPrenom() + " " + ObjTournoi.Vainqueur.getNomNaissance());
         Utilitaire.delay(3000);
-        System.out.println("\n                                                        2. " + ListClassement.get(ListClassement.size() - 2).nomNaissance + " " + ListClassement.get(ListClassement.size() - 2).prenom + "                   3." + ListClassement.get(ListClassement.size() - 3).nomNaissance + " " + ListClassement.get(ListClassement.size() - 3).prenom + "\n\n");
+        System.out.println("\n                                                        2. " + ListClassement.get(ListClassement.size() - 2).getNomNaissance() + " " + ListClassement.get(ListClassement.size() - 2).getPrenom() + "                   3." + ListClassement.get(ListClassement.size() - 3).getNomNaissance() + " " + ListClassement.get(ListClassement.size() - 3).getPrenom() + "\n\n");
         Utilitaire.delay(3000);
         System.out.println("FIN DU TOURNOI");
         Tournoi.affClassement(ListClassement);
