@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *
+ *La class Arbitre qui permet de générer les arbitres ainsi que d'afficher la liste générée.
+ *L'arbitre peut faire des annonces concernant les echanges : point, faute ou let.
  * @author axand
  */
 public class Arbitre extends Personne {
@@ -69,7 +70,7 @@ public class Arbitre extends Personne {
         BufferedReader brPrenom = new BufferedReader(frPrenom);
         String linePrenom;
 
-        ArrayList<String> ListPrenom = new ArrayList();   // ---< voir pq 52 ???
+        ArrayList<String> ListPrenom = new ArrayList(); 
         ArrayList<String> ListNom = new ArrayList();
 
         while ((lineNom = brNom.readLine()) != null) {

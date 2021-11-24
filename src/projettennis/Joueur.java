@@ -15,10 +15,10 @@ import java.util.Collections;
 import java.util.Scanner;
 
 /**
- *
+ *La class Joueur permet de créer un/des joueurs manuellement, générer des joueurs avec des attributs aléatoires, ainsi que d'afficher la liste de joueur
  * @author axand
  */
-public class Joueur extends Personne {
+public class Joueur extends Personne implements Vetement {
 
 
     private String bras;
@@ -30,9 +30,9 @@ public class Joueur extends Personne {
     private int anneeNaissance;
     private String nationalite;
 
-    private String qualification = "qualifie";
+    private String qualification = "qualifie";  // si le joueur est élimniné, qualification prend le nom du tour ou le joueur fut élimniné
 
-    private int pointJoueur = 0;
+    private int pointJoueur = 0;            //attribut statistique du joueur
     private int setJoueur = 0;
     private int jeuJoueur = 0;
     private int service=0;
@@ -224,13 +224,13 @@ public class Joueur extends Personne {
         String lineNationalite;
 
         ArrayList<String> listPrenom = new ArrayList<String>();  
-        ArrayList<String> listNom = new ArrayList<String>();        //ligne la
+        ArrayList<String> listNom = new ArrayList<String>();        
         ArrayList<String> listSponsor = new ArrayList<String>();
         ArrayList<String> listNationalite = new ArrayList<String>();
         ArrayList<Integer> listTaille = new ArrayList<Integer>();
         ArrayList<Integer> listAnneeNaissance = new ArrayList<Integer>();
 
-        while ((lineNom = brNom.readLine()) != null) {      //ligne la, while qui ajoute dans la liste les noms du .txt
+        while ((lineNom = brNom.readLine()) != null) {      // while qui ajoute dans la liste les noms du .txt
             listNom.add(lineNom);
         }
 
@@ -248,6 +248,7 @@ public class Joueur extends Personne {
             listSponsor.add(lineSponsor);
         }
 
+
         ArrayList<Integer> random1 = new ArrayList<Integer>();        //ligne la
         ArrayList<Integer> random2 = new ArrayList<Integer>();
         ArrayList<Integer> random3 = new ArrayList<Integer>();      //pour les noms, prénoms, bras des joueurs
@@ -256,11 +257,12 @@ public class Joueur extends Personne {
         ArrayList<Integer> random6 = new ArrayList<Integer>();      //pour les nationalités
         
 
-        for (int k = 0; k < listNom.size(); k++) {      //ligne la, remplace la liste random de chiffres
+        for (int k = 0; k < listNom.size(); k++) {      //ajoute des nombres de la liste =
             random1.add(k);
             random2.add(k);
             random3.add(k);
         }
+
         for (int j = 160; j<220;j++) {      //tailles des joueurs comprises entre 160 et 220cm
             random4.add(j);
         }
@@ -319,7 +321,7 @@ public class Joueur extends Personne {
         return listeJoueur;
     }
 
-    public static void AffichageJoueur(ArrayList<Joueur> listeJoueur) {
+    public static void AffichageJoueur(ArrayList<Joueur> listeJoueur) {     //affichage des attributs des joueurs
 
         System.out.println("Liste des Joueurs : \n");
 
@@ -335,12 +337,12 @@ public class Joueur extends Personne {
             System.out.println("Numero Tournoi       : " + listeJoueur.get(i).numero);
             System.out.println("Qualification        : " + listeJoueur.get(i).qualification);
             System.out.println("Sponsor              : " + listeJoueur.get(i).sponsor);
-            
+
             System.out.println("\n");
         }
     }
 
-    public static Joueur NewJoueur(int n) {
+    public static Joueur NewJoueur(int n) {    //creer un/des nouveau joueur manuellement 
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
@@ -379,6 +381,11 @@ public class Joueur extends Personne {
 
         return joueur;
     }
+    
+    @Override
+    public void ChangerVetement() {
+        System.out.println("Change de T-shirt");
+}
 
     
 

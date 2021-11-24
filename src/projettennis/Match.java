@@ -9,7 +9,7 @@ package projettennis;
 import java.util.Random;
 
 /**
- *
+ *La class Match permet déterminer de facon aléatoire qui commence à servir dans le match, de gérer le nombre de Set (donc de gérer l'avancement du match), et les statistiques joueurs (nombre de set gagné) 
  * @author axand
  */
 public class Match {
@@ -19,8 +19,8 @@ public class Match {
 
     Arbitre arbitre = new Arbitre();
     private int resultat = 0;                               //savoir si le match a deja été joué ou non, 1 oui 2 non
-    private int dernierService = 0;
-    private int perdant = 0;
+    private int dernierService = 0;                         //sert a savoir qui va servir au debut du prochain jeu
+    private int perdant = 0;                                //perdant du match
 
     public int getResultat() {
         return this.resultat;
@@ -51,42 +51,43 @@ public class Match {
         Set set = new Set();
         int NbrSetMax = 0;
 
-        if (ObjTournoi.getGenre().equals("Masculin")) {
+        if (ObjTournoi.getGenre().equals("Masculin")) {                 //En 2 set gagnant pour les femmes et 3 pour les hommes
             NbrSetMax = 3;
         } else {
             NbrSetMax = 2;
         }
         System.out.println("Debut du match n*" + n + " : " + match.joueur1.getNomNaissance() + " " + match.joueur1.getPrenom()+ " contre " + match.joueur2.getNomNaissance() + " " + match.joueur1.getPrenom());
 
-        while ((set.getSetJoueur1() != NbrSetMax) & (set.getSetJoueur2() != NbrSetMax)) {
-            match.dernierService=Match.DeterminationService(match, n);
-            match = Set.set(match, ObjTournoi, n, match.dernierService, auto, set.getSetJoueur1(), set.getSetJoueur2());
+        while ((set.getSetJoueur1() != NbrSetMax) & (set.getSetJoueur2() != NbrSetMax)) {                       //Continue a jouer de nouveau set tant que aucun joueur n'a gagné NbrSetMax set
+            match.dernierService=Match.DeterminationService(match, n);                                          // Determine qui sert au debut du match
+            match = Set.set(match, ObjTournoi, n, match.dernierService, auto, set.getSetJoueur1(), set.getSetJoueur2());    //joue un nouveau set 
 
-            if (match.joueur1.getWinSet()== 1) {
-                set.IncrementeSetJoueur1();;
+            if (match.joueur1.getWinSet()== 1) {                        // si le joueur 1 gagne un set, on incremente la variable setjoueur1 pour l'avancement du match
+                set.IncrementeSetJoueur1();;                            // et la statistique SetJoueur
                 match.joueur1.IncrementeSetJoueur();;
             } else {
-                set.IncrementeSetJoueur2();;
-                match.joueur2.IncrementeSetJoueur();;
+                set.IncrementeSetJoueur2();;                    // si le joueur 1 gagne un set, on incremente la variable setjoueur1 pour l'avancement du match
+                match.joueur2.IncrementeSetJoueur();;           // et la statistique SetJoueur
+               
             }
         }
-        if (set.getSetJoueur1() == NbrSetMax) {
-            if (ObjTournoi.getNbTour() == 7) {
+        if (set.getSetJoueur1() == NbrSetMax) {                 //Si un joueur a gagné le NbrSetMax, fin du match, ici Joueur 1 est le gagnant
+            if (ObjTournoi.getNbTour() == 7) {                  //NbTour=7 correspond a la petite finale
 
                 System.out.println("Fin du Match, Le joueur 1 " + match.joueur1.getNomNaissance() + " est le gagnant de la petite finale.");
                 System.out.println("Le joueur 2 " + match.joueur2.getNomNaissance() + " est éliminé.");
-                match.joueur1.setQualification("Gagnant PF");
+                match.joueur1.setQualification("Gagnant PF");               
 
             } else {
 
                 System.out.println("Fin du Match, Le joueur 1 " + match.joueur1.getNomNaissance() + " est qualifié pour le tour suivant.");
                 System.out.println("Le joueur 2 " + match.joueur2.getNomNaissance() + " est éliminé.");
             }
-            match.joueur2.setQualification(ObjTournoi.getTour());
-            match.perdant = 2;
+            match.joueur2.setQualification(ObjTournoi.getTour());                 // L'attribut qualification du joueur perdant est égal au tour dans lequel il a perdu
+            match.perdant = 2;                                                    // Le perdant est le joueur 2
 
         } else {
-            if (ObjTournoi.getNbTour() == 7) {
+            if (ObjTournoi.getNbTour() == 7) {                                    // pareil qu'au dessus mais avec le joueur 2 gagnant
 
                 System.out.println("Fin du Match, Le joueur 2 " + match.joueur2.getNomNaissance() + " est le gagnant de la petite finale.");
                 System.out.println("Le joueur 1 " + match.joueur1.getNomNaissance() + " est éliminé.");
@@ -103,8 +104,8 @@ public class Match {
         }
         System.out.println("\n\n");
         match.resultat = 1;
-
-        return match;
+// on retourne le match pour mettre à jour l'avancement du tournoi, recuperer le gagnant et le perdant pour la liste de qualification, le classement, et la petite finale
+        return match; 
     }
 
     public static int DeterminationService(Match match, int n) {            //dertmine qui commence avec le service
@@ -114,7 +115,7 @@ public class Match {
         int Borne1 = 2;
         int Borne2 = 0;
         String joueur;
-        nb = 1 + random.nextInt(Borne1 - Borne2);
+        nb = 1 + random.nextInt(Borne1 - Borne2);                   // nombre aléatoire 1 ou 2
         if (nb == 1) {
             joueur = match.joueur1.getNomNaissance();
         } else {

@@ -6,7 +6,7 @@
 package projettennis;
 
 /**
- *
+ *La Class contient les attributs d'une personne (Nom, prenom, age...)
  * @author axand
  */
 public abstract class Personne { 

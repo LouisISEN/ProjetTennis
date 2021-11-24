@@ -6,30 +6,32 @@
 package projettennis;
 
 /**
- *
+ *La class Spectateur contient les différents actions que peuvent faire les spectateurs durant le tournoi.
  * @author axand
  */
-public class Spectateur extends Personne {
+public class Spectateur extends Personne implements Vetement {
 
-    public String emplacement;
+    public String emplacement;                  // emplacement du ticket du joueur
 
-    public void applaudir() {
+    public static void applaudir() {       //action spectateur
         System.out.println("clap clap clap");
     }
 
-    public void crier() {
+    public static void crier() {       //action spectatuer
         System.out.println("aller + nom du joueur");
     }
 
-    public void huer() {
+    public static void huer() {    //action spectatuer
         System.out.println("BOUUUUUUUH");
     }
 
-    public void dormir() {
+    public static void dormir() { //action spectateur
         System.out.println("rompich");
     }
+    
+    @Override
+    public void ChangerVetement() {
+        System.out.println("Change de chemise");
+}
 
-    public void test() {
-        System.out.println("salut");
-    }
 }
