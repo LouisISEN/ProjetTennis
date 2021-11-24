@@ -101,7 +101,6 @@ public class Tournoi {
         this.Resultat = Resultat;
     }
 
-
     public static ArrayList<Joueur> ListeQualif(ArrayList<Match> ListMatch, int nbTour) {
 
         ArrayList<Joueur> ListQualif = new ArrayList();
@@ -259,21 +258,20 @@ public class Tournoi {
     public static Tournoi ChoixTournoi(Tournoi ObjTournoi) {
         int str = 0;
         Scanner sc = new Scanner(System.in);
-        while ((str==0)||(str>5)) {
+        while ((str == 0) || (str > 5)) {
             try {
                 str = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("EXCEPTION : Veuillez entrer un chiffre et non un caractère.");
             }
         }
-            if (str==5){
-                System.out.println("Vous avez quitté la création de tournoi");
-                    ObjTournoi.Exit = 1;
-            }
-            else {
-                ObjTournoi = Tournoi.Genre(ObjTournoi, str);
-            }
-   
+        if (str == 5) {
+            System.out.println("Vous avez quitté la création de tournoi");
+            ObjTournoi.Exit = 1;
+        } else {
+            ObjTournoi = Tournoi.Genre(ObjTournoi, str);
+        }
+
         return ObjTournoi;
     }
 
@@ -317,7 +315,7 @@ public class Tournoi {
         return ListClassement;
     }
 
-    public static void affClassement(ArrayList<Joueur> ListClassement) {
+    public static void affichageClassement(ArrayList<Joueur> ListClassement) {
         for (int j = ListClassement.size() - 1; j > -1; j--) {
             System.out.println(Utilitaire.affichageTxt(String.valueOf(128 - j), 5) + Utilitaire.affichageTxt(ListClassement.get(j).getNomNaissance(), 10) + Utilitaire.affichageTxt(ListClassement.get(j).getPrenom(), 10) + "     Tour  :" + Utilitaire.affichageTxt(ListClassement.get(j).getQualification(), 20) + "   point marque " + Utilitaire.affichageTxt(String.valueOf(ListClassement.get(j).getPointJoueur()), 10));
         }
@@ -333,7 +331,46 @@ public class Tournoi {
         System.out.println("\n                                                        2. " + ListClassement.get(ListClassement.size() - 2).getNomNaissance() + " " + ListClassement.get(ListClassement.size() - 2).getPrenom() + "                   3." + ListClassement.get(ListClassement.size() - 3).getNomNaissance() + " " + ListClassement.get(ListClassement.size() - 3).getPrenom() + "\n\n");
         Utilitaire.delay(3000);
         System.out.println("FIN DU TOURNOI");
-        Tournoi.affClassement(ListClassement);
     }
 
+    public static void MenuFin(ArrayList<Joueur> ListClassement, ArrayList<Joueur> ListJoueur, Tournoi ObjTournoi) {
+        int a = 0;
+        Scanner sc = new Scanner(System.in);
+        int str;
+        while (a == 0) {
+            str = 0;
+            System.out.println("\n\n\n");
+            System.out.println("                                                            Menu de fin du Tournoi");
+            System.out.println("                                                       1 - Afficher la liste des joueurs");
+            System.out.println("                                                       2 - Afficher le classement");
+            System.out.println("                                                       3 - Afficher le podium");
+            System.out.println("                                                       4 - Afficher les statistiques");
+            System.out.println("                                                       5 - Exit");
+            while ((str == 0) || (str > 8)) {
+                try {
+                    str = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("EXCEPTION");
+                }
+            }
+            switch (str) {
+                case 1:
+                    Joueur.AffichageJoueur(ListJoueur);
+                    break;
+                case 2:
+                    Tournoi.affichageClassement(ListClassement);
+                    break;
+                case 3:
+                    Tournoi.PresentationPodium(ListClassement, ObjTournoi);
+                    break;
+                case 4:
+                    Statistiques.AffichageStat(ListJoueur);
+                    break;
+                case 5:
+                    a = 1;
+                    break;
+            }
+
+        }
+    }
 }

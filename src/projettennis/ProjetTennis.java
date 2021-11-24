@@ -281,6 +281,7 @@ public class ProjetTennis {
                             ObjTournoi.Vainqueur = ListQualif.get(0);
                             ListClassement.add(ListQualif.get(0));
                             Tournoi.PresentationPodium(ListClassement, ObjTournoi);
+
                         }
 
                     }
@@ -305,7 +306,7 @@ public class ProjetTennis {
                     break;
                 case 7:
                     System.out.println("Classement actuel :");
-                    Tournoi.affClassement(ListClassement);
+                    Tournoi.affichageClassement(ListClassement);
                     break;
                 case 8:
                     System.out.println("Vous quittez le Tournoi");
@@ -314,7 +315,8 @@ public class ProjetTennis {
             }
 
         }
-
+        Tournoi.MenuFin(ListClassement, ListJoueur, ObjTournoi);
+          
     }
 
 }

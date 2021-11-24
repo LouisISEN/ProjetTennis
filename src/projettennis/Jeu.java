@@ -251,7 +251,7 @@ public class Jeu {
 
         }
         System.out.println("\n");
-        System.out.println("Joueur                SET JEU  POINT                                                                   "+Utilitaire.affichageTxt(ObjTournoi.getTour(), 15)+"Match n*"+n);
+        System.out.println("Joueur                SET JEU  POINT                                                                   "+Utilitaire.affichageTxt(ObjTournoi.getTour(), 15)+" Match n*"+n);
         System.out.println(Utilitaire.affichageTxt(match.joueur1.getNomNaissance(),10)+ Utilitaire.affichageTxt(match.joueur1.getPrenom(),10) + " | "+ setJoueur1+" | "+ jeuJoueur1 +" | " + score1);
         System.out.println(Utilitaire.affichageTxt(match.joueur2.getNomNaissance(),10)+ Utilitaire.affichageTxt(match.joueur2.getPrenom(),10) + " | "+ setJoueur2+" | "+ jeuJoueur2 +" | " + score2);
         System.out.println("\n");
