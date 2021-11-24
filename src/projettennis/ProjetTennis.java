@@ -16,13 +16,13 @@ import java.util.Scanner;
 public class ProjetTennis {
 
     public static void main(String[] args) throws IOException {
-        int auto = 0;
+        int auto = 0;                           //var qui determine si on veut jouer un match en manuel ou en automatique
         int nbrArbitre = 10;
         int nbrJoueur = 128;
         int menu1 = 0;
         int menu2 = 0;
 
-        String adrFileA = "info-arbitre.txt";
+       
 
         Tournoi objTournoi = new Tournoi();
         ArrayList<Joueur> listClassement = new ArrayList();
@@ -30,7 +30,9 @@ public class ProjetTennis {
         ArrayList<Joueur> listQualif = new ArrayList();
         ArrayList<Match> listMatch = new ArrayList();
         ArrayList<Arbitre> listArbitre = new ArrayList();
-
+        
+        // Menu ou on choisit le tournoi ainsi que le genre de la compétition
+        
         System.out.println("                                               Bienvenue dans le menu de création de tournoi :");
         System.out.println("                                                          1- Open d'Australie");
         System.out.println("                                                          2- Wimbledon");
@@ -39,22 +41,22 @@ public class ProjetTennis {
         System.out.println("                                                          5- Exit");
         System.out.println("\n Choisissez le tournoi (en saisissant le chiffre associé) : ");
 
-        objTournoi = Tournoi.choixTournoi(objTournoi);
+        objTournoi = Tournoi.choixTournoi(objTournoi);          //renvoi le nom du tournoi, le genre (nombre de set max homme/femme) etc
 
-        if (objTournoi.getExit() == 1) {
+        if (objTournoi.getExit() == 1) {    //sortie du programme
             return;
         }
 
-        System.out.println("\nVous avez choisi le Tournoi " + objTournoi.getGenre() + " " + objTournoi.getNomTournoi());
+        System.out.println("\nVous avez choisi le Tournoi " + objTournoi.getGenre() + " " + objTournoi.getNomTournoi()); //affichage de la selection precedente
 
         System.out.println("\n\n                                                  CREATION DU TOURNOI EN COURS... \n");
-        Utilitaire.delay(3000);
+        Utilitaire.delay(3000);     //delai de 3s pour la presentation
 
         System.out.println("Le Tournoi " + objTournoi.getNomTournoi() + " se joue à 128 joueurs, voulez vous créer un/plusieurs joueurs manuellement (dans le cas contraire ils seront générés de facon aléatoire) oui/ non");
         Scanner sc = new Scanner(System.in);
         String str ="";
 
-      
+//boucle de creation de joueur, elle verifie qu'on entre bien oui/non, sinon il faut recommencer la saisie      
          while (str.equals("non") == false) {
                             while ((!str.equals("oui") == true) && (!str.equals("non") == true)) {
                                 str= sc.nextLine();
@@ -70,10 +72,11 @@ public class ProjetTennis {
 
             }
         
-       
+       // si la liste n'est pas vide on demande pour afficher les joueurs créés
         if (!listJoueur.isEmpty()) {
             System.out.println("Vous avez creer " + listJoueur.size() + " Joueurs, voulez vous voir la liste des joueurs créés ?");
             str = sc.nextLine();
+            //boucle qui vérifie que la saisie est bien oui/non
             while (!str.equals("oui") == true && !str.equals("non") == true) {
                 str = sc.nextLine();
             }
@@ -87,17 +90,17 @@ public class ProjetTennis {
         System.out.println("Génération des joueurs...\n \n");
         Utilitaire.delay(3000);
         System.out.println("Génération des arbitres...");
-        Utilitaire.delay(1000);
-        listJoueur = Joueur.generateurJoueur(objTournoi.getGenre(), listJoueur);
-        listArbitre = Arbitre.generateurArbitre(objTournoi.getGenre());
+        Utilitaire.delay(2000);
+        listJoueur = Joueur.generateurJoueur(objTournoi.getGenre(), listJoueur);        //creer les joueurs aléatoirement de la compétition
+        listArbitre = Arbitre.generateurArbitre(objTournoi.getGenre());                 // de meme pour les arbitres
 
-        listMatch = Tournoi.compoMatch(listJoueur, listArbitre, objTournoi.getNbTour());
-        listQualif = Tournoi.listeQualif(listMatch, objTournoi.getNbTour());
+        listMatch = Tournoi.compoMatch(listJoueur, listArbitre, objTournoi.getNbTour());    //création est composition des matchs aléatoirement
+        listQualif = Tournoi.listeQualif(listMatch, objTournoi.getNbTour());                //creation de la liste des joueurs qualifiés pour avancer dans les tours
 
         Scanner sc2 = new Scanner(System.in);
         int str2;
 
-        while (menu1 != 1) {
+        while (menu1 != 1) {                                    // NbTour est le nombre de tour en integer, Tour est la variable String destiné à l'affichage
             switch (objTournoi.getNbTour()) {
                 case 1:
                     objTournoi.setTour("Tour 1");
@@ -124,7 +127,7 @@ public class ProjetTennis {
                     objTournoi.setTour("Finale");
                     break;
             }
-            str2 = 0;
+            str2 = 0;               //Menu du tournoi, on revient a ce menu apres chaque execution de tour ou de fonction ci dessous
             menu2 = 0;
             System.out.println("Début du Tournoi : \n");
             System.out.println("                                                                   MENU TOURNOI :                                         " + objTournoi.getNomTournoi() + " " + objTournoi.getGenre() + ":  " + objTournoi.getTour() + "\n");
@@ -138,7 +141,7 @@ public class ProjetTennis {
             System.out.println("                                                        8 -   Exit");
             System.out.println(" choisir :");
             str2 = 0;
-
+            // boucle de vérification de la saisie, et le catch gere l'exception si la saisie est n'est pas un integer
             while ((str2 == 0) || (str2 > 8)) {
                 try {
                     str2 = Integer.parseInt(sc2.nextLine());
@@ -146,18 +149,19 @@ public class ProjetTennis {
                     System.out.println("EXCEPTION");
                 }
             }
-
+            //execution du choix du menu, 
             switch (str2) {
-                case 1:
-                    Tournoi.affichageCompoMatch(listMatch, objTournoi);
+                case 1:         //on joue le tour 
+                    Tournoi.affichageCompoMatch(listMatch, objTournoi);                 //on affiche la compo de matchs avant de les jouer
                     System.out.println("\n");
                     System.out.println("\n");
                     System.out.println("\n");
 
                     while (menu2 == 0) {
-                        System.out.println("Voulez-vous jouer 1 match ou jouer en automatique ? (Liste des matchs ci-dessus)");
+                        System.out.println("Voulez-vous jouer 1 match ou jouer en automatique ? (Liste des matchs ci-dessus)");  //proposition de jouer un match manuellement
                         Scanner sc3 = new Scanner(System.in);
                         String str3 = "";
+                        //boucle de verification de saisie oui/non
                         while (str3.equals("non") == false) {
                             while ((!str3.equals("oui") == true) && (!str3.equals("non") == true)) {
                                 str3 = sc3.nextLine();
@@ -170,11 +174,11 @@ public class ProjetTennis {
                             int intMatch = 0;
 
                             if (str3.equals("oui") == true) {
-                                while ((intMatch == 0) || (intMatch > listMatch.size())) {
+                                while ((intMatch == 0) || (intMatch > listMatch.size())) {                  
                                     System.out.println(" Quel match voulez vous jouer (numero du match) ?");
-
+                                    //boucle de verification de saisie integer
                                     try {
-                                        intMatch = Integer.parseInt(numMatch.nextLine());
+                                        intMatch = Integer.parseInt(numMatch.nextLine());       //IntMatch correspond au numero de match que l'on veut jouer Manuellement
                                     } catch (NumberFormatException e) {
                                         System.out.println("EXCEPTION");
                                     }
@@ -185,27 +189,27 @@ public class ProjetTennis {
                                
                                 auto = 1;
                                 if (listMatch.get(intMatch - 1).getResultat() == 1) {
-                                    System.out.println("le match n*" + intMatch + " a deja ete joué.");
+                                    System.out.println("le match n*" + intMatch + " a deja ete joué.");         //resultat correspond a si le match a deja été joué ou non
 
                                 } else {
-                                    Match bufferMatch = new Match();
-                                    if (objTournoi.getNbTour() == 7) {
+                                    Match bufferMatch = new Match();                    //BufferMatch est tampon pour pouvoir sortir le match puis le remettre dans la liste
+                                    if (objTournoi.getNbTour() == 7) {                                              //NbTour=7 correpspond a la petite finale
                                         System.out.println(objTournoi.getNbTour());
 
                                         bufferMatch = Match.jouerM(listMatch.get(0), intMatch, objTournoi, auto);
                                         if (bufferMatch.getPerdant() == 1) {
-                                            listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);
-                                            listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);
+                                            listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);         //traitement de la petite finale different que pour les autres 
+                                            listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);         //Place le perdant en premier dans la liste puis le gagant de la petite finale
 
                                         } else {
-                                            listClassement.set(listClassement.size() - 2, bufferMatch.joueur2);
+                                            listClassement.set(listClassement.size() - 2, bufferMatch.joueur2);         //idem avec ici joueur2 perdant
                                             listClassement.set(listClassement.size() - 1, bufferMatch.joueur1);
 
                                         }
                                     } else {
 
                                         bufferMatch = Match.jouerM(listMatch.get(intMatch - 1), intMatch, objTournoi, auto);
-                                        if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {
+                                        if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {                   // NbTour =6 correpond a la demi finale, or pour la demi finale on ne met met les joueurs dans le classmenet vu qu'lls vont jouer la petite finale
                                             if (bufferMatch.getPerdant() == 1) {
                                                 listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);
 
@@ -216,7 +220,7 @@ public class ProjetTennis {
                                         }
                                     }
 
-                                    listMatch.set(intMatch - 1, bufferMatch);
+                                    listMatch.set(intMatch - 1, bufferMatch);               // on replace le tampon Match dans la liste des matchs
 
                                 }
                                 System.out.println("Voulez-vous jouer un autre Match ?");
@@ -231,13 +235,13 @@ public class ProjetTennis {
                         auto = 2;
                         int n = 1;
                         Match bufferMatch = new Match();
-                        if ((objTournoi.getNbTour() == 7)) {
+                        if ((objTournoi.getNbTour() == 7)) {        //De meme, traitement different pour la petite finale vu qu'on ne place pour les joueurs de la demi finale dans le classement
 
                             System.out.println(objTournoi.getNbTour());
 
                             System.out.println("\n");
-                            bufferMatch = Match.jouerM(listMatch.get(0), n, objTournoi, auto);
-                            if (bufferMatch.getPerdant() == 1) {
+                            bufferMatch = Match.jouerM(listMatch.get(0), n, objTournoi, auto);          // la compo match est compose de la petite finale en premier et de la finale
+                            if (bufferMatch.getPerdant() == 1) {                                        //etant au tour de la petite finale on ne joue que le premier match de la liste match
                                 listClassement.set(listClassement.size() - 2, bufferMatch.joueur1);
                                 listClassement.set(listClassement.size() - 1, bufferMatch.joueur2);
 
@@ -255,9 +259,9 @@ public class ProjetTennis {
 
                                   
                                     bufferMatch = Match.jouerM(listMatch.get(n - 1), n, objTournoi, auto);
-                                    if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {
+                                    if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {           //de meme que plus haut, on ne place pas les joueurs de la demi-finale de le classement vu qu'il joue la petite finale
                                         if (bufferMatch.getPerdant() == 1) {
-                                            listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);
+                                            listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);    //on place le joueur perdant dans le classement
 
                                         } else {
                                             listClassement = Tournoi.classement(listClassement, bufferMatch.joueur2);
