@@ -88,8 +88,10 @@ public class Tournoi {
     public void setResultat(int resultat) {
         this.resultat = resultat;
     }
-
-    public static ArrayList<Joueur> listeQualif(ArrayList<Match> listMatch, int nbTour) {
+    /**
+     *créer la liste des joueurs encore qualifiés dans le tournoi
+     */
+    public static ArrayList<Joueur> creerListeQualif(ArrayList<Match> listMatch, int nbTour) {
 
         ArrayList<Joueur> listQualif = new ArrayList<Joueur>();
 
@@ -117,8 +119,11 @@ public class Tournoi {
 
         return listQualif;
     }
-
-    public static void affichageQualif(ArrayList<Joueur> listQualif) {
+    /**
+     * affiche la liste des joueurs qualifiés
+     * @param listQualif 
+     */
+    public static void afficherQualif(ArrayList<Joueur> listQualif) {
         System.out.println("Liste des Joueurs qualifiés : \n");
 
         for (int i = 0; i < listQualif.size(); i++) {
@@ -127,8 +132,14 @@ public class Tournoi {
         }
         System.out.println("\n");
     }
-
-    public static ArrayList<Match> compoMatch(ArrayList<Joueur> listQualif, ArrayList<Arbitre> listArbitre, int tour) {
+    /**
+     * Créer la compostion des matchs pour chaque tour (aleatoire pour le premier tour puis normalement pour les autres tours)
+     * @param listQualif
+     * @param listArbitre
+     * @param tour
+     * @return 
+     */
+    public static ArrayList<Match> creerCompoMatch(ArrayList<Joueur> listQualif, ArrayList<Arbitre> listArbitre, int tour) {
 
         int nbrQualif = listQualif.size();
         ArrayList<Match> listMatch = new ArrayList<Match>();
@@ -188,8 +199,12 @@ public class Tournoi {
         System.out.println("\n");
         return listMatch;
     }
-
-    public static void affichageCompoMatch(ArrayList<Match> listMatch, Tournoi objTournoi) {
+    /**
+     * affichage de la composition des matchs
+     * @param listMatch
+     * @param objTournoi 
+     */
+    public static void afficherCompoMatch(ArrayList<Match> listMatch, Tournoi objTournoi) {
 
         int n = 1;
         if (objTournoi.nbTour != 7) {
@@ -202,7 +217,12 @@ public class Tournoi {
         }
         System.out.println("\n");
     }
-
+    /**
+     *  Choix du genre du tournoi
+     * @param objTournoi
+     * @param str
+     * @return 
+     */
     public static Tournoi genre(Tournoi objTournoi, int str) {
 
         Scanner sc2 = new Scanner(System.in);
@@ -242,9 +262,20 @@ public class Tournoi {
         }
         return objTournoi;
     }
-
+    /**
+     * choix du tournoi, verifie que la saisie est bonne 
+     * @param objTournoi
+     * @return 
+     */
     public static Tournoi choixTournoi(Tournoi objTournoi) {
         int str = 0;
+        System.out.println("                                               Bienvenue dans le menu de création de tournoi :");
+        System.out.println("                                                          1- Open d'Australie");
+        System.out.println("                                                          2- Wimbledon");
+        System.out.println("                                                          3- Roland Garros");
+        System.out.println("                                                          4- US Open");
+        System.out.println("                                                          5- Exit");
+        System.out.println("\n Choisissez le tournoi (en saisissant le chiffre associé) : ");
         Scanner sc = new Scanner(System.in);
         while ((str == 0) || (str > 5)) {
             try {
@@ -262,8 +293,13 @@ public class Tournoi {
 
         return objTournoi;
     }
-
-    public static ArrayList<Joueur> classement(ArrayList<Joueur> listClassement, Joueur perdant) {
+    /**
+     * gere le classement a la fin de chaque match en ajoutant les perdants des matchs (sauf celui de la demi-finale vu qu'il y la petite finale)
+     * @param listClassement
+     * @param perdant
+     * @return 
+     */
+    public static ArrayList<Joueur> ajouterClassement(ArrayList<Joueur> listClassement, Joueur perdant) {
         Joueur bufferJoueur = new Joueur();
         int ajout = 0;
 
@@ -302,15 +338,22 @@ public class Tournoi {
 
         return listClassement;
     }
-
-    public static void affichageClassement(ArrayList<Joueur> listClassement) {
+    /**
+     * Affiche le classement
+     * @param listClassement 
+     */
+    public static void afficherClassement(ArrayList<Joueur> listClassement) {
         for (int j = listClassement.size() - 1; j > -1; j--) {
             System.out.println(Utilitaire.affichageTxt(String.valueOf(128 - j), 5) + Utilitaire.affichageTxt(listClassement.get(j).getNomNaissance(), 10) + Utilitaire.affichageTxt(listClassement.get(j).getPrenom(), 10) + "     Tour  :" + Utilitaire.affichageTxt(listClassement.get(j).getQualification(), 20) + "   point marque " + Utilitaire.affichageTxt(String.valueOf(listClassement.get(j).getPointJoueur()), 10));
         }
 
     }
-
-    public static void presentationPodium(ArrayList<Joueur> listClassement, Tournoi objTournoi) {
+    /**
+     * Presente le podium gagnant de la fin du tournoi
+     * @param listClassement
+     * @param objTournoi 
+     */
+    public static void presenterPodium(ArrayList<Joueur> listClassement, Tournoi objTournoi) {
         System.out.println("\n\n\n\n\n\n");
         System.out.println("                                                    Le grand vainqueur du Tournoi " + objTournoi.nomTournoi + " est :\n");
         Utilitaire.delay(3000);
@@ -321,7 +364,7 @@ public class Tournoi {
         System.out.println("FIN DU TOURNOI");
     }
 
-    public static void menuFin(ArrayList<Joueur> listClassement, ArrayList<Joueur> listJoueur, Tournoi objTournoi) {
+    public static void afficherMenuFin(ArrayList<Joueur> listClassement, ArrayList<Joueur> listJoueur, Tournoi objTournoi) {
         int a = 0;
         Scanner sc = new Scanner(System.in);
         int str;
@@ -343,16 +386,16 @@ public class Tournoi {
             }
             switch (str) {
                 case 1:
-                    Joueur.affichageJoueur(listJoueur);
+                    Joueur.afficherJoueur(listJoueur);
                     break;
                 case 2:
-                    Tournoi.affichageClassement(listClassement);
+                    Tournoi.afficherClassement(listClassement);
                     break;
                 case 3:
-                    Tournoi.presentationPodium(listClassement, objTournoi);
+                    Tournoi.presenterPodium(listClassement, objTournoi);
                     break;
                 case 4:
-                    Statistiques.affichageStat(listJoueur);
+                    Statistiques.afficherStat(listJoueur);
                     break;
                 case 5:
                     a = 1;

@@ -11,15 +11,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- *La class échange permet de jouer les services de facon automatique ou de facon manuelle.
- * 
+ * La class échange permet de jouer les services de facon automatique ou de
+ * facon manuelle.
+ *
  * @author axand
  */
 public class Echange {
-    
+
     private int pointJoueur1 = 0;               // attributs faisant avancer le match 
     private int pointJoueur2 = 0;
-
 
     public int getPointJoueur1() {
         return this.pointJoueur1;
@@ -45,7 +45,14 @@ public class Echange {
         pointJoueur2++;
     }
 
-    
+    /**
+     * La méthode simule le service et demande le résultat à l'utilisateur
+     *
+     * @param match
+     * @param nbService
+     * @param nbMatch
+     * @return
+     */
     public static int service(Match match, int nbService, int nbMatch) {   // Joue les services manuellement
 
         int a = 1;
@@ -63,7 +70,7 @@ public class Echange {
         while (a != 0) {
             System.out.println("Le joueur " + joueur + " marque-t-il (1)? fait-il faute (2)? ou let (3) ?");
             str = sc.nextInt();                     // Porpose 3 choix, le joueur marque, fait faute, ou fait let (donc 2e service)
-            if ((str == 1) || (str == 2)) {         
+            if ((str == 1) || (str == 2)) {
                 a = 0;
             } else if (str == 3) {
                 let++;
@@ -80,11 +87,19 @@ public class Echange {
         return str;
     }
 
+    /**
+     * La méthode simule le service et son résultat aléatoirement
+     *
+     * @param match
+     * @param nbService
+     * @param nbMatch
+     * @return
+     */
     public static int serviceAuto(Match match, int nbService, int nbMatch) {            //joue le service automatiquement, le résultat du service est aléatoirement
-        
+
         int a = 1;
-        int nb=0;
-        int let=0;
+        int nb = 0;
+        int let = 0;
         String joueur;
 
         if (nbService == 1) {
@@ -95,22 +110,22 @@ public class Echange {
 
         System.out.println("Le joueur " + joueur + " sert : ");
         Random random = new Random();
-        
+
         int borne1 = 100;
         int borne2 = 0;
         nb = 1 + random.nextInt(borne1 - borne2);
 
-           if ((1 <= nb) & (nb < 45)) {                     //probabilité de 0.45 d'avoir marqué, de 0.45 de faire faute et de 0.10 de faire un let
+        if ((1 <= nb) & (nb < 45)) {                     //probabilité de 0.45 d'avoir marqué, de 0.45 de faire faute et de 0.10 de faire un let
             nb = 1;
-            Spectateur.applaudir();
+
         }
         if ((45 <= nb) & (nb < 90)) {
             nb = 2;
-            Spectateur.huer();
+
         }
         if ((90 <= nb) & (nb <= 100)) {
             nb = 3;
-           Spectateur.crier();
+
         }
         while (a != 0) {
 
@@ -126,7 +141,17 @@ public class Echange {
             }
 
             Arbitre.annonce(nb, joueur);
-
+            switch (nb) {
+                case 1:
+                    Spectateur.applaudir();
+                    break;
+                case 2:
+                    Spectateur.huer();
+                    break;
+                case 3:
+                    Spectateur.crier();
+                    break;
+            }
         }
 
         return nb;

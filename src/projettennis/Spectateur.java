@@ -12,19 +12,27 @@ package projettennis;
 public class Spectateur extends Personne implements Vetement {
 
     public String emplacement;                  // emplacement du ticket du joueur
-
+    /**
+     *faire applaudir les joueurs
+     */
     public static void applaudir() {       //action spectateur
         System.out.println("clap clap clap");
     }
-
+    /**
+     *faire crier les joueurs
+     */
     public static void crier() {       //action spectatuer
-        System.out.println("aller + nom du joueur");
+        System.out.println("ALLEEEEEEEZ");
     }
-
+    /**
+     *faire huer les joueurs
+     */
     public static void huer() {    //action spectatuer
         System.out.println("BOUUUUUUUH");
     }
-
+    /**
+     *faire dormir les joueurs
+     */
     public static void dormir() { //action spectateur
         System.out.println("rompich");
     }

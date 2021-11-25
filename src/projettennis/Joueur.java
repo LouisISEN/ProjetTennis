@@ -191,8 +191,15 @@ public class Joueur extends Personne implements Vetement {
         this.winJeu = winJeu;
     }
     
-
-    public static ArrayList<Joueur> generateurJoueur(String genre, ArrayList<Joueur> listeJoueur) throws FileNotFoundException, IOException {
+    /**
+     * génére les joueurs du tournoi avec des attributs aléatoires (nom, prenom, age, sponsor etc)
+     * @param genre
+     * @param listeJoueur
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public static ArrayList<Joueur> genererJoueur(String genre, ArrayList<Joueur> listeJoueur) throws FileNotFoundException, IOException {
         String nomFile = "nom.txt";         //ligne la = taille, sponsor, année de naissance (et en déduire l'âge), nationalité
         String prenomFile = "";
         String sponsorFile="sponsor.txt";
@@ -207,6 +214,7 @@ public class Joueur extends Personne implements Vetement {
         FileReader frNom = new FileReader(fileNom);      
         BufferedReader brNom = new BufferedReader(frNom);       
         String lineNom;     
+        
 
         File filePrenom = new File(prenomFile);
         FileReader frPrenom = new FileReader(filePrenom);
@@ -319,8 +327,11 @@ public class Joueur extends Personne implements Vetement {
         frNom.close();
         return listeJoueur;
     }
-
-    public static void affichageJoueur(ArrayList<Joueur> listeJoueur) {     //affichage des attributs des joueurs
+    /**
+     * Affiche la liste des joueurs
+     * @param listeJoueur 
+     */
+    public static void afficherJoueur(ArrayList<Joueur> listeJoueur) {     //affichage des attributs des joueurs
 
         System.out.println("Liste des Joueurs : \n");
 
@@ -340,8 +351,13 @@ public class Joueur extends Personne implements Vetement {
             System.out.println("\n");
         }
     }
-
-    public static Joueur newJoueur(int n) {    //creer un/des nouveau joueur manuellement 
+    /**
+     * Créer un joueur manuellement 
+     * @param n
+     
+     * @return 
+     */
+    public static Joueur creerJoueur(int n) {    //creer un/des nouveau joueur manuellement 
         Joueur joueur = new Joueur();
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
@@ -393,7 +409,9 @@ public class Joueur extends Personne implements Vetement {
 
         return joueur;
     }
-    
+    /**
+     * Annonce qu'il y a un chagement de vetement pour spectateur et joueur
+     */
     @Override
     public void changerVetement() {
         System.out.println("Change de T-shirt");

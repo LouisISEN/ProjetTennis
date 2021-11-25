@@ -17,8 +17,8 @@ public class ProjetTennis {
 
     public static void main(String[] args) throws IOException {
         int auto = 0;                           //var qui determine si on veut jouer un match en manuel ou en automatique
-        int nbrArbitre = 10;
-        int nbrJoueur = 128;
+        int NBRARBITRE = 10;
+        int NBRJOUEUR = 128;
         int menu1 = 0;
         int menu2 = 0;
 
@@ -32,14 +32,6 @@ public class ProjetTennis {
         ArrayList<Arbitre> listArbitre = new ArrayList();
         
         // Menu ou on choisit le tournoi ainsi que le genre de la compétition
-        
-        System.out.println("                                               Bienvenue dans le menu de création de tournoi :");
-        System.out.println("                                                          1- Open d'Australie");
-        System.out.println("                                                          2- Wimbledon");
-        System.out.println("                                                          3- Roland Garros");
-        System.out.println("                                                          4- US Open");
-        System.out.println("                                                          5- Exit");
-        System.out.println("\n Choisissez le tournoi (en saisissant le chiffre associé) : ");
 
         objTournoi = Tournoi.choixTournoi(objTournoi);          //renvoi le nom du tournoi, le genre (nombre de set max homme/femme) etc
 
@@ -65,7 +57,7 @@ public class ProjetTennis {
                                 }
                             }
                             if (str.equals("oui") == true){
-                                listJoueur.add(Joueur.newJoueur(listJoueur.size()));
+                                listJoueur.add(Joueur.creerJoueur(listJoueur.size()));
                                 System.out.println("Creer un autre joueur ?");
                                 str="";
                             }
@@ -74,16 +66,16 @@ public class ProjetTennis {
         
        // si la liste n'est pas vide on demande pour afficher les joueurs créés
         if (!listJoueur.isEmpty()) {
-            System.out.println("Vous avez creer " + listJoueur.size() + " Joueurs, voulez vous voir la liste des joueurs créés ?");
+            System.out.println("Vous avez créé " + listJoueur.size() + " Joueurs, voulez vous voir la liste des joueurs créés ?");
             str = sc.nextLine();
             //boucle qui vérifie que la saisie est bien oui/non
             while (!str.equals("oui") == true && !str.equals("non") == true) {
                 str = sc.nextLine();
             }
             if (str.equals("oui")) {
-                Joueur.affichageJoueur(listJoueur);
+                Joueur.afficherJoueur(listJoueur);
             }
-            System.out.println("Génération des joueurs " + (nbrJoueur - listJoueur.size()) + " restants...");
+            System.out.println("Génération des joueurs " + (NBRJOUEUR - listJoueur.size()) + " restants...");
 
         }
 
@@ -91,11 +83,11 @@ public class ProjetTennis {
         Utilitaire.delay(3000);
         System.out.println("Génération des arbitres...");
         Utilitaire.delay(2000);
-        listJoueur = Joueur.generateurJoueur(objTournoi.getGenre(), listJoueur);        //creer les joueurs aléatoirement de la compétition
-        listArbitre = Arbitre.generateurArbitre(objTournoi.getGenre());                 // de meme pour les arbitres
+        listJoueur = Joueur.genererJoueur(objTournoi.getGenre(), listJoueur);        //creer les joueurs aléatoirement de la compétition
+        listArbitre = Arbitre.genererArbitre(objTournoi.getGenre());                 // de meme pour les arbitres
 
-        listMatch = Tournoi.compoMatch(listJoueur, listArbitre, objTournoi.getNbTour());    //création est composition des matchs aléatoirement
-        listQualif = Tournoi.listeQualif(listMatch, objTournoi.getNbTour());                //creation de la liste des joueurs qualifiés pour avancer dans les tours
+        listMatch = Tournoi.creerCompoMatch(listJoueur, listArbitre, objTournoi.getNbTour());    //création est composition des matchs aléatoirement
+        listQualif = Tournoi.creerListeQualif(listMatch, objTournoi.getNbTour());                //creation de la liste des joueurs qualifiés pour avancer dans les tours
 
         Scanner sc2 = new Scanner(System.in);
         int str2;
@@ -152,7 +144,7 @@ public class ProjetTennis {
             //execution du choix du menu, 
             switch (str2) {
                 case 1:         //on joue le tour 
-                    Tournoi.affichageCompoMatch(listMatch, objTournoi);                 //on affiche la compo de matchs avant de les jouer
+                    Tournoi.afficherCompoMatch(listMatch, objTournoi);                 //on affiche la compo de matchs avant de les jouer
                     System.out.println("\n");
                     System.out.println("\n");
                     System.out.println("\n");
@@ -211,10 +203,10 @@ public class ProjetTennis {
                                         bufferMatch = Match.jouerM(listMatch.get(intMatch - 1), intMatch, objTournoi, auto);
                                         if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {                   // NbTour =6 correpond a la demi finale, or pour la demi finale on ne met met les joueurs dans le classmenet vu qu'lls vont jouer la petite finale
                                             if (bufferMatch.getPerdant() == 1) {
-                                                listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);
+                                                listClassement = Tournoi.ajouterClassement(listClassement, bufferMatch.joueur1);
 
                                             } else {
-                                                listClassement = Tournoi.classement(listClassement, bufferMatch.joueur2);
+                                                listClassement = Tournoi.ajouterClassement(listClassement, bufferMatch.joueur2);
 
                                             }
                                         }
@@ -261,10 +253,10 @@ public class ProjetTennis {
                                     bufferMatch = Match.jouerM(listMatch.get(n - 1), n, objTournoi, auto);
                                     if ((objTournoi.getNbTour() != 6) || (objTournoi.getNbTour() != 7)) {           //de meme que plus haut, on ne place pas les joueurs de la demi-finale de le classement vu qu'il joue la petite finale
                                         if (bufferMatch.getPerdant() == 1) {
-                                            listClassement = Tournoi.classement(listClassement, bufferMatch.joueur1);    //on place le joueur perdant dans le classement
+                                            listClassement = Tournoi.ajouterClassement(listClassement, bufferMatch.joueur1);    //on place le joueur perdant dans le classement
 
                                         } else {
-                                            listClassement = Tournoi.classement(listClassement, bufferMatch.joueur2);
+                                            listClassement = Tournoi.ajouterClassement(listClassement, bufferMatch.joueur2);
 
                                         }
                                     }
@@ -276,15 +268,15 @@ public class ProjetTennis {
                             objTournoi.incrementeNbTour();
 
                         }
-                        listQualif = Tournoi.listeQualif(listMatch, objTournoi.getNbTour());
-                        listMatch = Tournoi.compoMatch(listQualif, listArbitre, objTournoi.getNbTour());
+                        listQualif = Tournoi.creerListeQualif(listMatch, objTournoi.getNbTour());
+                        listMatch = Tournoi.creerCompoMatch(listQualif, listArbitre, objTournoi.getNbTour());
 
                         menu2 = 1;
                         if (listQualif.size() == 1) {
                             menu1 = 1;
                             objTournoi.vainqueur = listQualif.get(0);
                             listClassement.add(listQualif.get(0));
-                            Tournoi.presentationPodium(listClassement, objTournoi);
+                            Tournoi.presenterPodium(listClassement, objTournoi);
 
                         }
 
@@ -292,25 +284,25 @@ public class ProjetTennis {
 
                     break;
                 case 2:
-                    Arbitre.affichageArbitre(listArbitre);
+                    Arbitre.afficherArbitre(listArbitre);
                     break;
                 case 3:
-                    Joueur.affichageJoueur(listJoueur);
+                    Joueur.afficherJoueur(listJoueur);
                     break;
                 case 4:
 
-                    Tournoi.affichageQualif(listQualif);
+                    Tournoi.afficherQualif(listQualif);
                     break;
                 case 5:
-                    Tournoi.affichageCompoMatch(listMatch, objTournoi);
+                    Tournoi.afficherCompoMatch(listMatch, objTournoi);
                     break;
                 case 6:
                     System.out.println("Affichage statistiques joueurs");
-                    Statistiques.affichageStat(listJoueur);
+                    Statistiques.afficherStat(listJoueur);
                     break;
                 case 7:
                     System.out.println("Classement actuel :");
-                    Tournoi.affichageClassement(listClassement);
+                    Tournoi.afficherClassement(listClassement);
                     break;
                 case 8:
                     System.out.println("Vous quittez le Tournoi");
@@ -319,7 +311,7 @@ public class ProjetTennis {
             }
 
         }
-        Tournoi.menuFin(listClassement, listJoueur, objTournoi);
+        Tournoi.afficherMenuFin(listClassement, listJoueur, objTournoi);
           
     }
 

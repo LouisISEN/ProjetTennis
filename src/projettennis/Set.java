@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package projettennis;
-
 import java.util.ArrayList;
 
 /**
@@ -41,8 +40,19 @@ public class Set {
     public void incrementeSetJoueur2() {
         setJoueur2++;
     }
-
-    public static Match gestionSet(Match match, Tournoi objTournoi, int n, int a, int auto, int setJoueur1, int setJoueur2) {
+    
+    /**
+     * Gere l'avancement des set et des statistiques setjoueur
+     * @param match
+     * @param objTournoi
+     * @param n
+     * @param a
+     * @param auto
+     * @param setJoueur1
+     * @param setJoueur2
+     * @return 
+     */
+    public static Match gererSet(Match match, Tournoi objTournoi, int n, int a, int auto, int setJoueur1, int setJoueur2) {
 
         System.out.println("Debut Set");
 
@@ -58,7 +68,7 @@ public class Set {
                 System.out.println("Le joueur " + match.joueur2.getNomNaissance() + " a le service");
             }
             
-            match = Jeu.gestionJeu(match, objTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
+            match = Jeu.gererJeu(match, objTournoi, n, match.getDernierService(), auto, jeu.getJeuJoueur1(), jeu.getJeuJoueur2(), setJoueur1, setJoueur2);
             if (match.getDernierService() == 1) {                                                //appel de la fonction jeu qui gére les affichages scores et les échanges
                 match.setDernierService(2);                                                     // Permet d'alterner les services à chaque jeu
             } else {

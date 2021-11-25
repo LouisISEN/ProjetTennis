@@ -23,7 +23,6 @@ public abstract class Personne {
     private int taille;
     private int poids;
 
-
     public String getNomNaissance() {
         return this.nomNaissance;
     }

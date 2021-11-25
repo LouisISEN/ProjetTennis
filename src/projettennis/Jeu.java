@@ -41,8 +41,20 @@ public class Jeu {
         jeuJoueur2++;
     }
 
-
-    public static Match gestionJeu(Match match, Tournoi objTournoi, int n, int a, int auto, int jeuJoueur1, int jeuJoueur2, int setJoueur1, int setJoueur2) {
+    /**
+     * Gere l'avancement des jeux en gérant les points (Avantage etc) et les statistiques joueurs
+     * @param match
+     * @param objTournoi
+     * @param n
+     * @param a
+     * @param auto
+     * @param jeuJoueur1
+     * @param jeuJoueur2
+     * @param setJoueur1
+     * @param setJoueur2
+     * @return 
+     */
+    public static Match gererJeu(Match match, Tournoi objTournoi, int n, int a, int auto, int jeuJoueur1, int jeuJoueur2, int setJoueur1, int setJoueur2) {
 
         Echange point = new Echange();
         
@@ -53,7 +65,7 @@ public class Jeu {
         System.out.println("\n");
 
  
-        Jeu.affichageScorePoint(match, objTournoi,point.getPointJoueur1(), point.getPointJoueur2(), n, jeuJoueur1, jeuJoueur2, setJoueur1, setJoueur2);
+        Jeu.afficherScorePoint(match, objTournoi,point.getPointJoueur1(), point.getPointJoueur2(), n, jeuJoueur1, jeuJoueur2, setJoueur1, setJoueur2);
         //affiche les scores, point jeu et set
         while ((point.getPointJoueur1() != 5) && (point.getPointJoueur2() != 5)) {
             // tant que l'un des deux joueurs n'a pas 5 point (40pts + marque) on continue de jouer le jeu
@@ -184,7 +196,7 @@ public class Jeu {
             }
             //affichage du score a la fin de chaque echange
             System.out.println("\n");
-            Jeu.affichageScorePoint(match, objTournoi, point.getPointJoueur1(), point.getPointJoueur2(), n, jeuJoueur1, jeuJoueur2, setJoueur1, setJoueur2);
+            Jeu.afficherScorePoint(match, objTournoi, point.getPointJoueur1(), point.getPointJoueur2(), n, jeuJoueur1, jeuJoueur2, setJoueur1, setJoueur2);
             System.out.println("\n");
         }
         if (point.getPointJoueur1() == 5) {   // si on sort de la boucle cela veut dire qu'un joueur a gagné le jeu, on determine qui a gagné
@@ -199,8 +211,19 @@ public class Jeu {
         System.out.println("Fin du jeu");
         return match;
     }
-
-    public static void affichageScorePoint(Match match, Tournoi objTournoi, int pointJoueur1, int pointJoueur2, int n, int jeuJoueur1, int jeuJoueur2, int setJoueur1, int setJoueur2) {
+    /**
+     * Affiche le score du Match (point, jeu, set), numero de match, le tour en cours
+     * @param match
+     * @param objTournoi
+     * @param pointJoueur1
+     * @param pointJoueur2
+     * @param n
+     * @param jeuJoueur1
+     * @param jeuJoueur2
+     * @param setJoueur1
+     * @param setJoueur2 
+     */
+    public static void afficherScorePoint(Match match, Tournoi objTournoi, int pointJoueur1, int pointJoueur2, int n, int jeuJoueur1, int jeuJoueur2, int setJoueur1, int setJoueur2) {
         String score1 = "0";
         String score2 = "0";
         // on compte les scores de 1,2,3,4,5 mais pour l'affichages on affiche 0, 15, 30, 40, Av, et gagné
@@ -250,6 +273,7 @@ public class Jeu {
             case 5:
                 score2 = "GAGNE";
                 System.out.println(" Jeu gagné par : " +match.joueur2.getNomNaissance());
+                Spectateur.applaudir();
                 break;
 
         }

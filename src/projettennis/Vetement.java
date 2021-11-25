@@ -10,7 +10,9 @@ package projettennis;
  * @author axand
  */
 public interface Vetement {
-    
+    /**
+     * change les vetements d'un joueur ou d'un spectateur
+     */
     public void changerVetement();
   
     

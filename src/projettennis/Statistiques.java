@@ -12,7 +12,11 @@ import java.util.ArrayList;
  * @author axand
  */
 public class Statistiques {
-    public static void affichageStat(ArrayList<Joueur> listJoueur) {             //Affiche les statistiques joueurs           
+    /**
+     * Affichage des statistiques joueurs (numero, nom, prenom, point, jeu, set, service réussi, faute)
+     * @param listJoueur 
+     */
+    public static void afficherStat(ArrayList<Joueur> listJoueur) {             //Affiche les statistiques joueurs           
         System.out.println("Statistiques joueurs :\n");
         System.out.println("Numéro    Nom       Prénom       Point     Jeu       Set      Service    Faute");
         System.out.println("                                                               Réussi");

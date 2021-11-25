@@ -46,7 +46,14 @@ public class Match {
         this.perdant = perdant;
     }
     
-
+    /**
+     * Permet la gestion du match en appelant les différentes fonctions nécessaires à l'avancement du match.
+     * @param match
+     * @param n
+     * @param objTournoi
+     * @param auto
+     * @return 
+     */
     public static Match jouerM(Match match, int n, Tournoi objTournoi, int auto) {
         Set set = new Set();
         int nbrSetMax = 0;
@@ -59,8 +66,8 @@ public class Match {
         System.out.println("Debut du match n*" + n + " : " + match.joueur1.getNomNaissance() + " " + match.joueur1.getPrenom()+ " contre " + match.joueur2.getNomNaissance() + " " + match.joueur1.getPrenom());
 
         while ((set.getSetJoueur1() != nbrSetMax) & (set.getSetJoueur2() != nbrSetMax)) {                       //Continue a jouer de nouveau set tant que aucun joueur n'a gagné nbrSetMax set
-            match.dernierService=Match.determinationService(match, n);                                          // Determine qui sert au debut du match
-            match = Set.gestionSet(match, objTournoi, n, match.dernierService, auto, set.getSetJoueur1(), set.getSetJoueur2());    //joue un nouveau set 
+            match.dernierService=Match.determinerService(match, n);                                          // Determine qui sert au debut du match
+            match = Set.gererSet(match, objTournoi, n, match.dernierService, auto, set.getSetJoueur1(), set.getSetJoueur2());    //joue un nouveau set 
 
             if (match.joueur1.getWinSet()== 1) {                        // si le joueur 1 gagne un set, on incremente la variable setjoueur1 pour l'avancement du match
                 set.incrementeSetJoueur1();;                            // et la statistique SetJoueur
@@ -107,8 +114,13 @@ public class Match {
 // on retourne le match pour mettre à jour l'avancement du tournoi, recuperer le gagnant et le perdant pour la liste de qualification, le classement, et la petite finale
         return match; 
     }
-
-    public static int determinationService(Match match, int n) {            //dertmine qui commence avec le service
+    /***
+     * Determine aléatoirement qui commence à servir dans le match
+     * @param match
+     * @param n
+     * @return 
+     */
+    public static int determinerService(Match match, int n) {            //dertmine qui commence avec le service
 
         Random random = new Random();
         int nb;
